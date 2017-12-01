@@ -28,4 +28,22 @@ public class UserController {
 		System.out.println("123");
 	}
 
+	//注册
+	@RequestMapping("/regUsers.do")
+	public String reg(User user){
+		System.out.println(user);
+		boolean result = userService.regUser(user);
+		if (result){
+			return "index";
+		}
+		return "login";
+	}
+
+	//通过用户名查找
+	@RequestMapping("/findUserByName.do")
+	public String findUserByName(String username){
+		List<User> users = userService.findUserByName(username);
+		System.out.println("users:"+users);
+		return "index";
+	}
 }
