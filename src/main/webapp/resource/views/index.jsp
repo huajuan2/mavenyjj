@@ -10,5 +10,6 @@
 <h5>${categories}</h5>
 <h5>${childcategories}</h5>
 ${tabList}
+<h1>${user}</h1>
 </body>
 </html>

@@ -8,7 +8,6 @@
 		<id column="uId" property="uId" javaType="int"/>
 		<result column="username" property="username" jdbcType="VARCHAR"/>
 	</resultMap>
-	
 	<select id="findUsers" resultMap="userResult">
 		select * from mybatis_user
 	</select>
@@ -19,14 +18,36 @@
 		<result column="username" property="username" jdbcType="VARCHAR"/>
 		<result column="password" property="password" jdbcType="VARCHAR"></result>
 	</resultMap>
-
 	<select id="findUserByName" resultMap="NameResult" parameterType="String">
 		SELECT * from 7jia2_user u WHERE u.username = #{username}
 	</select>
 
 	<insert id="regUser" parameterType="User">
-		INSERT INTO 7jia2_user (username,password)VALUES (#{username},#{password})
+		INSERT INTO 7jia2_user (username,password,phone)VALUES (#{username},#{password},#{phone})
 	</insert>
 
 
+	<resultMap id="userIdResult" type="User">
+		<id column="uId" property="uId" javaType="int"></id>
+		<result column="username" property="username" jdbcType="VARCHAR"></result>
+		<result column="password" property="password" jdbcType="VARCHAR"></result>
+		<result column="phone" property="phone" jdbcType="VARCHAR"></result>
+	</resultMap>
+	<select id="findUserById" resultMap="userIdResult" parameterType="Integer">
+		SELECT * FROM 7jia2_user u WHERE u.uId=#{uId}
+	</select>
+
+	<resultMap id="NameAndPwdResult" type="User">
+		<id column="uId" property="uId" javaType="int"></id>
+		<result column="username" property="username" jdbcType="VARCHAR"></result>
+		<result column="password" property="password" jdbcType="VARCHAR"></result>
+	</resultMap>
+	<select id="findUserByNameAndPwd" resultMap="NameAndPwdResult" parameterType="User">
+		SELECT * FROM 7jia2_user u WHERE u.username=#{username} and u.password=#{password}
+	</select>
+
+
+	<update id="updateUserInfo" parameterType="User">
+		UPDATE 7jia2_user SET name=#{name},sex=#{sex},birthDate=#{birthDate},qq=#{qq} where uId=#{uId}
+	</update>
 </mapper>

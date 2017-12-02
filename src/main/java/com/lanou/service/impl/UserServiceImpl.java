@@ -21,14 +21,34 @@ public class UserServiceImpl implements UserService{
 		return userMapper.findUsers();
 	}
 
+
 	public boolean regUser(User user){
 		userMapper.regUser(user);
 		return true;
 	}
 
-	public List<User> findUserByName(String userName){                            
+	public List<User> findUserByName(String userName){
 		List<User> users = userMapper.findUserByName(userName);
 		return users;
 	}
+
+	public User findUserById(Integer uId){
+		User user = userMapper.findUserById(uId);
+		return user;
+	};
+
+	public User findUserByNameAndPwd(User user){
+		User user1 = userMapper.findUserByNameAndPwd(user);
+		return user1;
+	};
+
+	public boolean updateUserInfo(User user){
+		int result = userMapper.updateUserInfo(user);
+		if (result==0){
+			return false;
+		}
+		return true;
+	};
+
 
 }

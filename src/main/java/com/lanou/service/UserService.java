@@ -12,4 +12,10 @@ public interface UserService {
 
 	public List<User> findUserByName(String userName);
 
+	public User findUserById(Integer uId);
+
+	public User findUserByNameAndPwd(User user);
+
+	public boolean updateUserInfo(User user);
+
 }

@@ -11,5 +11,10 @@ public interface UserMapper {
 	public boolean regUser(User user);
 
 	public List<User> findUserByName(String username);
-	
+
+	public User findUserById(Integer uId);
+
+	public User findUserByNameAndPwd(User user);
+
+	public int updateUserInfo(User user);
 }
