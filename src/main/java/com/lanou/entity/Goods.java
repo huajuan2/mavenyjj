@@ -1,5 +1,7 @@
 package com.lanou.entity;
 
+import java.util.List;
+
 /**
  * Created by lanou on 2017/12/2.
  */
@@ -8,6 +10,7 @@ public class Goods {
     private Integer gId;
     private String gName;
     private Integer categoryId;
+    private List<Details> detailsList;
 
     public Integer getgId() {
         return gId;
@@ -33,12 +36,21 @@ public class Goods {
         this.categoryId = categoryId;
     }
 
+    public List<Details> getDetailsList() {
+        return detailsList;
+    }
+
+    public void setDetailsList(List<Details> detailsList) {
+        this.detailsList = detailsList;
+    }
+
     @Override
     public String toString() {
         return "Goods{" +
                 "gId=" + gId +
                 ", gName='" + gName + '\'' +
                 ", categoryId=" + categoryId +
+                ", detailsList=" + detailsList +
                 '}';
     }
 

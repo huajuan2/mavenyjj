@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GoodsMapper">
+
+    <resultMap type="Goods" id="goodsResult">
+        <id column="gId" property="gId" javaType="int"/>
+        <result column="gName" property="gName" jdbcType="VARCHAR"/>
+        <result column="gCategory_id" property="categoryId" javaType="int"/>
+        <collection property="detailsList" ofType="com.lanou.entity.Details">
+            <id column="detailsId" property="detailsId" javaType="int"/>
+            <result column="detailsColor" property="detailsColor" jdbcType="VARCHAR"/>
+            <result column="detailsImgUrl" property="detailsImgUrl" jdbcType="VARCHAR"/>
+            <result column="detailsGuiGe" property="detailsGuiGe" jdbcType="VARCHAR"/>
+            <result column="detailsStock" property="detailsStock" javaType="int"/>
+            <result column="detailsPrice" property="detailsPrice" javaType="double"></result>
+            <result column="detailsMarketPrice" property="detailsMarketPrice" javaType="double"></result>
+            <result column="detailsJiFen" property="detailsJiFen" javaType="int"/>
+            <result column="detailsStatus" property="detailsStatus" javaType="int"/>
+            <result column="goods_id" property="goods_id" javaType="int"/>
+        </collection>
+    </resultMap>
+
+    <select id="findGoodsByCategoryId" resultMap="goodsResult">
+        select * from 7jia2_goods where gCategory_id = #{gCategory_id}
+    </select>
+
+
+
+</mapper>
