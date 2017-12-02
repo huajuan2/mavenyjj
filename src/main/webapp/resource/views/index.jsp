@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-${users }
 <h5>${categories}</h5>
 <h5>${childcategories}</h5>
+${tabList}
 </body>
 </html>

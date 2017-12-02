@@ -12,5 +12,21 @@
 	<select id="findUsers" resultMap="userResult">
 		select * from mybatis_user
 	</select>
-	
+
+
+	<resultMap id="NameResult" type="User">
+		<id column="uId" property="uId" javaType="int"/>
+		<result column="username" property="username" jdbcType="VARCHAR"/>
+		<result column="password" property="password" jdbcType="VARCHAR"></result>
+	</resultMap>
+
+	<select id="findUserByName" resultMap="NameResult" parameterType="String">
+		SELECT * from 7jia2_user u WHERE u.username = #{username}
+	</select>
+
+	<insert id="regUser" parameterType="User">
+		INSERT INTO 7jia2_user (username,password)VALUES (#{username},#{password})
+	</insert>
+
+
 </mapper>

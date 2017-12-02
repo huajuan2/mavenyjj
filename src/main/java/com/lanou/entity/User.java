@@ -2,24 +2,51 @@ package com.lanou.entity;
 
 public class User {
 
-	private int uId;
+	private Integer uId;
 	private String username;
-	public int getuId() {
+	private String password;
+
+	public User() {
+		super();
+	}
+
+	public User(int uId, String username, String password) {
+		this.uId = uId;
+		this.username = username;
+		this.password = password;
+	}
+
+	public Integer getuId() {
 		return uId;
 	}
-	public void setuId(int uId) {
+
+	public void setuId(Integer uId) {
 		this.uId = uId;
 	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public String toString() {
-		return "User [uId=" + uId + ", username=" + username + "]";
+		return "User{" +
+				"uId=" + uId +
+				", username='" + username + '\'' +
+				", password='" + password + '\'' +
+				'}';
 	}
-	
-	
+
 }

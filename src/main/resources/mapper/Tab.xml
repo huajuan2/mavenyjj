@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.TabMapper">
+
+    <resultMap type="Tab" id="tabResult">
+        <id column="tabId" property="tabId" javaType="int"/>
+        <result column="tabName" property="tabName" jdbcType="VARCHAR"/>
+        <result column="category_id" property="category_id" javaType="int"/>
+        <result column="parentId" property="parentId" javaType="int"/>
+    </resultMap>
+
+    <select id="findTabByCategory" resultMap="tabResult">
+        select * from 7jia2_tab where category_id = #{category_id}
+    </select>
+
+
+    <select id="findTabByParentId" resultMap="tabResult">
+        select * from 7jia2_tab where parentId = #{parentId}
+    </select>
+
+</mapper>
