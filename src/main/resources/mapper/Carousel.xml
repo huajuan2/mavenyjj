@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.CarouselMapper">
+
+    <resultMap type="Carousel" id="carouselResult">
+        <id column="cId" property="cId" javaType="int"/>
+        <result column="url" property="cName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectRandom" parameterType="int" resultMap="carouselResult">
+        select * from 7jia2_carousel order by rand() limit #{num}
+    </select>
+</mapper>

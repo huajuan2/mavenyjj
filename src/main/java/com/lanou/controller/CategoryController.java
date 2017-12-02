@@ -1,6 +1,7 @@
 package com.lanou.controller;
 
 import com.lanou.entity.Category;
+import com.lanou.entity.User;
 import com.lanou.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,18 +21,18 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @RequestMapping("/findCategory.do")
-    private String finds(Model model){
+//    @RequestMapping("/findCategory.do")
+//    @ResponseBody
+    public List<Category> finds(){
         List<Category> categories = categoryService.findCategory();
-        model.addAttribute("categories",categories);
-        return "index";
+        return categories;
     }
 
     @RequestMapping("/findChildCategory.do")
     @ResponseBody
-    private Category finds2(Model model, int cId){
+    public List<Category> finds2(int cId){
         List<Category> categories =  categoryService.findChildCategory(cId);
-        return null;
+        return categories;
     }
 
 }

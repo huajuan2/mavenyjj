@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.BrandMapper">
+
+    <resultMap type="Brand" id="brandResult">
+        <id column="brandId" property="bId" javaType="int"/>
+        <result column="brandName" property="bName" jdbcType="VARCHAR"/>
+        <result column="brandImg" property="url" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectRandom" resultMap="brandResult">
+        select * from 7jia2_brand order by rand() limit 14
+    </select>
+
+    <select id="selectFirst" resultMap="brandResult">
+        select * from 7jia2_brand limit 14
+    </select>
+</mapper>
