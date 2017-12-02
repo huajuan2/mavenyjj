@@ -89,7 +89,7 @@ public class UserController {
 	}
 
 	//退出登录
-	@RequestMapping("/exit,do")
+	@RequestMapping("/exit.do")
 	public String exit(HttpServletRequest request){
 		HttpSession session = request.getSession();
 		if (session==null){
@@ -97,5 +97,24 @@ public class UserController {
 		}
 		request.removeAttribute("user");
 		return "login";
+	}
+
+	@RequestMapping("/updatePassword.do")
+	public String updatePassword(HttpServletRequest request,Integer uId,Model model){
+		User user = userService.findUserById(uId);
+		//oldPassword:输入的旧密码
+		//password:本来的密码
+		String password = request.getParameter("oldPassword");
+		String newpassword = request.getParameter("newPassword");
+		//如果输入的密码和本来的密码相同
+		if (password.equals(user.getPassword()))
+		{
+			//调用更新的方法
+			boolean result = userService.updatePassword(newpassword);
+			if (result){
+				return "index";
+			}
+		}
+		return "旧密码不对";
 	}
 }

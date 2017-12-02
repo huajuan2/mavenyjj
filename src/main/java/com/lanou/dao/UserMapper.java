@@ -17,4 +17,6 @@ public interface UserMapper {
 	public User findUserByNameAndPwd(User user);
 
 	public int updateUserInfo(User user);
+
+	public boolean updatePassword(String password);
 }

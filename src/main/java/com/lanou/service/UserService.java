@@ -18,4 +18,5 @@ public interface UserService {
 
 	public boolean updateUserInfo(User user);
 
+	public boolean updatePassword(String newpassword);
 }

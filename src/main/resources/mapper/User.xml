@@ -46,8 +46,12 @@
 		SELECT * FROM 7jia2_user u WHERE u.username=#{username} and u.password=#{password}
 	</select>
 
-
 	<update id="updateUserInfo" parameterType="User">
 		UPDATE 7jia2_user SET name=#{name},sex=#{sex},birthDate=#{birthDate},qq=#{qq} where uId=#{uId}
+	</update>
+
+
+	<update id="updatePassword" parameterType="String">
+		UPDATE 7jia2_user u SET u.password = #{newpassword}
 	</update>
 </mapper>

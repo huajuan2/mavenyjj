@@ -50,5 +50,11 @@ public class UserServiceImpl implements UserService{
 		return true;
 	};
 
-
+	public boolean updatePassword(String newpassword){
+		boolean result = userMapper.updatePassword(newpassword);
+		if (result){
+			return true;
+		}
+		return false;
+	};
 }
