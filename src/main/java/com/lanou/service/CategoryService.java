@@ -11,4 +11,7 @@ public interface CategoryService {
     public List<Category> findCategory();
 
     public List<Category> findChildCategory(int uId);
+
+    //根据CategoryId查找Category
+    public Category findCategoryByCategoryId(int categoryId);
 }

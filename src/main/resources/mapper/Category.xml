@@ -22,4 +22,10 @@
     <select id="findChildCategory" parameterType="int" resultMap="categoryResult">
         select * from 7jia2_category where parentId = #{parent_id}
     </select>
+
+
+
+
+
+
 </mapper>

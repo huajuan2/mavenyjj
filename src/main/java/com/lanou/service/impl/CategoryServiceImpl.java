@@ -33,4 +33,11 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
 
+    //根据CategoryId查找Category
+    public Category findCategoryByCategoryId(int categoryId) {
+
+        Category category = categoryMapper.findById(categoryId);
+
+        return category;
+    }
 }
