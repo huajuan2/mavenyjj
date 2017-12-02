@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-aaa
 ${users }
+<h5>${categories}</h5>
+<h5>${childcategories}</h5>
 </body>
 </html>
