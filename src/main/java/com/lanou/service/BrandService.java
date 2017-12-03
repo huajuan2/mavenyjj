@@ -11,4 +11,6 @@ public interface BrandService {
     public List<Brand> showBrands();
 
     public List<Brand> showFirst();
+
+    public List<Brand> showAll();
 }

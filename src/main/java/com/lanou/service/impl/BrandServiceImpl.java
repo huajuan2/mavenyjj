@@ -24,4 +24,8 @@ public class BrandServiceImpl implements BrandService{
     public List<Brand> showFirst() {
         return brandMapper.selectFirst();
     }
+
+    public List<Brand> showAll() {
+        return brandMapper.selectAll();
+    }
 }

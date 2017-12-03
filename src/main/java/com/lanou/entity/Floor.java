@@ -10,10 +10,18 @@ public class Floor {
 
     private Integer fId;
     private String fName;
+    private List<Brand> brands;
+    private List<Category> categories;
     private List<Goods> hotGoods;
     private List<Goods> newGoods;
-    private Map<String,List<Goods>> list1;
-    private Map<String,List<Goods>> list2;
+
+    public List<Brand> getBrands() {
+        return brands;
+    }
+
+    public void setBrands(List<Brand> brands) {
+        this.brands = brands;
+    }
 
     public Integer getfId() {
         return fId;
@@ -29,6 +37,14 @@ public class Floor {
 
     public void setfName(String fName) {
         this.fName = fName;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
     public List<Goods> getHotGoods() {
@@ -47,21 +63,7 @@ public class Floor {
         this.newGoods = newGoods;
     }
 
-    public Map<String, List<Goods>> getList1() {
-        return list1;
-    }
 
-    public void setList1(Map<String, List<Goods>> list1) {
-        this.list1 = list1;
-    }
-
-    public Map<String, List<Goods>> getList2() {
-        return list2;
-    }
-
-    public void setList2(Map<String, List<Goods>> list2) {
-        this.list2 = list2;
-    }
 
     public Floor() {
 
@@ -74,8 +76,6 @@ public class Floor {
                 ", fName='" + fName + '\'' +
                 ", hotGoods=" + hotGoods +
                 ", newGoods=" + newGoods +
-                ", list1=" + list1 +
-                ", list2=" + list2 +
                 '}';
     }
 }

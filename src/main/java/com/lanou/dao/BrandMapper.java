@@ -11,4 +11,6 @@ public interface BrandMapper {
     public List<Brand> selectRandom();
 
     public List<Brand> selectFirst();
+
+    public List<Brand> selectAll();
 }

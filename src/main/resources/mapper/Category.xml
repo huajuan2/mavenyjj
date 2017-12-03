@@ -23,8 +23,9 @@
         select * from 7jia2_category where parentId = #{parent_id}
     </select>
 
-
-
+    <select id="findByFid" parameterType="int" resultMap="categoryResult">
+        select * from 7jia2_category where f_id = #{f_id}
+    </select>
 
 
 
