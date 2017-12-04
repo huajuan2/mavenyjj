@@ -32,7 +32,6 @@ public class UserController {
 		model.addAttribute("users",users);
 		return "index";
 	}
-
 	public void finds2(){
 		System.out.println("123");
 	}
@@ -50,22 +49,27 @@ public class UserController {
 
 	//通过用户名查找
 	@RequestMapping("/findUserByName.do")
-	public List<User> findN(String username){
+	public Integer findN(String username){
 		List<User> users = userService.findUserByName(username);
 		if (users.size()==0){
+			return 0;
+			//用户名可以使用
 		}
-		return users;
+		//用户名已存在
+		return 1;
 	}
 
 	//登录
 	@RequestMapping("/login.do")
-	public String findUserByNameAndPwd(User user,HttpServletRequest request){
+	public boolean findUserByNameAndPwd(User user,HttpServletRequest request){
 		User user1 = userService.findUserByNameAndPwd(user);
 		if (user1!=null){
 			request.getSession().setAttribute("user",user);
-			return "index";
+			return true;
+			//登录成功
 		}
-		return "login";
+		//登录失败返回登录
+		return false;
 	}
 
 	//通过uId查找用户信息

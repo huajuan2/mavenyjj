@@ -18,4 +18,5 @@
     <select id="selectFirst" resultMap="brandResult">
         select * from 7jia2_brand limit 14
     </select>
+
 </mapper>
