@@ -1,13 +1,10 @@
-package com.lanou.dao;
+package com.lanou.service;
 
-import com.lanou.entity.Category;
 import com.lanou.entity.Floor;
 
 /**
  * Created by lanou on 2017/12/2.
  */
-public interface FloorMapper {
-
+public interface FloorService {
     public Floor showFloor(int fId);
-
 }

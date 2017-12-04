@@ -3,8 +3,10 @@ package com.lanou.controller;
 import com.lanou.entity.Brand;
 import com.lanou.entity.Carousel;
 import com.lanou.entity.Category;
+import com.lanou.entity.Floor;
 import com.lanou.service.BrandService;
 import com.lanou.service.CarouselService;
+import com.lanou.service.FloorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +31,10 @@ public class IndexController {
     @Autowired
     private BrandService brandService;
 
+    @Autowired
+    private FloorService floorService;
+
+
     @RequestMapping("/showIndex.do")
     @ResponseBody
     public Map<String, Object> finds(){
@@ -38,11 +44,15 @@ public class IndexController {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("categories",categories);//一级目录
         map.put("carousels",carousels);//轮播图
-        map.put("brands",brands);//品牌
+        map.put("brands",brands);//中间展示的14个品牌
         return map;
     }
 
-
+    @RequestMapping("/showFloor.do")
+    @ResponseBody
+    public Floor showFloor(int fId){
+        return floorService.showFloor(fId);
+    }
 
 
 }

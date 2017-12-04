@@ -23,9 +23,13 @@
         select * from 7jia2_category where parentId = #{parent_id}
     </select>
 
+    <select id="findByFid" parameterType="int" resultMap="categoryResult">
+        select * from 7jia2_category where f_id = #{f_id}
+    </select>
 
-
-
+    <select id="findRandomTwo" parameterType="int" resultMap="categoryResult">
+         select * from 7jia2_category where parentId = #{parent_id} order by rand() limit 2
+    </select>
 
 
 </mapper>

@@ -6,10 +6,19 @@
 <mapper namespace="com.lanou.dao.FloorMapper">
 
     <resultMap type="Floor" id="floorResult">
-
+        <id column="floorId" property="fId" javaType="int"/>
+        <result column="floorName" property="fName" jdbcType="VARCHAR"/>
+        <!--<collection property="categories" ofType="com.lanou.entity.Category">-->
+            <!--<id column="categoryId" property="cId"></id>-->
+            <!--<result column="categoryName" property="cName"></result>-->
+        <!--</collection>-->
     </resultMap>
 
+    <!--<select id="showFloor" parameterType="int" resultMap="floorResult">-->
+        <!--select * from 7jia2_floor f, 7jia2_category c where f.floorId = #{fId} and f.floorId = c.f_id;-->
+    <!--</select>-->
+
     <select id="showFloor" parameterType="int" resultMap="floorResult">
-        select * from 7jia2_floor where floorId = #{fId}
+        select * from 7jia2_floor f where f.floorId = #{fId}
     </select>
 </mapper>

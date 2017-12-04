@@ -10,10 +10,46 @@ public class Floor {
 
     private Integer fId;
     private String fName;
-    private List<Goods> hotGoods;
-    private List<Goods> newGoods;
-    private Map<String,List<Goods>> list1;
-    private Map<String,List<Goods>> list2;
+    private List<Brand> brands;
+    private List<Category> categories;
+    private Goods[] hotGoods = new Goods[8];
+    private Goods[] newGoods = new Goods[8];
+    private List<Category> title;
+    private List<Goods> t1Goods;
+    private List<Goods> t2Goods;
+
+
+    public List<Category> getTitle() {
+        return title;
+    }
+
+    public void setTitle(List<Category> title) {
+        this.title = title;
+    }
+
+    public List<Goods> getT1Goods() {
+        return t1Goods;
+    }
+
+    public void setT1Goods(List<Goods> t1Goods) {
+        this.t1Goods = t1Goods;
+    }
+
+    public List<Goods> getT2Goods() {
+        return t2Goods;
+    }
+
+    public void setT2Goods(List<Goods> t2Goods) {
+        this.t2Goods = t2Goods;
+    }
+
+    public List<Brand> getBrands() {
+        return brands;
+    }
+
+    public void setBrands(List<Brand> brands) {
+        this.brands = brands;
+    }
 
     public Integer getfId() {
         return fId;
@@ -31,36 +67,29 @@ public class Floor {
         this.fName = fName;
     }
 
-    public List<Goods> getHotGoods() {
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+
+    public Goods[] getHotGoods() {
         return hotGoods;
     }
 
-    public void setHotGoods(List<Goods> hotGoods) {
+    public void setHotGoods(Goods[] hotGoods) {
         this.hotGoods = hotGoods;
     }
 
-    public List<Goods> getNewGoods() {
+    public Goods[] getNewGoods() {
         return newGoods;
     }
 
-    public void setNewGoods(List<Goods> newGoods) {
+    public void setNewGoods(Goods[] newGoods) {
         this.newGoods = newGoods;
-    }
-
-    public Map<String, List<Goods>> getList1() {
-        return list1;
-    }
-
-    public void setList1(Map<String, List<Goods>> list1) {
-        this.list1 = list1;
-    }
-
-    public Map<String, List<Goods>> getList2() {
-        return list2;
-    }
-
-    public void setList2(Map<String, List<Goods>> list2) {
-        this.list2 = list2;
     }
 
     public Floor() {
@@ -74,8 +103,6 @@ public class Floor {
                 ", fName='" + fName + '\'' +
                 ", hotGoods=" + hotGoods +
                 ", newGoods=" + newGoods +
-                ", list1=" + list1 +
-                ", list2=" + list2 +
                 '}';
     }
 }
