@@ -30,6 +30,15 @@ public class GoodsController {
     }
 
 
+    public List<Goods> findGoodsByCategoryIdFenYe(int categoryId,int page){
+
+        List<Goods> goodsList = goodsService.findGoodsByCategoryIdFenYe(categoryId,page);
+
+        return goodsList;
+
+    }
+
+
     @RequestMapping("findGoodsRandom.do")
     @ResponseBody
     public Map<String,Object> findGoodsByCategoryIdRandom(int categoryId){
