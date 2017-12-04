@@ -38,13 +38,13 @@ public class UserController {
 
 	//注册
 	@RequestMapping("/regUsers.do")
-	public String reg(User user){
+	public boolean reg(User user){
 		System.out.println(user);
 		boolean result = userService.regUser(user);
 		if (result){
-			return "index";
+			return true;
 		}
-		return "login";
+		return false;
 	}
 
 	//通过用户名查找
