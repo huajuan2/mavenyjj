@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.DetailsMapper">
+
+    <resultMap id="findGoodsDetailResult" type="Goods">
+        <id column="gId" property="gId" javaType="Integer"></id>
+        <result column="gName" property="gName" jdbcType="VARCHAR"></result>
+        <collection property="detailsList" ofType="com.lanou.entity.Details">
+            <id column="detailsId" property="detailsId" javaType="int"/>
+            <result column="detailsColor" property="detailsColor" jdbcType="VARCHAR"/>
+            <result column="detailsImgUrl" property="detailsImgUrl" jdbcType="VARCHAR"/>
+            <result column="detailsGuiGe" property="detailsGuiGe" jdbcType="VARCHAR"/>
+            <result column="detailsStock" property="detailsStock" javaType="int"/>
+            <result column="detailsPrice" property="detailsPrice" javaType="double"></result>
+            <result column="detailsMarketPrice" property="detailsMarketPrice" javaType="double"></result>
+            <result column="detailsJiFen" property="detailsJiFen" javaType="int"/>
+            <result column="detailsStatus" property="detailsStatus" javaType="int"/>
+            <result column="goods_id" property="goods_id" javaType="int"/>
+        </collection>
+    </resultMap>
+    <select id="findGoodsDetail" parameterType="Integer" resultMap="findGoodsDetailResult">
+        SELECT * from 7jia2_goods g,7jia2_details d WHERE gId=#{gId} and g.gId = d.goods_id
+    </select>
+
+    <resultMap id="findDoubleByCAndTResult" type="String">
+        <result column="detailsPrice" property="detailsPrice" javaType="double"></result>
+    </resultMap>
+    <select id="findDoubleByCAndT" parameterType="Details" resultMap="findDoubleByCAndTResult">
+        SELECT detailsPrice FROM 7jia2_details WHERE detailsColor = #{detailsColor} and detailsGuiGe=#{detailsGuiGe}
+    </select>
+</mapper>

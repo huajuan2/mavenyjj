@@ -32,7 +32,6 @@ public class CategoryServiceImpl implements CategoryService{
         return categories;
     }
 
-
     //根据CategoryId查找Category
     public Category findCategoryByCategoryId(int categoryId) {
 
