@@ -32,4 +32,9 @@ public class BrandServiceImpl implements BrandService{
     public List<Brand> showByC_id(int cId) {
         return brandMapper.selectByC_id(cId);
     }
+
+
+
+
+
 }

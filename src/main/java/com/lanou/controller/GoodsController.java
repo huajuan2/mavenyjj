@@ -20,16 +20,27 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
-    @RequestMapping("findGoods.do")
+    @RequestMapping("/findGoods.do")
     @ResponseBody
-    public Map<String,Object> findGoodsByCategoryId(int categoryId){
+    public List<Goods> findGoodsByCategoryId(int categoryId){
+
+        List<Goods> goodsList = goodsService.findGoodsByCategoryId(categoryId);
+
+        return goodsList;
+    }
+
+
+    @RequestMapping("findGoodsRandom.do")
+    @ResponseBody
+    public Map<String,Object> findGoodsByCategoryIdRandom(int categoryId){
 
         Map<String,Object> maps = new HashMap<String,Object>();
 
-        List<Goods> goodsList = goodsService.findGoodsByCategoryId(categoryId);
+        List<Goods> goodsList = goodsService.findGoodsByCategoryIdRandom(categoryId);
         maps.put("goodsList",goodsList);
 
         return maps;
     }
+
 
 }
