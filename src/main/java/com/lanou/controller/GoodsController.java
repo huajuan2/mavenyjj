@@ -20,16 +20,15 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
 
-    @RequestMapping("findGoods.do")
+    @RequestMapping("/findGoods.do")
     @ResponseBody
     public List<Goods> findGoodsByCategoryId(int categoryId){
 
-
-
         List<Goods> goodsList = goodsService.findGoodsByCategoryId(categoryId);
-
 
         return goodsList;
     }
+
+
 
 }
