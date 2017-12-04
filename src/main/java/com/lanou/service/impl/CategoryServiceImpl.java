@@ -1,6 +1,8 @@
 package com.lanou.service.impl;
 
+import com.lanou.dao.BrandMapper;
 import com.lanou.dao.CategoryMapper;
+import com.lanou.entity.Brand;
 import com.lanou.entity.Category;
 import com.lanou.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class CategoryServiceImpl implements CategoryService{
     @Autowired
     private CategoryMapper categoryMapper;
 
+    @Autowired
+    private BrandMapper brandMapper;
+
 //    查询所有一级目录
     public List<Category> findCategory() {
         return categoryMapper.findCategory();
@@ -29,6 +34,7 @@ public class CategoryServiceImpl implements CategoryService{
         for(Category categoryItem:categories){
             categoryItem.setChilds(findChildCategory(categoryItem.getcId()));
         }
+
         return categories;
     }
 
