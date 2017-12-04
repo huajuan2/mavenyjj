@@ -40,4 +40,38 @@ public class CategoryServiceImpl implements CategoryService{
 
         return category;
     }
+
+
+    //根据categoryId判断查找child层级
+    public List<Category> findCategoryListByCategoryId(int categoryId){
+
+        List<Category> categoryList = categoryMapper.findChildCategory(categoryId);
+
+        return categoryList;
+    }
+
+
+    //根据categoryId查找对应的一级分类
+    public int findFirstCategoryIdByCategoryId(int categoryId){
+
+        Category category = categoryMapper.findById(categoryId);
+        if (category.getParent_id() ==0 ){
+
+            return categoryId;
+        }
+        Category category1 = categoryMapper.findById(category.getParent_id());
+        if (category1.getParent_id() == 0){
+
+            return category1.getcId();
+        }
+        Category category2 = categoryMapper.findById(category1.getParent_id());
+        if(category2.getParent_id() == 0){
+
+            return category2.getcId();
+        }
+
+        return -1;
+    }
+
+
 }

@@ -7,4 +7,7 @@ import com.lanou.entity.Floor;
  */
 public interface FloorService {
     public Floor showFloor(int fId);
+
+
+
 }
