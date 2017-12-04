@@ -23,5 +23,7 @@
         select * from 7jia2_brand
     </select>
 
-
+    <select id="selectByC_id" parameterType="int" resultMap="brandResult">
+        select * from 7jia2_brand where brandId in (select brand_id from 7jia2_brand_category where category_id = #{id})
+    </select>
 </mapper>

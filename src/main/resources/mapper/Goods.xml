@@ -26,6 +26,8 @@
         select * from 7jia2_goods where gCategory_id = #{gCategory_id}
     </select>
 
-
+    <select id="findGoodsByCategoryIdRandom" resultMap="goodsResult">
+        select * from 7jia2_goods where gCategory_id = #{gCategory_id} order by rand() limit 8
+    </select>
 
 </mapper>

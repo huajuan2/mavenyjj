@@ -11,4 +11,6 @@ public interface GoodsService {
 
     //根据第三层级的id查找商品
     public List<Goods> findGoodsByCategoryId(int gCategory_id);
+
+
 }

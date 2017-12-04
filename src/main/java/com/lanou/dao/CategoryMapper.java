@@ -15,6 +15,8 @@ public interface CategoryMapper {
 
     public List<Category> findChildCategory(int parent_id);
 
-    public List<Category> findByFid(int f_id);
+    public Category findByFid(int f_id);
+
+    public List<Category> findRandomTwo(int cid);
 
 }

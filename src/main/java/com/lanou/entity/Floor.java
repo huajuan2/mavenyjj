@@ -12,8 +12,36 @@ public class Floor {
     private String fName;
     private List<Brand> brands;
     private List<Category> categories;
-    private List<Goods> hotGoods;
-    private List<Goods> newGoods;
+    private Goods[] hotGoods = new Goods[8];
+    private Goods[] newGoods = new Goods[8];
+    private List<Category> title;
+    private List<Goods> t1Goods;
+    private List<Goods> t2Goods;
+
+
+    public List<Category> getTitle() {
+        return title;
+    }
+
+    public void setTitle(List<Category> title) {
+        this.title = title;
+    }
+
+    public List<Goods> getT1Goods() {
+        return t1Goods;
+    }
+
+    public void setT1Goods(List<Goods> t1Goods) {
+        this.t1Goods = t1Goods;
+    }
+
+    public List<Goods> getT2Goods() {
+        return t2Goods;
+    }
+
+    public void setT2Goods(List<Goods> t2Goods) {
+        this.t2Goods = t2Goods;
+    }
 
     public List<Brand> getBrands() {
         return brands;
@@ -47,23 +75,22 @@ public class Floor {
         this.categories = categories;
     }
 
-    public List<Goods> getHotGoods() {
+
+    public Goods[] getHotGoods() {
         return hotGoods;
     }
 
-    public void setHotGoods(List<Goods> hotGoods) {
+    public void setHotGoods(Goods[] hotGoods) {
         this.hotGoods = hotGoods;
     }
 
-    public List<Goods> getNewGoods() {
+    public Goods[] getNewGoods() {
         return newGoods;
     }
 
-    public void setNewGoods(List<Goods> newGoods) {
+    public void setNewGoods(Goods[] newGoods) {
         this.newGoods = newGoods;
     }
-
-
 
     public Floor() {
 

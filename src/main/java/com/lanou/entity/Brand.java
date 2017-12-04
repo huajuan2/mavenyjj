@@ -1,5 +1,7 @@
 package com.lanou.entity;
 
+import java.util.List;
+
 /**
  * Created by lanou on 2017/12/2.
  */
