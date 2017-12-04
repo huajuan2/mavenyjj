@@ -22,14 +22,14 @@ public class GoodsController {
 
     @RequestMapping("findGoods.do")
     @ResponseBody
-    public Map<String,Object> findGoodsByCategoryId(int categoryId){
+    public List<Goods> findGoodsByCategoryId(int categoryId){
 
-        Map<String,Object> maps = new HashMap<String,Object>();
+
 
         List<Goods> goodsList = goodsService.findGoodsByCategoryId(categoryId);
-        maps.put("goodsList",goodsList);
 
-        return maps;
+
+        return goodsList;
     }
 
     @RequestMapping("findGoodsRandom.do")

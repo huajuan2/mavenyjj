@@ -13,4 +13,5 @@ public interface GoodsService {
     public List<Goods> findGoodsByCategoryId(int gCategory_id);
 
     public List<Goods> findGoodsByCategoryIdRandom(int gCategory_id);
+
 }
