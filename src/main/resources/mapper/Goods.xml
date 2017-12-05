@@ -28,8 +28,20 @@
         select * from 7jia2_goods where gCategory_id = #{gCategory_id}
     </select>
 
+
     <select id="findGoodsIdByCategory1Random" resultType="int">
       select categoryId from 7jia2_category where parentId in (select categoryId from 7jia2_category where parentId = #{parentId})
+    </select>
+    <select id="findGoodsByCategoryIdFenYe" resultMap="goodsResult">
+        select * from 7jia2_goods where gCategory_id in
+         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+         </foreach>
+          limit #{1},20
+    </select>
+
+    <select id="findGoodsByCategoryIdRandom" resultMap="goodsResult">
+        select * from 7jia2_goods where gCategory_id = #{gCategory_id} order by rand() limit 8
     </select>
 
     <select id="findGoodsIdByCategory2Random" resultType="int">

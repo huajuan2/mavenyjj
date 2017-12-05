@@ -128,4 +128,5 @@ public class Details {
                 ", goods_id=" + goods_id +
                 '}';
     }
+
 }

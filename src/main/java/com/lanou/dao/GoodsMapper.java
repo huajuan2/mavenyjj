@@ -18,4 +18,10 @@ public interface GoodsMapper {
 
     public List<Goods> findGoodsInCategoryId(@Param("list")List<Integer> list);
 
+    //根据第三层级的id查找商品，随机8个
+    public List<Goods> findGoodsByCategoryIdRandom(int gCategory_id);
+
+
+    //分页查询
+    public List<Goods> findGoodsByCategoryIdFenYe(@Param("list")List<Integer> list,int num);
 }

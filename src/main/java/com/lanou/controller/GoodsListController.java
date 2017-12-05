@@ -40,7 +40,16 @@ public class GoodsListController {
 
         Map<String,Object> map = new HashMap<String,Object>();
 
-        List<Goods> goodsList = goodsController.findGoodsByCategoryId(categoryId);
+//        Map<String,Object> goodsMap = new HashMap<String,Object>();
+//        List<Goods> goodsList = goodsController.findGoodsByCategoryIdFenYe(categoryId,page);
+//
+//        List<Goods> goodsList1 = goodsController.findGoodsByCategoryId(categoryId);
+//
+//        goodsMap.put("size",goodsList1.size());
+//        goodsMap.put("goodsList",goodsList);
+//
+//        map.put("goods",goodsMap);
+
 
         List<Tab> tabList = tabController.finds(categoryId);
 
@@ -49,22 +58,49 @@ public class GoodsListController {
         if (categoryList != null){
 
             Map<String,Object> map1 = new HashMap<String,Object>();
-            map1.put("分类",categoryList);
-            map.put("categoryList",map1);
+            map1.put("tabName","分类");
+            map1.put("categoryList",categoryList);
+
+            map.put("categorys",map1);
         }
 
         int num = categoryService.findFirstCategoryIdByCategoryId(categoryId);
         if (num != -1){
             Map<String,Object> map2 = new HashMap<String,Object>();
             List<Brand> brandList = brandService.showByC_id(num);
-            map2.put("品牌",brandList);
-            map.put("brandList",map2);
+            map2.put("tabName","品牌");
+            map2.put("brandList",brandList);
+
+            map.put("brands",map2);
         }
         map.put("tabList",tabList);
-        map.put("goodsList",goodsList);
+
 
         return map;
     }
+
+
+    @RequestMapping("/findGoods.do")
+    @ResponseBody
+    public Map<String,Object> findGoods(int categoryId,int page){
+
+        Map<String,Object> map = new HashMap<String,Object>();
+
+        Map<String,Object> goodsMap = new HashMap<String,Object>();
+        List<Goods> goodsList = goodsController.findGoodsByCategoryIdFenYe(categoryId,page);
+
+        List<Goods> goodsList1 = goodsController.findGoodsByCategoryId(categoryId);
+
+        goodsMap.put("size",goodsList1.size());
+        goodsMap.put("goodsList",goodsList);
+
+        map.put("goods",goodsMap);
+
+        return map;
+    }
+
+
+
 
 
 

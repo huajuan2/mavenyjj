@@ -13,6 +13,23 @@ public class Goods {
     private String url;
     private double price;
     private List<Details> detailsList;
+    private List<User> userList;
+
+    public Goods(Integer gId, String gName, Integer categoryId, List<Details> detailsList, List<User> userList) {
+        this.gId = gId;
+        this.gName = gName;
+        this.categoryId = categoryId;
+        this.detailsList = detailsList;
+        this.userList = userList;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
 
     public String getUrl() {
         return url;
@@ -69,9 +86,12 @@ public class Goods {
                 ", gName='" + gName + '\'' +
                 ", categoryId=" + categoryId +
                 ", detailsList=" + detailsList +
+                ", userList=" + userList +
                 '}';
     }
 
     public Goods() {
+
     }
+
 }
