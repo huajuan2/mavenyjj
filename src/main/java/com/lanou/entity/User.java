@@ -3,6 +3,7 @@ package com.lanou.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
 
@@ -14,11 +15,12 @@ public class User {
 	private String sex;
 	private Date birthDate;
 	private String qq;
+	private List<Goods> goodsList;
 	public User() {
 		super();
 	}
 
-	public User(Integer uId, String username, String password, String phone, String name, String sex, Date birthDate, String qq) {
+	public User(Integer uId, String username, String password, String phone, String name, String sex, Date birthDate, String qq, List<Goods> goodsList) {
 		this.uId = uId;
 		this.username = username;
 		this.password = password;
@@ -27,6 +29,15 @@ public class User {
 		this.sex = sex;
 		this.birthDate = birthDate;
 		this.qq = qq;
+		this.goodsList = goodsList;
+	}
+
+	public List<Goods> getGoodsList() {
+		return goodsList;
+	}
+
+	public void setGoodsList(List<Goods> goodsList) {
+		this.goodsList = goodsList;
 	}
 
 	public Integer getuId() {
@@ -105,6 +116,8 @@ public class User {
 				", sex='" + sex + '\'' +
 				", birthDate=" + birthDate +
 				", qq='" + qq + '\'' +
+				", goodsList=" + goodsList +
 				'}';
 	}
+
 }

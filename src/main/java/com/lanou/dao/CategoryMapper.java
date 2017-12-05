@@ -9,6 +9,7 @@ import java.util.Map;
  * Created by lanou on 2017/12/1.
  */
 public interface CategoryMapper {
+
     public List<Category> findCategory();
 
     public Category findById(int cId);
