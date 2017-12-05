@@ -1,12 +1,10 @@
 package com.lanou.controller;
 
-import com.lanou.entity.Brand;
-import com.lanou.entity.Carousel;
-import com.lanou.entity.Category;
-import com.lanou.entity.Floor;
+import com.lanou.entity.*;
 import com.lanou.service.BrandService;
 import com.lanou.service.CarouselService;
 import com.lanou.service.FloorService;
+import com.lanou.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +32,8 @@ public class IndexController {
     @Autowired
     private FloorService floorService;
 
+    @Autowired
+    private GoodsService goodsService;
 
     @RequestMapping("/showIndex.do")
     @ResponseBody
@@ -54,5 +54,11 @@ public class IndexController {
         return floorService.showFloor(fId);
     }
 
+    @RequestMapping("/findByLikeName")
+    @ResponseBody
+    public List<Goods> findByLikeName(String likeName){
+        String likeName1 = "%"+likeName+"%";
+        return goodsService.findGoodsByLikeName(likeName1);
+    }
 
 }

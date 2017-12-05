@@ -12,15 +12,18 @@ public class Goods {
     private Integer categoryId;
     private String url;
     private double price;
+    private Integer gSale;
     private List<Details> detailsList;
     private List<User> userList;
 
-    public Goods(Integer gId, String gName, Integer categoryId, List<Details> detailsList, List<User> userList) {
+    public Goods(Integer gId, String gName, Integer categoryId, String url, double price, Integer gSale, List<Details> detailsList) {
         this.gId = gId;
         this.gName = gName;
         this.categoryId = categoryId;
+        this.url = url;
+        this.price = price;
+        this.gSale = gSale;
         this.detailsList = detailsList;
-        this.userList = userList;
     }
 
     public List<User> getUserList() {
@@ -79,12 +82,23 @@ public class Goods {
         this.detailsList = detailsList;
     }
 
+    public Integer getgSale() {
+        return gSale;
+    }
+
+    public void setgSale(Integer gSale) {
+        this.gSale = gSale;
+    }
+
     @Override
     public String toString() {
         return "Goods{" +
                 "gId=" + gId +
                 ", gName='" + gName + '\'' +
                 ", categoryId=" + categoryId +
+                ", url='" + url + '\'' +
+                ", price=" + price +
+                ", gSale=" + gSale +
                 ", detailsList=" + detailsList +
                 ", userList=" + userList +
                 '}';

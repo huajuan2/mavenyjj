@@ -14,10 +14,19 @@ public interface GoodsService {
 
 
     //分页查询
-    public List<Goods> findGoodsByCategoryIdFenYe(int gCategory_id,int page);
+    public List<Goods> findGoodsByCategoryIdFenYe(int gCategory_id);
+
+
+    public List<Goods> findGoodsByLikeName(String likeName);
 
 
 
+    //根据价格排序(升序)
+    public List<Goods> findGoodsByCategoryIdOderByPrice(int gCategory_id);
 
+    //根据价格排序(降序)
+    public List<Goods> findGoodsByCategoryIdOderByPriceDesc(int gCategory_id);
 
+    //商品列表页根据销量Sale排序（降序）
+    public List<Goods> findGoodsByCategoryIdOrderBySale(int gCategory_id);
 }

@@ -10,6 +10,7 @@
         <result column="gCategory_id" property="categoryId" javaType="int"/>
         <result column="gImg" property="url" jdbcType="VARCHAR"/>
         <result column="gPrice" property="price" javaType="double"/>
+        <result column="gSale" property="gSale" javaType="int"/>
         <collection property="detailsList" ofType="com.lanou.entity.Details">
             <id column="detailsId" property="detailsId" javaType="int"/>
             <result column="detailsColor" property="detailsColor" jdbcType="VARCHAR"/>
@@ -28,15 +29,18 @@
         select * from 7jia2_goods where gCategory_id = #{gCategory_id}
     </select>
 
+    
 
-    <select id="findGoodsIdByCategory1" resultType="int">
-      select categoryId from 7jia2_category where parentId in (select categoryId from 7jia2_category where parentId = #{parentId})
-    </select>
     <select id="findGoodsByCategoryIdFenYe" resultMap="goodsResult">
         select * from 7jia2_goods where gCategory_id in
          <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
          </foreach>
+
+    </select>
+
+    <select id="findGoodsIdByCategory1" resultType="int">
+        select categoryId from 7jia2_category where parentId in (select categoryId from 7jia2_category where parentId = #{parentId})
     </select>
 
 
@@ -52,4 +56,39 @@
         </foreach>
         order by rand() limit 8
     </select>
+
+
+    <!--//根据价格排序（升序）-->
+    <select id="findGoodsByCategoryIdOderByPrice" resultMap="goodsResult">
+        select * from 7jia2_goods as g where gCategory_id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+         order by g.gPrice asc
+
+    </select>
+
+    <!--//根据价格排序（降序）-->
+    <select id="findGoodsByCategoryIdOderByPriceDesc" resultMap="goodsResult">
+        select * from 7jia2_goods as g where gCategory_id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        order by g.gPrice desc
+    </select>
+
+    <!--//商品列表页根据销量Sale排序（降序）-->
+    <select id="findGoodsByCategoryIdOrderBySale" resultMap="goodsResult">
+        select * from 7jia2_goods as g where gCategory_id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        order by g.gSale desc
+    </select>
+
+
+    <select id="findByLikeName" parameterType="String" resultMap="goodsResult">
+        select * from 7jia2_goods where gName like #{likeName}
+    </select>
+
 </mapper>

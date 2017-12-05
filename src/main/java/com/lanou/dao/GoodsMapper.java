@@ -22,5 +22,22 @@ public interface GoodsMapper {
 
 
     //分页查询
+    public List<Goods> findGoodsByCategoryIdFenYe(@Param("list")List<Integer> list);
+
+
+    //根据价格排序
+    public List<Goods> findGoodsByCategoryIdOderByPrice(@Param("list")List<Integer> list);
+
+    //根据价格排序
+    public List<Goods> findGoodsByCategoryIdOderByPriceDesc(@Param("list")List<Integer> list);
+
+    //商品列表页根据销量Sale排序（降序）
+    public List<Goods> findGoodsByCategoryIdOrderBySale(@Param("list")List<Integer> list);
+
+
+    //分页查询
     public List<Goods> findGoodsByCategoryIdFenYe(@Param("list")List<Integer> list,int num);
+
+    public List<Goods> findByLikeName(String likeName);
+
 }

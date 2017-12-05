@@ -29,14 +29,47 @@ public class GoodsController {
         return goodsList;
     }
 
+    //商品列表的分页
+    public List<Goods> findGoodsByCategoryIdFenYe(int categoryId){
 
-    public List<Goods> findGoodsByCategoryIdFenYe(int categoryId,int page){
-
-        List<Goods> goodsList = goodsService.findGoodsByCategoryIdFenYe(categoryId,page);
+        List<Goods> goodsList = goodsService.findGoodsByCategoryIdFenYe(categoryId);
 
         return goodsList;
 
     }
+
+
+
+    //商品列表页的根据价格排序（升序）
+    @RequestMapping("/findGoodsOrderByAsc.do")
+    @ResponseBody
+    public List<Goods> findGoodsByCategoryIdOderByPriceAsc(int categoryId){
+
+        List<Goods> goodsList = goodsService.findGoodsByCategoryIdOderByPrice(categoryId);
+
+        return goodsList;
+    }
+
+    //商品列表页的根据价格排序（升序）
+    @RequestMapping("/findGoodsOrderByDesc.do")
+    @ResponseBody
+    public List<Goods> findGoodsByCategoryIdOderByPriceDesc(int categoryId){
+
+        List<Goods> goodsList = goodsService.findGoodsByCategoryIdOderByPriceDesc(categoryId);
+
+        return goodsList;
+    }
+
+    //商品列表页根据销量Sale排序（降序）
+    @RequestMapping("/findGoodsOrderBySale.do")
+    @ResponseBody
+    public List<Goods> findGoodsByCategoryIdOrderBySale(int categoryId){
+
+        List<Goods> goodsList = goodsService.findGoodsByCategoryIdOrderBySale(categoryId);
+
+        return goodsList;
+    }
+
 
 
 }
