@@ -11,4 +11,9 @@ public interface CollectionService {
     public List<Goods> findGoodsList(Integer uId);
 
     public Integer findRepeat(Integer uId,Integer gId);
+
+    public boolean addCollection(Integer uId,Integer gId);
+
+    public boolean deleteCollection(Integer uId,Integer gId);
+
 }

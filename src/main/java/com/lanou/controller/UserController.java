@@ -1,12 +1,12 @@
 package com.lanou.controller;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.lanou.entity.User;
 import com.lanou.service.UserService;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -38,6 +37,7 @@ public class UserController {
 
 	//注册
 	@RequestMapping("/regUsers.do")
+	@ResponseBody
 	public boolean reg(User user){
 		System.out.println(user);
 		boolean result = userService.regUser(user);
@@ -49,22 +49,36 @@ public class UserController {
 
 	//通过用户名查找
 	@RequestMapping("/findUserByName.do")
-	public Integer findN(String username){
+	@ResponseBody
+	public boolean findN(String username){
 		List<User> users = userService.findUserByName(username);
 		if (users.size()==0){
-			return 0;
+			return true;
 			//用户名可以使用
 		}
 		//用户名已存在
-		return 1;
+		return false;
 	}
 
 	//登录
 	@RequestMapping("/login.do")
-	public boolean findUserByNameAndPwd(User user,HttpServletRequest request){
+	@ResponseBody
+	public boolean findUserByNameAndPwd(User user,HttpServletRequest request) throws UnknownHostException {
 		User user1 = userService.findUserByNameAndPwd(user);
 		if (user1!=null){
 			request.getSession().setAttribute("user",user);
+			//获取当前时间
+			Date date = new Date();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String loginDate = dateFormat.format(date);
+			System.out.println(loginDate);
+			//获取本地ip地址
+			InetAddress address = InetAddress.getLocalHost();
+			String addressIp = address.getHostAddress();
+			System.out.println(addressIp);
+			user.setAddressIp(addressIp);
+			user.setLoginDate(loginDate);
+			userService.updateIpAndTime(user);
 			return true;
 			//登录成功
 		}
@@ -83,28 +97,35 @@ public class UserController {
 
 	//修改用户信息(密码和手机号除外)
 	@RequestMapping("/updateUserInfo.do")
-	public String updateUserInfo(User user){
+	@ResponseBody
+	public boolean updateUserInfo(User user){
 		System.out.println(user);
 		boolean result = userService.updateUserInfo(user);
 		if (result){
-			return "index";
+			//修改成功
+			return true;
 		}
-		return "xxx";
+			//修改失败
+		return false ;
 	}
 
 	//退出登录
 	@RequestMapping("/exit.do")
-	public String exit(HttpServletRequest request){
+	@ResponseBody
+	public boolean exit(HttpServletRequest request){
 		HttpSession session = request.getSession();
 		if (session==null){
-			return "index";
+			return false;
 		}
 		request.removeAttribute("user");
-		return "login";
+		//退出成功
+		return true;
 	}
 
+	//修改密码
 	@RequestMapping("/updatePassword.do")
-	public String updatePassword(HttpServletRequest request,Integer uId,Model model){
+	@ResponseBody
+	public boolean updatePassword(HttpServletRequest request,Integer uId){
 		User user = userService.findUserById(uId);
 		//oldPassword:输入的旧密码
 		//password:本来的密码
@@ -116,9 +137,11 @@ public class UserController {
 			//调用更新的方法
 			boolean result = userService.updatePassword(newpassword);
 			if (result){
-				return "index";
+				return true;
+				//更新成功
 			}
 		}
-		return "旧密码不对";
+		//旧密码输入不正确
+		return false;
 	}
 }

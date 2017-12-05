@@ -1,5 +1,6 @@
 package com.lanou.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.lanou.entity.User;
@@ -19,4 +20,6 @@ public interface UserService {
 	public boolean updateUserInfo(User user);
 
 	public boolean updatePassword(String newpassword);
+
+	public void updateIpAndTime(User user);
 }

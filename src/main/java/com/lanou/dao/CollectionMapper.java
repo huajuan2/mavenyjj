@@ -9,5 +9,10 @@ import java.util.List;
  */
 public interface CollectionMapper {
     public List<Goods> findGoodsList(Integer gId);
+
     public Integer findRepeat(Integer uId,Integer gId);
+
+    public boolean addCollection(Integer uId,Integer gId);
+
+    public boolean deleteCollection(Integer uId,Integer gId);
 }

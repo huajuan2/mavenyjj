@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -18,7 +20,7 @@ public class CollectionController {
     @Autowired
     private CollectionService collectionService;
 
-    //通过用户Id查询收藏的商品
+    //通过用户Id查询收藏的商品(查看收藏夹)
     @RequestMapping("/findGoodsList.do")
     @ResponseBody
     public List<Goods> findGoodsList(Integer uId){
@@ -26,12 +28,46 @@ public class CollectionController {
           return goodsList;
     }
 
-    @RequestMapping("/findRepeat")
-    public String findRepeat(Integer uId,Integer gId){
+//    @RequestMapping("/findRepeat")
+//    public String findRepeat(Integer uId,Integer gId){
+//        Integer result = collectionService.findRepeat(uId, gId);
+//        if (result==null){
+//            return "test";
+//        }
+//        return "index";
+//    }
+
+    //收藏商品
+    @RequestMapping("/addCollection.do")
+    @ResponseBody
+    public int addCollection(Integer uId, Integer gId, HttpServletRequest request){
+        HttpSession session =  request.getSession();
+        if (session==null){
+//          String login = "请登录";
+            return 1;
+        }
         Integer result = collectionService.findRepeat(uId, gId);
         if (result==null){
-            return "test";
+            boolean results = collectionService.addCollection(uId, gId);
+            if (results){
+//                String OK = "商品收藏成功!";
+                return 2;
+            }
         }
-        return "index";
+//        String NO= "您已经收藏过了!";
+        return 0;
     }
+
+    @RequestMapping("/deleteCollection.do")
+    @ResponseBody
+    public boolean delete(Integer uId, Integer gId){
+        boolean result = collectionService.deleteCollection(uId, gId);
+        if (result){
+            //删除成功
+            return true;
+        }
+        //删除失败
+        return false;
+    }
+
 }

@@ -57,4 +57,8 @@ public class UserServiceImpl implements UserService{
 		}
 		return false;
 	};
+
+	public void updateIpAndTime(User user){
+		userMapper.updateIpAndTime(user);
+	};
 }

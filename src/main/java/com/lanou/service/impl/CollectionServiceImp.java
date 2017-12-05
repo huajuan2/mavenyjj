@@ -16,6 +16,7 @@ public class CollectionServiceImp implements CollectionService {
 
     @Autowired
     private CollectionMapper collectionMapper;
+
     public List<Goods> findGoodsList(Integer uId){
         List<Goods> goodsList = collectionMapper.findGoodsList(uId);
         return goodsList;
@@ -25,5 +26,21 @@ public class CollectionServiceImp implements CollectionService {
         Integer result = collectionMapper.findRepeat(uId, gId);
         System.out.println(result);
         return result;
+    };
+
+    public boolean addCollection(Integer uId,Integer gId){
+        boolean result = collectionMapper.addCollection(uId, gId);
+        if (result){
+            return true;
+        }
+        return false;
+    };
+
+    public boolean deleteCollection(Integer uId,Integer gId){
+        boolean result = collectionMapper.deleteCollection(uId, gId);
+        if (result){
+            return true;
+        }
+        return false;
     };
 }

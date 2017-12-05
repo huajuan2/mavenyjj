@@ -58,13 +58,6 @@ public class FloorServiceImpl implements FloorService{
 
         List<Category> title = categoryMapper.findRandomTwo(cId);
         floor.setTitle(title);
-
-        List<Goods> goods1 = goodsService.findGoodsByCategoryIdRandom(title.get(0).getcId());
-        System.out.println(goods1);
-        List<Goods> goods2 = goodsService.findGoodsByCategoryIdRandom(title.get(1).getcId());
-        floor.setT1Goods(goods1);
-        floor.setT2Goods(goods2);
         return floor;
-
     }
 }
