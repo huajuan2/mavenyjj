@@ -4,6 +4,7 @@ import com.lanou.entity.Goods;
 import com.lanou.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -68,6 +69,29 @@ public class GoodsController {
         List<Goods> goodsList = goodsService.findGoodsByCategoryIdOrderBySale(categoryId);
 
         return goodsList;
+    }
+
+
+    //根据商品价格区间进行查找商品
+    @RequestMapping("/findGoodsByCategoryAndPriceQuJian.do")
+    @ResponseBody
+    public List<Goods> findGoodsByCategoryAndPriceQuJian(int categoryId,Double price1,Double price2){
+
+        if (price1==null){
+            price1=0.0;
+        }
+        if (price2==null){
+            price2=100000000.00;
+        }
+
+        if (price1 > price2){
+            double a = price1;
+            price1=price2;
+            price2=a;
+        }
+        List<Goods> goodsList = goodsService.findGoodsByCategoryAndPriceQuJian(categoryId,price1,price2);
+        return goodsList;
+
     }
 
 

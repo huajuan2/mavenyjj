@@ -2,6 +2,7 @@ package com.lanou.service;
 
 import com.lanou.entity.Goods;
 
+
 import java.util.List;
 
 /**
@@ -29,4 +30,7 @@ public interface GoodsService {
 
     //商品列表页根据销量Sale排序（降序）
     public List<Goods> findGoodsByCategoryIdOrderBySale(int gCategory_id);
+
+    //根据商品价格区间进行查找商品
+    public List<Goods> findGoodsByCategoryAndPriceQuJian(int gCategory_id,double price1,double price2);
 }

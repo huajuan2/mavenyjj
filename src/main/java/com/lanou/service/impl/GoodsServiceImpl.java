@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Created by lanou on 2017/12/2.
@@ -118,6 +120,22 @@ public class GoodsServiceImpl implements GoodsService {
     public List<Goods> findGoodsByLikeName(String likeName) {
         return goodsMapper.findByLikeName(likeName);
 
+    }
+
+
+    //根据商品价格区间进行查找商品
+    public List<Goods> findGoodsByCategoryAndPriceQuJian(int gCategory_id,double price1,double price2){
+
+        List<Integer> list = categoryService.findThirdCategoryIdByCategoryId(gCategory_id);
+        Map<String,Object> map = new HashMap<String,Object>();
+
+        map.put("list",list);
+        map.put("price1",price1);
+        map.put("price2",price2);
+
+        List<Goods> goodsLists = goodsMapper.findGoodsByCategoryAndPriceQuJian(map);
+
+        return goodsLists;
     }
 
 }

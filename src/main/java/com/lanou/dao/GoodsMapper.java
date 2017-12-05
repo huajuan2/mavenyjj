@@ -4,6 +4,7 @@ import com.lanou.entity.Goods;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lanou on 2017/12/2.
@@ -40,4 +41,7 @@ public interface GoodsMapper {
 
     public List<Goods> findByLikeName(String likeName);
 
+
+    //根据商品价格区间进行查找商品
+    public List<Goods> findGoodsByCategoryAndPriceQuJian(Map<String,Object> map);
 }

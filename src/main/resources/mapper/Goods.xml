@@ -89,4 +89,16 @@
         select * from 7jia2_goods where gName like #{likeName}
     </select>
 
+
+
+    <!--//商品列表页根据价格区间-->
+    <select id="findGoodsByCategoryAndPriceQuJian" resultMap="goodsResult">
+        select * from 7jia2_goods as g where gCategory_id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and g.gPrice between #{price1} and #{price2}
+    </select>
+
+
 </mapper>
