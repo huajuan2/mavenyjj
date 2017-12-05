@@ -13,8 +13,7 @@ import com.lanou.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by lanou on 2017/12/2.
@@ -32,25 +31,22 @@ public class FloorServiceImpl implements FloorService{
     private BrandMapper brandMapper;
 
     @Autowired
-    private GoodsService goodsService;
+    private GoodsMapper goodsMapper;
 
     public Floor showFloor(int fId) {
         Floor floor = floorMapper.showFloor(fId);
         Category c = categoryMapper.findByFid(fId);
-        int cId = c.getcId();
+        int cId = c.getcId();//一级目录id
         System.out.println("获取到的目录Id:"+cId);
         List<Brand> brands = brandMapper.selectByC_id(cId);
-        List<Category> categories = categoryMapper.findChildCategory(cId); //二级目录
-        List<Goods> goods = goodsService.findGoodsByCategoryId(cId);
-        Goods[] hotgoods = new Goods[8];
-        for (int i=0;i<hotgoods.length;i++){
-            hotgoods[i] = goods.get(i);
-        }
+        List<Category> categories = categoryMapper.findChildCategory(cId); //查找二级目录
+        List<Integer> gIds1 = goodsMapper.findGoodsIdByCategory1Random(cId);//随机查询一级目录下8个商品的id
+        List<Goods> hotgoods = goodsMapper.findGoodsInCategoryId(gIds1);
 
-        Goods[] newgoods = new Goods[8];
-        for (int i=0;i<newgoods.length;i++){
-            newgoods[i] = goods.get(i+8);
-        }
+        List<Integer> gIds2 = goodsMapper.findGoodsIdByCategory1Random(cId);//随机查询一级目录下8个商品的id
+        List<Goods> newgoods = goodsMapper.findGoodsInCategoryId(gIds2);
+
+
         floor.setCategories(categories);
         floor.setBrands(brands);
         floor.setHotGoods(hotgoods);
@@ -58,6 +54,7 @@ public class FloorServiceImpl implements FloorService{
 
         List<Category> title = categoryMapper.findRandomTwo(cId);
         floor.setTitle(title);
+
         return floor;
     }
 }

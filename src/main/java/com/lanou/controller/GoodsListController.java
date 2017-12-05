@@ -80,7 +80,7 @@ public class GoodsListController {
     }
 
 
-    @RequestMapping("/findGoods")
+    @RequestMapping("/findGoods.do")
     @ResponseBody
     public Map<String,Object> findGoods(int categoryId,int page){
 

@@ -2,6 +2,7 @@ package com.lanou.entity;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by lanou on 2017/12/2.
@@ -12,8 +13,8 @@ public class Floor {
     private String fName;
     private List<Brand> brands;
     private List<Category> categories;
-    private Goods[] hotGoods = new Goods[8];
-    private Goods[] newGoods = new Goods[8];
+    private List<Goods> hotGoods;
+    private List<Goods> newGoods;
     private List<Category> title;
     private List<Goods> t1Goods;
     private List<Goods> t2Goods;
@@ -26,6 +27,7 @@ public class Floor {
     public void setTitle(List<Category> title) {
         this.title = title;
     }
+
 
     public List<Goods> getT1Goods() {
         return t1Goods;
@@ -76,19 +78,19 @@ public class Floor {
     }
 
 
-    public Goods[] getHotGoods() {
+    public List<Goods> getHotGoods() {
         return hotGoods;
     }
 
-    public void setHotGoods(Goods[] hotGoods) {
+    public void setHotGoods(List<Goods> hotGoods) {
         this.hotGoods = hotGoods;
     }
 
-    public Goods[] getNewGoods() {
+    public List<Goods> getNewGoods() {
         return newGoods;
     }
 
-    public void setNewGoods(Goods[] newGoods) {
+    public void setNewGoods(List<Goods> newGoods) {
         this.newGoods = newGoods;
     }
 

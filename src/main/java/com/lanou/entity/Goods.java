@@ -10,6 +10,8 @@ public class Goods {
     private Integer gId;
     private String gName;
     private Integer categoryId;
+    private String url;
+    private double price;
     private List<Details> detailsList;
     private List<User> userList;
 
@@ -27,6 +29,22 @@ public class Goods {
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public Integer getgId() {
