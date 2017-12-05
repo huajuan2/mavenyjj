@@ -107,13 +107,13 @@ public class GoodsServiceImpl implements GoodsService {
 
 
     //商品列表页根据销量Sale排序（降序）
-    public List<Goods> findGoodsByCategoryIdOrderBySale(int gCategory_id){
+    public List<Goods> findGoodsByCategoryIdOrderBySale(int gCategory_id) {
 
         List<Integer> list = categoryService.findThirdCategoryIdByCategoryId(gCategory_id);
         List<Goods> goodsLists = goodsMapper.findGoodsByCategoryIdOrderBySale(list);
 
         return goodsLists;
-
+    }
 
     public List<Goods> findGoodsByLikeName(String likeName) {
         return goodsMapper.findByLikeName(likeName);
