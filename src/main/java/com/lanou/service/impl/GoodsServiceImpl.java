@@ -96,6 +96,7 @@ public class GoodsServiceImpl implements GoodsService {
 
 
 
+
         List<Integer> list = categoryService.findThirdCategoryIdByCategoryId(gCategory_id);
 
         List<Goods> goodsLists = goodsMapper.findGoodsByCategoryIdOderByPriceDesc(list);
@@ -112,6 +113,10 @@ public class GoodsServiceImpl implements GoodsService {
         List<Goods> goodsLists = goodsMapper.findGoodsByCategoryIdOrderBySale(list);
 
         return goodsLists;
+
+
+    public List<Goods> findGoodsByLikeName(String likeName) {
+        return goodsMapper.findByLikeName(likeName);
 
     }
 

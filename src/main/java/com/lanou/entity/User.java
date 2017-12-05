@@ -1,5 +1,6 @@
 package com.lanou.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -13,14 +14,18 @@ public class User {
 	private String phone;
 	private String name;
 	private String sex;
+	@DateTimeFormat(pattern="yyyy-MM-dd hh-mm-s")
 	private Date birthDate;
 	private String qq;
 	private List<Goods> goodsList;
+	private String addressIp;
+	private String loginDate;
+
 	public User() {
 		super();
 	}
 
-	public User(Integer uId, String username, String password, String phone, String name, String sex, Date birthDate, String qq, List<Goods> goodsList) {
+	public User(Integer uId, String username, String password, String phone, String name, String sex, Date birthDate, String qq, List<Goods> goodsList, String addressIp, String loginDate) {
 		this.uId = uId;
 		this.username = username;
 		this.password = password;
@@ -30,6 +35,8 @@ public class User {
 		this.birthDate = birthDate;
 		this.qq = qq;
 		this.goodsList = goodsList;
+		this.addressIp = addressIp;
+		this.loginDate = loginDate;
 	}
 
 	public List<Goods> getGoodsList() {
@@ -88,7 +95,7 @@ public class User {
 		this.sex = sex;
 	}
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
 	public Date getBirthDate() {
 		return birthDate;
 	}
@@ -105,6 +112,22 @@ public class User {
 		this.qq = qq;
 	}
 
+	public String getAddressIp() {
+		return addressIp;
+	}
+
+	public void setAddressIp(String addressIp) {
+		this.addressIp = addressIp;
+	}
+
+	public String getLoginDate() {
+		return loginDate;
+	}
+
+	public void setLoginDate(String loginDate) {
+		this.loginDate = loginDate;
+	}
+
 	@Override
 	public String toString() {
 		return "User{" +
@@ -117,7 +140,8 @@ public class User {
 				", birthDate=" + birthDate +
 				", qq='" + qq + '\'' +
 				", goodsList=" + goodsList +
+				", addressIp='" + addressIp + '\'' +
+				", loginDate='" + loginDate + '\'' +
 				'}';
 	}
-
 }

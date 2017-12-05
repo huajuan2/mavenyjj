@@ -38,7 +38,13 @@
          <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
          </foreach>
+
     </select>
+
+          limit #{1},20
+    </select>
+
+
 
     <select id="findGoodsIdByCategory2Random" resultType="int">
         select categoryId from 7jia2_category where categoryId in (select categoryId from 7jia2_category where parentId = #{parentId})
@@ -51,6 +57,7 @@
         </foreach>
         order by rand() limit 8
     </select>
+
 
     <!--//根据价格排序（升序）-->
     <select id="findGoodsByCategoryIdOderByPrice" resultMap="goodsResult">
@@ -78,6 +85,11 @@
             #{item}
         </foreach>
         order by g.gSale desc
+    </select>
+
+
+    <select id="findByLikeName" parameterType="String" resultMap="goodsResult">
+        select * from 7jia2_goods where gName like #{likeName}
     </select>
 
 </mapper>
