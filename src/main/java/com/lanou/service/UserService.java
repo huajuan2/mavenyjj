@@ -22,4 +22,5 @@ public interface UserService {
 	public boolean updatePassword(String newpassword);
 
 	public void updateIpAndTime(User user);
+
 }
