@@ -28,8 +28,8 @@ public class CategoryController {
     @Autowired
     private BrandService brandService;
 
-//    @RequestMapping("/findCategory.do")
-//    @ResponseBody
+    @RequestMapping("/findCategory.do")
+    @ResponseBody
     public List<Category> finds(){
         List<Category> categories = categoryService.findCategory();
         return categories;
