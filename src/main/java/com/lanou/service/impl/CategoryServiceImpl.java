@@ -8,6 +8,7 @@ import com.lanou.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,6 +77,39 @@ public class CategoryServiceImpl implements CategoryService{
         }
 
         return -1;
+    }
+
+
+    //根据categoryId查找对应的三级分类
+    public List<Integer> findThirdCategoryIdByCategoryId(int categoryId){
+
+        List<Integer> list = new ArrayList<Integer>();
+
+        Category category = categoryMapper.findById(categoryId);
+        if (category.getParent_id() ==0 ){
+            List<Category> categoryList = categoryMapper.findChildCategory(category.getcId());
+            for (int i =0 ;i<categoryList.size();i++){
+                int cId = categoryList.get(i).getcId();
+                List<Category> categoryList1 = categoryMapper.findChildCategory(cId);
+                for (int j=0; j<categoryList1.size();j++){
+                    int gCategory_id1 = categoryList1.get(j).getcId();
+                    list.add(gCategory_id1);
+                }
+            }
+            return list;
+        }
+        Category category1 = categoryMapper.findById(category.getParent_id());
+        if (category1.getParent_id() == 0){
+            List<Category> categoryList = categoryMapper.findChildCategory(category.getcId());
+            for (int i = 0;i<categoryList.size();i++){
+                int gCategory_id1 = categoryList.get(i).getcId();
+                list.add(gCategory_id1);
+            }
+            return list;
+        }
+        list.add(categoryId);
+
+        return list;
     }
 
 

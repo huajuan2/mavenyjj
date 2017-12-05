@@ -21,4 +21,7 @@ public interface CategoryService {
 
     //根据categoryId查找对应的一级分类
     public int findFirstCategoryIdByCategoryId(int categoryId);
+
+    //根据categoryId查找对应的三级分类
+    public List<Integer> findThirdCategoryIdByCategoryId(int categoryId);
 }

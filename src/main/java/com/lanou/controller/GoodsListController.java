@@ -50,7 +50,6 @@ public class GoodsListController {
 //
 //        map.put("goods",goodsMap);
 
-
         List<Tab> tabList = tabController.finds(categoryId);
 
         List<Category> categoryList = categoryService.findCategoryListByCategoryId(categoryId);
@@ -82,12 +81,12 @@ public class GoodsListController {
 
     @RequestMapping("/findGoods.do")
     @ResponseBody
-    public Map<String,Object> findGoods(int categoryId,int page){
+    public Map<String,Object> findGoods(int categoryId){
 
         Map<String,Object> map = new HashMap<String,Object>();
 
         Map<String,Object> goodsMap = new HashMap<String,Object>();
-        List<Goods> goodsList = goodsController.findGoodsByCategoryIdFenYe(categoryId,page);
+        List<Goods> goodsList = goodsController.findGoodsByCategoryIdFenYe(categoryId);
 
         List<Goods> goodsList1 = goodsController.findGoodsByCategoryId(categoryId);
 
@@ -95,6 +94,7 @@ public class GoodsListController {
         goodsMap.put("goodsList",goodsList);
 
         map.put("goods",goodsMap);
+
 
         return map;
     }
