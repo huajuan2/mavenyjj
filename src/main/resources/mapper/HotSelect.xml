@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.HotSelectMapper">
+
+    <!--<resultMap type="HotSelect" id="hotSelectResult">&ndash;&gt;-->
+        <!--<id column="selectId" property="selectId" javaType="int"></id>-->
+        <!--<id column="selectName" property="selectName" jdbcType="VARCHAR"></id>-->
+    <!--</resultMap>-->
+
+    <select id="selectHot" resultType="String">
+        select selectName from 7jia2_hotSelect where selectCount > 6 order by selectCount desc limit 5
+    </select>
+
+    <select id="addSelect" parameterType="String">
+        insert into 7jia2_hotSelect (selectName) values (#{selecName})
+    </select>
+
+    <select id="findSelect" resultType="Integer" parameterType="String">
+        select selectId from 7jia2_hotSelect where selectName = #{selectName}
+    </select>
+
+    <select id="updateSelect" parameterType="String">
+        update 7jia2_hotSelect set selectCount = selectCount+1 where selectName = #{selectName}
+    </select>
+</mapper>
