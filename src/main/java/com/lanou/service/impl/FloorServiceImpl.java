@@ -40,11 +40,11 @@ public class FloorServiceImpl implements FloorService{
         System.out.println("获取到的目录Id:"+cId);
         List<Brand> brands = brandMapper.selectByC_id(cId);
         List<Category> categories = categoryMapper.findChildCategory(cId); //查找二级目录
-        List<Integer> gIds1 = goodsMapper.findGoodsIdByCategory1Random(cId);//随机查询一级目录下8个商品的id
-        List<Goods> hotgoods = goodsMapper.findGoodsInCategoryId(gIds1);
+        List<Integer> gIds1 = goodsMapper.findGoodsIdByCategory1(cId);//随机查询一级目录下8个商品的id
+        List<Goods> hotgoods = goodsMapper.findGoodsInCategoryIdRandom(gIds1);
 
-        List<Integer> gIds2 = goodsMapper.findGoodsIdByCategory1Random(cId);//随机查询一级目录下8个商品的id
-        List<Goods> newgoods = goodsMapper.findGoodsInCategoryId(gIds2);
+        List<Integer> gIds2 = goodsMapper.findGoodsIdByCategory1(cId);//随机查询一级目录下8个商品的id
+        List<Goods> newgoods = goodsMapper.findGoodsInCategoryIdRandom(gIds2);
 
 
         floor.setCategories(categories);
@@ -54,6 +54,8 @@ public class FloorServiceImpl implements FloorService{
 
         List<Category> title = categoryMapper.findRandomTwo(cId);
         floor.setTitle(title);
+        floor.setT1Goods(goodsMapper.findGoodsInCategoryIdRandom(goodsMapper.findGoodsIdByCategory2(title.get(0).getcId())));
+        floor.setT2Goods(goodsMapper.findGoodsInCategoryIdRandom(goodsMapper.findGoodsIdByCategory2(title.get(1).getcId())));
 
         return floor;
     }

@@ -13,11 +13,11 @@ public interface GoodsMapper {
     public List<Goods> findGoodsByCategoryId(int gCategory_id);
 
 
-    public List<Integer> findGoodsIdByCategory1Random(int cId);
+    public List<Integer> findGoodsIdByCategory1(int cId);
 
-    public List<Integer> findGoodsIdByCategory2Random(int cId);
+    public List<Integer> findGoodsIdByCategory2(int cId);
 
-    public List<Goods> findGoodsInCategoryId(@Param("list")List<Integer> list);
+    public List<Goods> findGoodsInCategoryIdRandom(@Param("list")List<Integer> list);
 
 
 
