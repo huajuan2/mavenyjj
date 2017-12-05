@@ -2,11 +2,14 @@ package com.lanou.controller;
 
 import com.lanou.entity.*;
 import com.lanou.service.*;
+import com.lanou.util.FastJson_All;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -60,11 +63,12 @@ public class IndexController {
     }
 
     @RequestMapping("/findByLikeName")
-    @ResponseBody
-    public List<Goods> findByLikeName(String likeName){
+//    @ResponseBody
+    public void findByLikeName(HttpServletResponse response,String likeName){
         String likeName1 = "%"+likeName+"%";
         hotSelectService.updateHotSelect(likeName);
-        return goodsService.findGoodsByLikeName(likeName1);
+//        return goodsService.findGoodsByLikeName(likeName1);
+        FastJson_All.toJson(goodsService.findGoodsByLikeName(likeName1),response);
     }
 
 }
