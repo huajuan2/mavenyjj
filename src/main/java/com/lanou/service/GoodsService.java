@@ -15,7 +15,5 @@ public interface GoodsService {
     //分页查询
     public List<Goods> findGoodsByCategoryIdFenYe(int gCategory_id,int page);
 
-    public List<Goods> findGoodsByCategoryIdRandom(int gCategory_id);
-
-
+    public List<Goods> findGoodsByLikeName(String likeName);
 }

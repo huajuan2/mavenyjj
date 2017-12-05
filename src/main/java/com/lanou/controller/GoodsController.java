@@ -40,17 +40,6 @@ public class GoodsController {
 
 
 
-    @RequestMapping("findGoodsRandom.do")
-    @ResponseBody
-    public Map<String,Object> findGoodsByCategoryIdRandom(int categoryId){
-
-        Map<String,Object> maps = new HashMap<String,Object>();
-
-        List<Goods> goodsList = goodsService.findGoodsByCategoryIdRandom(categoryId);
-        maps.put("goodsList",goodsList);
-
-        return maps;
-    }
 
 
 

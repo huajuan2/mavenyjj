@@ -40,9 +40,6 @@
           limit #{1},20
     </select>
 
-    <select id="findGoodsByCategoryIdRandom" resultMap="goodsResult">
-        select * from 7jia2_goods where gCategory_id = #{gCategory_id} order by rand() limit 8
-    </select>
 
     <select id="findGoodsIdByCategory2Random" resultType="int">
         select categoryId from 7jia2_category where categoryId in (select categoryId from 7jia2_category where parentId = #{parentId})
@@ -54,5 +51,9 @@
             #{item}
         </foreach>
         order by rand() limit 8
+    </select>
+
+    <select id="findByLikeName" parameterType="String" resultMap="goodsResult">
+        select * from 7jia2_goods where gName like #{likeName}
     </select>
 </mapper>
