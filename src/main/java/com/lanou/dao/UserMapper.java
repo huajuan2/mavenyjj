@@ -19,4 +19,6 @@ public interface UserMapper {
 	public int updateUserInfo(User user);
 
 	public boolean updatePassword(String password);
+
+	public void updateIpAndTime(User user);
 }

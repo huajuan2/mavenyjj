@@ -16,4 +16,12 @@
     <select id="findRepeat" resultType="Integer" parameterType="Integer">
        SELECT user_id from 7jia2_user_goods where user_id = #{0} AND goods_id =#{1}
     </select>
+
+    <insert id="addCollection" parameterType="Integer">
+        INSERT INTO 7jia2_user_goods(user_id,goods_id)VALUES (#{0},#{1})
+    </insert>
+
+    <delete id="deleteCollection" parameterType="Integer">
+        DELETE FROM 7jia2_user_goods WHERE user_id=#{0} and goods_id=#{1}
+    </delete>
 </mapper>

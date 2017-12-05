@@ -116,9 +116,11 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsLists;
     }
 
+
     public List<Goods> findGoodsByLikeName(String likeName) {
         return goodsMapper.findByLikeName(likeName);
     }
+
 }
 
 
