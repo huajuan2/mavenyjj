@@ -29,7 +29,7 @@
     </select>
 
 
-    <select id="findGoodsIdByCategory1Random" resultType="int">
+    <select id="findGoodsIdByCategory1" resultType="int">
       select categoryId from 7jia2_category where parentId in (select categoryId from 7jia2_category where parentId = #{parentId})
     </select>
     <select id="findGoodsByCategoryIdFenYe" resultMap="goodsResult">
@@ -37,16 +37,15 @@
          <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
          </foreach>
-          limit #{1},20
     </select>
 
 
 
-    <select id="findGoodsIdByCategory2Random" resultType="int">
+    <select id="findGoodsIdByCategory2" resultType="int">
         select categoryId from 7jia2_category where categoryId in (select categoryId from 7jia2_category where parentId = #{parentId})
     </select>
 
-    <select id="findGoodsInCategoryId" resultMap="goodsResult">
+    <select id="findGoodsInCategoryIdRandom" resultMap="goodsResult">
         select * from 7jia2_goods where gCategory_id in
         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
