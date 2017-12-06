@@ -5,30 +5,43 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lanou.dao.DetailsMapper">
 
-    <resultMap id="findGoodsDetailResult" type="Goods">
-        <id column="gId" property="gId" javaType="Integer"></id>
-        <result column="gName" property="gName" jdbcType="VARCHAR"></result>
-        <collection property="detailsList" ofType="com.lanou.entity.Details">
-            <id column="detailsId" property="detailsId" javaType="int"/>
-            <result column="detailsColor" property="detailsColor" jdbcType="VARCHAR"/>
-            <result column="detailsImgUrl" property="detailsImgUrl" jdbcType="VARCHAR"/>
-            <result column="detailsGuiGe" property="detailsGuiGe" jdbcType="VARCHAR"/>
-            <result column="detailsStock" property="detailsStock" javaType="int"/>
-            <result column="detailsPrice" property="detailsPrice" javaType="double"></result>
-            <result column="detailsMarketPrice" property="detailsMarketPrice" javaType="double"></result>
-            <result column="detailsJiFen" property="detailsJiFen" javaType="int"/>
-            <result column="detailsStatus" property="detailsStatus" javaType="int"/>
-            <result column="goods_id" property="goods_id" javaType="int"/>
-        </collection>
+    <resultMap id="findGoodsNamePriceImgResult" type="Goods">
+        <id column="gId" property="gId" javaType="int"/>
+        <result column="gName" property="gName" jdbcType="VARCHAR"/>
+        <result column="gImg" property="url" jdbcType="VARCHAR"/>
+        <result column="gPrice" property="price" javaType="double"/>
+        <result column="gMaketPrice" property="gMaketPrice" javaType="double"></result>
+        <result column="gStock" property="gStock" jdbcType="INTEGER"></result>
+        <result column="gJiFen" property="gJiFen" jdbcType="INTEGER" ></result>
     </resultMap>
-    <select id="findGoodsDetail" parameterType="Integer" resultMap="findGoodsDetailResult">
-        SELECT * from 7jia2_goods g,7jia2_details d WHERE gId=#{gId} and g.gId = d.goods_id
+
+    <select id="findGoodsNamePriceImg" parameterType="integer" resultMap="findGoodsNamePriceImgResult">
+        SELECT * FROM 7jia2_goods WHERE gId = #{gId}
     </select>
 
-    <resultMap id="findDoubleByCAndTResult" type="String">
-        <result column="detailsPrice" property="detailsPrice" javaType="double"></result>
+
+    <resultMap id="findColorResult" type="Color">
+        <id column="colorId" property="colorId" javaType="Integer" ></id>
+        <result column="colorName" property="colorName" jdbcType="VARCHAR"></result>
     </resultMap>
-    <select id="findDoubleByCAndT" parameterType="Details" resultMap="findDoubleByCAndTResult">
-        SELECT detailsPrice FROM 7jia2_details WHERE detailsColor = #{detailsColor} and detailsGuiGe=#{detailsGuiGe}
+    <select id="findColor" parameterType="Integer" resultMap="findColorResult">
+        SELECT * FROM 7jia2_color WHERE colorId In (SELECT color_id FROM 7jia2_color_guige where goods_id = #{gId})
+    </select>
+
+    <resultMap id="findGuiGeResult" type="GuiGe">
+        <id column="guigeId" property="guigeId" javaType="Integer" ></id>
+        <result column="guigeName" property="guigeName" jdbcType="VARCHAR"></result>
+    </resultMap>
+    <select id="findGuiGe" parameterType="Integer" resultMap="findGuiGeResult">
+        SELECT * FROM 7jia2_guige WHERE guigeId In (SELECT guigeId FROM 7jia2_color_guige where goods_id = #{gId})
+    </select>
+
+
+    <select id="findGuiGeByColor" parameterType="Integer" resultMap="findGuiGeResult">
+        SELECT * FROM 7jia2_guige WHERE guigeId in (SELECT guige_Id FROM 7jia2_color_guige WHERE color_id=#{color_id})
+    </select>
+
+    <select id="findColorByGuiGe" parameterType="Integer" resultMap="findColorResult">
+        SELECT * FROM 7jia2_color WHERE colorId in (SELECT color_id FROM 7jia2_color_guige WHERE guige_id=#{guige_id})
     </select>
 </mapper>

@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.lanou.util.FastJson_All;
+import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import com.lanou.service.UserService;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -37,34 +40,31 @@ public class UserController {
 
 	//注册
 	@RequestMapping("/regUsers.do")
-	@ResponseBody
-	public boolean reg(User user){
+//	@ResponseBody
+	public void reg(HttpServletResponse response, User user){
 		System.out.println(user);
 		boolean result = userService.regUser(user);
-		if (result){
-			return true;
-		}
-		return false;
+		FastJson_All.toJson(result,response);
 	}
 
 	//通过用户名查找
 	@RequestMapping("/findUserByName.do")
-	@ResponseBody
-	public boolean findN(String username){
+//	@ResponseBody
+	public void findN(HttpServletResponse response,String username){
+		boolean result = false;
 		List<User> users = userService.findUserByName(username);
 		if (users.size()==0){
-			return true;
-			//用户名可以使用
+			result=true;
 		}
-		//用户名已存在
-		return false;
+		FastJson_All.toJson(result,response);
 	}
 
 	//登录
 	@RequestMapping("/login.do")
-	@ResponseBody
-	public boolean findUserByNameAndPwd(User user,HttpServletRequest request) throws UnknownHostException {
+//	@ResponseBody
+	public void findUserByNameAndPwd(User user,HttpServletRequest request,HttpServletResponse response) throws UnknownHostException {
 		User user1 = userService.findUserByNameAndPwd(user);
+		boolean result = false;
 		if (user1!=null){
 			request.getSession().setAttribute("user",user);
 			//获取当前时间
@@ -79,54 +79,57 @@ public class UserController {
 			user.setAddressIp(addressIp);
 			user.setLoginDate(loginDate);
 			userService.updateIpAndTime(user);
-			return true;
+			result = true;
 			//登录成功
 		}
 		//登录失败返回登录
-		return false;
+		FastJson_All.toJson(result,response);
 	}
 
 	//通过uId查找用户信息
 	@RequestMapping("/findUserById.do")
-	@ResponseBody
-	public User findUserById(Integer uId){
+//	@ResponseBody
+	public void findUserById(Integer uId,HttpServletResponse response){
 		User user =userService.findUserById(uId);
 		System.out.println(user);
-		return user;
+		FastJson_All.toJson(user,response);
 	}
 
 	//修改用户信息(密码和手机号除外)
 	@RequestMapping("/updateUserInfo.do")
-	@ResponseBody
-	public boolean updateUserInfo(User user){
+//	@ResponseBody
+	public void updateUserInfo(User user,HttpServletResponse response){
 		System.out.println(user);
 		boolean result = userService.updateUserInfo(user);
+		boolean res = false;
 		if (result){
 			//修改成功
-			return true;
+			res = true;
 		}
 			//修改失败
-		return false ;
+		FastJson_All.toJson(res,response);
 	}
 
 	//退出登录
 	@RequestMapping("/exit.do")
-	@ResponseBody
-	public boolean exit(HttpServletRequest request){
+//	@ResponseBody
+	public void exit(HttpServletRequest request,HttpServletResponse response){
 		HttpSession session = request.getSession();
+		boolean result = true;
 		if (session==null){
-			return false;
+			result = false;
 		}
 		request.removeAttribute("user");
 		//退出成功
-		return true;
+		FastJson_All.toJson(result,response);
 	}
 
 	//修改密码
 	@RequestMapping("/updatePassword.do")
-	@ResponseBody
-	public boolean updatePassword(HttpServletRequest request,Integer uId){
+//	@ResponseBody
+	public void updatePassword(HttpServletRequest request,Integer uId,HttpServletResponse response){
 		User user = userService.findUserById(uId);
+		boolean res = false;
 		//oldPassword:输入的旧密码
 		//password:本来的密码
 		String password = request.getParameter("oldPassword");
@@ -137,11 +140,20 @@ public class UserController {
 			//调用更新的方法
 			boolean result = userService.updatePassword(newpassword);
 			if (result){
-				return true;
+				res = true;
 				//更新成功
 			}
 		}
 		//旧密码输入不正确
-		return false;
+		FastJson_All.toJson(res,response);
+	}
+
+	//返回Session
+	@RequestMapping("/getSession")
+	public void Getsession(HttpServletRequest request,HttpServletResponse response){
+		User user = new User(1,"wcl");
+		request.getSession().setAttribute("user",user);
+		FastJson_All.toJson(request.getSession().getAttribute("user"),response);
 	}
 }
+

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Created by lanou on 2017/12/2.
@@ -120,6 +122,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     }
 
+
     public List<Goods> findTuangou(int page){
         return goodsMapper.findTuangou(page);
     }
@@ -132,6 +135,48 @@ public class GoodsServiceImpl implements GoodsService {
     }
     public List<Goods> findAllTemai(){
         return goodsMapper.findAllTemai();
+    }
+
+
+    //根据商品价格区间进行查找商品
+    public List<Goods> findGoodsByCategoryAndPriceQuJian(int gCategory_id,double price1,double price2){
+
+        List<Integer> list = categoryService.findThirdCategoryIdByCategoryId(gCategory_id);
+        Map<String,Object> map = new HashMap<String,Object>();
+
+        map.put("list",list);
+        map.put("price1",price1);
+        map.put("price2",price2);
+
+        List<Goods> goodsLists = goodsMapper.findGoodsByCategoryAndPriceQuJian(map);
+
+        return goodsLists;
+    }
+
+
+    //根据商品id集合查找商品
+    public List<Goods> findGoodsById(Map<String,Object> map){
+
+        List<Goods> goodsList = goodsMapper.findGoodsById(map);
+
+        return goodsList;
+
+    }
+
+
+    //根据品牌id和第三层级的id查找商品
+    public List<Goods> findGoodsByBrandId(int gCategory_id,int brandId){
+
+        List<Integer> list = categoryService.findThirdCategoryIdByCategoryId(gCategory_id);
+        Map<String,Object> map = new HashMap<String,Object>();
+
+        map.put("list",list);
+        map.put("brandId",brandId);
+
+        List<Goods> goodsList = goodsMapper.findGoodsByBrandId(map);
+
+        return goodsList;
+
     }
 
 }

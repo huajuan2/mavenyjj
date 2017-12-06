@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.GoodsAndTabMapper">
+
+    <resultMap type="GoodsAndTab" id="goodsAndTabResult">
+        <id column="goods_tabId" property="goods_tabId" javaType="int"/>
+        <result column="goods_tab_goodsId" property="goods_tab_goodsId" javaType="int"/>
+        <result column="goods_tab_tabName" property="goods_tabName" jdbcType="VARCHAR"/>
+        <result column="goods_tab_tabName2" property="goods_tabName2" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--根据传过来的两个名字字段查询商品的id-->
+    <select id="findGoodsIdByName" resultType="int">
+        select goods_tab_goodsId from 7jia2_goods_tab where goods_tab_tabName = #{0} and goods_tab_tabName2 like #{1}
+    </select>
+
+</mapper>

@@ -15,4 +15,5 @@ public interface BrandService {
     public List<Brand> showAll();
 
     public List<Brand> showByC_id(int cId);
+
 }
