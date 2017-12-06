@@ -9,6 +9,7 @@ public class Goods {
 
     private Integer gId;
     private String gName;
+    private Integer brandId;
     private Integer categoryId;
     private String url;
     private double price;
@@ -21,9 +22,10 @@ public class Goods {
     private List<GuiGe> guiGeList;
     private List<User> userList;
 
-    public Goods(Integer gId, String gName, Integer categoryId, String url, double price, Integer gSale, Integer gStock, double gMaketPrice, Integer gJiFen, List<Details> detailsList, List<Color> colorList, List<GuiGe> guiGeList, List<User> userList) {
+    public Goods(Integer gId, String gName, Integer brandId, Integer categoryId, String url, double price, Integer gSale, Integer gStock, double gMaketPrice, Integer gJiFen, List<Details> detailsList, List<Color> colorList, List<GuiGe> guiGeList, List<User> userList) {
         this.gId = gId;
         this.gName = gName;
+        this.brandId = brandId;
         this.categoryId = categoryId;
         this.url = url;
         this.price = price;
@@ -37,7 +39,7 @@ public class Goods {
         this.userList = userList;
     }
 
-    public List<Color> getColorList() {
+    public List<Color> getColorList(List<Color> colorList) {
         return colorList;
     }
 
@@ -75,6 +77,9 @@ public class Goods {
 
     public void setgJiFen(Integer gJiFen) {
         this.gJiFen = gJiFen;
+
+        this.userList = userList;
+
     }
 
     public List<User> getUserList() {
@@ -136,6 +141,13 @@ public class Goods {
     public Integer getgSale() {
         return gSale;
     }
+    public Integer getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(Integer brandId) {
+        this.brandId = brandId;
+    }
 
     public void setgSale(Integer gSale) {
         this.gSale = gSale;
@@ -146,6 +158,7 @@ public class Goods {
         return "Goods{" +
                 "gId=" + gId +
                 ", gName='" + gName + '\'' +
+                ", brandId=" + brandId +
                 ", categoryId=" + categoryId +
                 ", url='" + url + '\'' +
                 ", price=" + price +

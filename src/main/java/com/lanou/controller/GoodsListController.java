@@ -6,11 +6,13 @@ import com.lanou.entity.Goods;
 import com.lanou.entity.Tab;
 import com.lanou.service.BrandService;
 import com.lanou.service.CategoryService;
+import com.lanou.util.FastJson_All;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -35,8 +37,8 @@ public class GoodsListController {
 
 
     @RequestMapping("/findGoodsList.do")
-    @ResponseBody
-    public Map<String,Object> findGoodsList(int categoryId){
+//    @ResponseBody
+    public void findGoodsList(HttpServletResponse response, int categoryId){
 
         Map<String,Object> map = new HashMap<String,Object>();
 
@@ -74,14 +76,14 @@ public class GoodsListController {
         }
         map.put("tabList",tabList);
 
+        FastJson_All.toJson(map,response);
 
-        return map;
     }
 
 
     @RequestMapping("/findGoods.do")
-    @ResponseBody
-    public Map<String,Object> findGoods(int categoryId){
+//    @ResponseBody
+    public void findGoods(HttpServletResponse response,int categoryId){
 
         Map<String,Object> map = new HashMap<String,Object>();
 
@@ -96,8 +98,9 @@ public class GoodsListController {
         map.put("goods",goodsMap);
 
 
-        return map;
+        FastJson_All.toJson(map,response);
     }
+
 
 
 
