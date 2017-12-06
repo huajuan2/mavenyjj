@@ -42,7 +42,7 @@ public interface GoodsMapper {
 //    模糊查询
     public List<Goods> findByLikeName(String likeName);
 
-<<<<<<< HEAD
+
 //    根据商品Id查商品
     public Goods findByGid(int gId);
 
@@ -51,7 +51,7 @@ public interface GoodsMapper {
     public List<Goods> findAllTuangou();
     public List<Goods> findTemai(int page);
     public List<Goods> findAllTemai();
-=======
+
 
     //根据商品价格区间进行查找商品
     public List<Goods> findGoodsByCategoryAndPriceQuJian(Map<String,Object> map);
@@ -63,5 +63,5 @@ public interface GoodsMapper {
     //根据品牌id和第三层级的id集合查找商品
     public List<Goods> findGoodsByBrandId(Map<String,Object> map);
 
->>>>>>> 35f5992dea603a09ad628791e2ba4498f59c9ae5
+
 }
