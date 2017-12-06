@@ -138,6 +138,31 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsLists;
     }
 
+
+    //根据商品id集合查找商品
+    public List<Goods> findGoodsById(Map<String,Object> map){
+
+        List<Goods> goodsList = goodsMapper.findGoodsById(map);
+
+        return goodsList;
+
+    }
+
+
+    //根据品牌id和第三层级的id查找商品
+    public List<Goods> findGoodsByBrandId(int gCategory_id,int brandId){
+
+        List<Integer> list = categoryService.findThirdCategoryIdByCategoryId(gCategory_id);
+        Map<String,Object> map = new HashMap<String,Object>();
+
+        map.put("list",list);
+        map.put("brandId",brandId);
+
+        List<Goods> goodsList = goodsMapper.findGoodsByBrandId(map);
+
+        return goodsList;
+
+    }
 }
 
 

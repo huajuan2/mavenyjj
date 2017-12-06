@@ -7,6 +7,7 @@
     <resultMap type="Goods" id="goodsResult">
         <id column="gId" property="gId" javaType="int"/>
         <result column="gName" property="gName" jdbcType="VARCHAR"/>
+        <result column="gBrand_id" property="brandId" javaType="int"/>
         <result column="gCategory_id" property="categoryId" javaType="int"/>
         <result column="gImg" property="url" jdbcType="VARCHAR"/>
         <result column="gPrice" property="price" javaType="double"/>
@@ -102,5 +103,26 @@
         and g.gPrice between #{price1} and #{price2}
     </select>
 
+    <!--根据商品id集合查找商品-->
+    <select id="findGoodsById" resultMap="goodsResult">
+        select * from 7jia2_goods where gCategory_id in
+        <foreach collection="list1" item="item1" index="index" open="(" separator="," close=")">
+            #{item1}
+        </foreach>
+        and
+        gId in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!--//根据品牌id和第三层级的id集合查找商品-->
+    <select id="findGoodsByBrandId" resultMap="goodsResult">
+        select * from 7jia2_goods as g where gCategory_id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and g.gBrand_id = #{brandId}
+    </select>
 
 </mapper>

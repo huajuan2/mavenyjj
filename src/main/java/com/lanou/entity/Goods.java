@@ -9,6 +9,7 @@ public class Goods {
 
     private Integer gId;
     private String gName;
+    private Integer brandId;
     private Integer categoryId;
     private String url;
     private double price;
@@ -16,14 +17,16 @@ public class Goods {
     private List<Details> detailsList;
     private List<User> userList;
 
-    public Goods(Integer gId, String gName, Integer categoryId, String url, double price, Integer gSale, List<Details> detailsList) {
+    public Goods(Integer gId, String gName, Integer brandId, Integer categoryId, String url, double price, Integer gSale, List<Details> detailsList, List<User> userList) {
         this.gId = gId;
         this.gName = gName;
+        this.brandId = brandId;
         this.categoryId = categoryId;
         this.url = url;
         this.price = price;
         this.gSale = gSale;
         this.detailsList = detailsList;
+        this.userList = userList;
     }
 
     public List<User> getUserList() {
@@ -85,6 +88,13 @@ public class Goods {
     public Integer getgSale() {
         return gSale;
     }
+    public Integer getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(Integer brandId) {
+        this.brandId = brandId;
+    }
 
     public void setgSale(Integer gSale) {
         this.gSale = gSale;
@@ -95,6 +105,7 @@ public class Goods {
         return "Goods{" +
                 "gId=" + gId +
                 ", gName='" + gName + '\'' +
+                ", brandId=" + brandId +
                 ", categoryId=" + categoryId +
                 ", url='" + url + '\'' +
                 ", price=" + price +

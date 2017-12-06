@@ -4,6 +4,7 @@ import com.lanou.entity.Goods;
 
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lanou on 2017/12/2.
@@ -33,4 +34,11 @@ public interface GoodsService {
 
     //根据商品价格区间进行查找商品
     public List<Goods> findGoodsByCategoryAndPriceQuJian(int gCategory_id,double price1,double price2);
+
+    //根据商品id集合查找商品
+    public List<Goods> findGoodsById(Map<String,Object> map);
+
+    //根据品牌id和第三层级的id查找商品
+    public List<Goods> findGoodsByBrandId(int gCategory_id,int brandId);
+
 }

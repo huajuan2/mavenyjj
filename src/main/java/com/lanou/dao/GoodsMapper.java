@@ -44,4 +44,12 @@ public interface GoodsMapper {
 
     //根据商品价格区间进行查找商品
     public List<Goods> findGoodsByCategoryAndPriceQuJian(Map<String,Object> map);
+
+    //根据商品id查找商品
+    public List<Goods> findGoodsById(Map<String,Object> map);
+
+
+    //根据品牌id和第三层级的id集合查找商品
+    public List<Goods> findGoodsByBrandId(Map<String,Object> map);
+
 }
