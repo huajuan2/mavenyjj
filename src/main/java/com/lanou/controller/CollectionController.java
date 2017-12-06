@@ -1,6 +1,7 @@
 package com.lanou.controller;
 
 import com.lanou.entity.Goods;
+import com.lanou.entity.User;
 import com.lanou.service.CollectionService;
 import com.lanou.util.FastJson_All;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +44,9 @@ public class CollectionController {
     @RequestMapping("/addCollection.do")
 //    @ResponseBody
     public void addCollection(Integer uId, Integer gId, HttpServletRequest request,HttpServletResponse response){
-        HttpSession session =  request.getSession();
+        User user = (User) request.getSession().getAttribute("user");
         int num = 0;
-        if (session==null){
+        if (user==null){
 //          String login = "请登录";
             num = 1;
         }

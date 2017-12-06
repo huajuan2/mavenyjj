@@ -1,15 +1,21 @@
 package com.lanou.controller;
 
+import com.lanou.entity.Color;
 import com.lanou.entity.Details;
 import com.lanou.entity.Goods;
+import com.lanou.entity.GuiGe;
 import com.lanou.service.DetailsService;
+import com.lanou.util.FastJson_All;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lanou on 2017/12/4.
@@ -20,19 +26,34 @@ public class DetailsController {
     @Autowired
     private DetailsService detailsService;
 
-    //根据商品id查询商品详情
-    @RequestMapping("/findDetails.do")
-    @ResponseBody
-    public List<Goods> findGoodsDetail(Integer gId){
-        List<Goods> goods = detailsService.findGoodsDetail(gId);
-        return goods ;
+    //根据商品id查询商品详情(Id，名称，颜色，规格等等)
+    //需要参数商品id
+    @RequestMapping("/findGoodsNamePriceImg.do")
+    public void find1(Integer gId, HttpServletResponse response){
+        Map<String,Object> map = new HashMap<String,Object>();
+        Goods goodss =  detailsService.findGoodsNamePriceImg(gId);
+        List<Color> colorList = detailsService.findColor(gId);
+        List<GuiGe> guiGeList = detailsService.findGuiGe(gId);
+        map.put("goods",goodss);
+        map.put("color",colorList);
+        map.put("guige",guiGeList);
+        FastJson_All.toJson(map,response);
     }
 
-    //通过颜色和规格来查找价格
-    @RequestMapping("/findPrice.do")
-    public String findDoubleByCAndT(Details details, Model model){
-        String price =  detailsService.findDoubleByCAndT(details);
-        System.out.println(price);
-        return price;
+    //根据颜色查商品规格
+    //需要颜色id（color_id）
+    @RequestMapping("/findGuigeByColor.do")
+    public void find2(Integer color_id,HttpServletResponse response){
+       List<GuiGe> guiGeList =  detailsService.findGuiGeByColor(color_id);
+       FastJson_All.toJson(guiGeList,response);
     }
+
+    //根据规格查商品颜色
+    //需要规格id（guige_id）
+    @RequestMapping("/findColorByGuige.do")
+    public void find3(Integer guige_id,HttpServletResponse response){
+        List<Color> colorList = detailsService.findColorByGuiGe(guige_id);
+        FastJson_All.toJson(colorList,response);
+    }
+
 }

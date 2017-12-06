@@ -13,17 +13,68 @@ public class Goods {
     private String url;
     private double price;
     private Integer gSale;
+    private Integer gStock;
+    private double gMaketPrice;
+    private Integer gJiFen;
     private List<Details> detailsList;
+    private List<Color> colorList;
+    private List<GuiGe> guiGeList;
     private List<User> userList;
 
-    public Goods(Integer gId, String gName, Integer categoryId, String url, double price, Integer gSale, List<Details> detailsList) {
+    public Goods(Integer gId, String gName, Integer categoryId, String url, double price, Integer gSale, Integer gStock, double gMaketPrice, Integer gJiFen, List<Details> detailsList, List<Color> colorList, List<GuiGe> guiGeList, List<User> userList) {
         this.gId = gId;
         this.gName = gName;
         this.categoryId = categoryId;
         this.url = url;
         this.price = price;
         this.gSale = gSale;
+        this.gStock = gStock;
+        this.gMaketPrice = gMaketPrice;
+        this.gJiFen = gJiFen;
         this.detailsList = detailsList;
+        this.colorList = colorList;
+        this.guiGeList = guiGeList;
+        this.userList = userList;
+    }
+
+    public List<Color> getColorList() {
+        return colorList;
+    }
+
+    public void setColorList(List<Color> colorList) {
+        this.colorList = colorList;
+    }
+
+    public List<GuiGe> getGuiGeList() {
+        return guiGeList;
+    }
+
+    public void setGuiGeList(List<GuiGe> guiGeList) {
+        this.guiGeList = guiGeList;
+    }
+
+    public Integer getgStock() {
+        return gStock;
+    }
+
+    public void setgStock(Integer gStock) {
+        this.gStock = gStock;
+    }
+
+    public double getgMaketPrice() {
+        return gMaketPrice;
+    }
+
+    public void setgMaketPrice(double gMaketPrice) {
+        this.gMaketPrice = gMaketPrice;
+    }
+
+    public Integer getgJiFen() {
+        return gJiFen;
+    }
+
+    public void setgJiFen(Integer gJiFen) {
+        this.gJiFen = gJiFen;
     }
 
     public List<User> getUserList() {
@@ -99,7 +150,12 @@ public class Goods {
                 ", url='" + url + '\'' +
                 ", price=" + price +
                 ", gSale=" + gSale +
+                ", gStock=" + gStock +
+                ", gMaketPrice=" + gMaketPrice +
+                ", gJiFen=" + gJiFen +
                 ", detailsList=" + detailsList +
+                ", colorList=" + colorList +
+                ", guiGeList=" + guiGeList +
                 ", userList=" + userList +
                 '}';
     }

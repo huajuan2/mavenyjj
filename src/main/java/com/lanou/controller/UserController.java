@@ -147,4 +147,13 @@ public class UserController {
 		//旧密码输入不正确
 		FastJson_All.toJson(res,response);
 	}
+
+	//返回Session
+	@RequestMapping("/getSession")
+	public void Getsession(HttpServletRequest request,HttpServletResponse response){
+		User user = new User(1,"wcl");
+		request.getSession().setAttribute("user",user);
+		FastJson_All.toJson(request.getSession().getAttribute("user"),response);
+	}
 }
+
