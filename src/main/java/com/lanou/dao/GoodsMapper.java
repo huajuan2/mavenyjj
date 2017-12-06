@@ -38,6 +38,15 @@ public interface GoodsMapper {
     //分页查询
     public List<Goods> findGoodsByCategoryIdFenYe(@Param("list")List<Integer> list,int num);
 
+//    模糊查询
     public List<Goods> findByLikeName(String likeName);
 
+//    根据商品Id查商品
+    public Goods findByGid(int gId);
+
+    public List<Goods> findTuangou(int page);
+
+    public List<Goods> findAllTuangou();
+    public List<Goods> findTemai(int page);
+    public List<Goods> findAllTemai();
 }

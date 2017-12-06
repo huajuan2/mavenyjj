@@ -7,10 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h5>${categories}</h5>
-<h5>${childcategories}</h5>
-${tabList}
-<h1>${user}</h1>
-<h1>${prices}</h1>
+
+<form action="http://localhost:8079/shoppingCar/removeBySelect.do">
+    <input type="checkbox" value="1" name="gIds">
+    <input type="checkbox" value="2" name="gIds">
+    <input type="checkbox" value="3" name="gIds">
+    <input type="submit">
+</form>
 </body>
 </html>

@@ -120,6 +120,20 @@ public class GoodsServiceImpl implements GoodsService {
 
     }
 
+    public List<Goods> findTuangou(int page){
+        return goodsMapper.findTuangou(page);
+    }
+
+    public List<Goods> findAllTuangou(){
+        return goodsMapper.findAllTuangou();
+    }
+    public List<Goods> findTemai(int page){
+        return goodsMapper.findTemai(page);
+    }
+    public List<Goods> findAllTemai(){
+        return goodsMapper.findAllTemai();
+    }
+
 }
 
 

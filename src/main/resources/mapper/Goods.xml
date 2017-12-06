@@ -87,8 +87,33 @@
     </select>
 
 
+    <!--模糊查询-->
     <select id="findByLikeName" parameterType="String" resultMap="goodsResult">
         select * from 7jia2_goods where gName like #{likeName}
     </select>
 
+    <!--根据商品Id来找商品-->
+    <select id="findByGid" resultMap="goodsResult" parameterType="int">
+        select * from 7jia2_goods where gId = #{gId}
+    </select>
+
+    <!--查找一批团购商品-->
+    <select id="findTuangou" parameterType="int" resultMap="goodsResult">
+        select * from 7jia2_goods where gTuangou = 1 limit #{page},6;
+    </select>
+
+    <!--查找所有团购商品-->
+    <select id="findAllTuangou" resultMap="goodsResult">
+        select * from 7jia2_goods where gTuangou = 1
+    </select>
+
+    <!--查找特卖商品-->
+    <select id="findTemai"  parameterType="int" resultMap="goodsResult">
+        select * from 7jia2_goods where gTemai = 1 limit #{page},6;
+    </select>
+
+    <!--查找所有特卖商品-->
+    <select id="findAllTemai" resultMap="goodsResult">
+        select * from 7jia2_goods where gTemai = 1
+    </select>
 </mapper>
