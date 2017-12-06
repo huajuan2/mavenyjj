@@ -12,7 +12,16 @@ public class ShoppingCarItem {
     private String size;
     private Double price;
     private Integer num;
+    private Integer gStock;
     private Double subtotal;
+
+    public Integer getgStock() {
+        return gStock;
+    }
+
+    public void setgStock(Integer gStock) {
+        this.gStock = gStock;
+    }
 
     public Integer getgId() {
         return gId;

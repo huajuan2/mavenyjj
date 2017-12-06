@@ -19,4 +19,8 @@ public interface DetailsMapper {
     public List<GuiGe> findGuiGeByColor(Integer color_id);
 
     public List<Color> findColorByGuiGe(Integer guige_id);
+
+    public String findColorBycId(int cId);
+
+    public String findGuigeBygId(int gId);
 }

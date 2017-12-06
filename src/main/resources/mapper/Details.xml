@@ -44,4 +44,14 @@
     <select id="findColorByGuiGe" parameterType="Integer" resultMap="findColorResult">
         SELECT * FROM 7jia2_color WHERE colorId in (SELECT color_id FROM 7jia2_color_guige WHERE guige_id=#{guige_id})
     </select>
+
+    <!--????Id?????-->
+    <select id="findColorBycId" parameterType="int" resultType="String">
+        select colorName from 7jia2_color where colorId = #{cId}
+    </select>
+
+    <!--????Id?????-->
+    <select id="findGuigeBygId" parameterType="int" resultType="String">
+        select guigeName from 7jia2_guigeName where guigeName = #{gId}
+    </select>
 </mapper>

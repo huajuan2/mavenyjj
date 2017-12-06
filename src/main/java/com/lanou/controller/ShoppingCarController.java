@@ -23,8 +23,8 @@ public class ShoppingCarController {
     private ShoppingCarService shoppingCarService;
 
     @RequestMapping("/addToShoppingCar.do")
-    public void addToShoppingCar(int gId, int count, HttpServletRequest request,HttpServletResponse response){
-        boolean result = shoppingCarService.addToShoppingCar(gId,count,request);
+    public void addToShoppingCar(int gId, int count, int colorId, int sizeId, HttpServletRequest request,HttpServletResponse response){
+        boolean result = shoppingCarService.addToShoppingCar(gId,count,colorId,sizeId,request);
         ShoppingCar car = (ShoppingCar)request.getSession().getAttribute("shoppingCar");
         Map<String,Object> map = new HashMap<String,Object>();
         if(result){
