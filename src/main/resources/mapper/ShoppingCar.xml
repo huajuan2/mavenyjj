@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.ShoppingCarMapper">
+
+    <resultMap id="shoppingCarResult" type="ShoppingCarItem">
+            <result column="g_id" property="gId" javaType="int"></result>
+            <result column="num" property="num" javaType="int"></result>
+            <result column="color_id" property="color_id" javaType="int"></result>
+            <result column="guige_id" property="guige_id" javaType="int"></result>
+    </resultMap>
+
+    <select id="findShoppingCarByUid" resultMap="shoppingCarResult" parameterType="int">
+        select * from 7jia2_shoppingCar s1, 7jia2_shoppingCarItem s2 where s1.user_id = #{uId} and s1.sId = s2.s_id
+    </select>
+
+
+</mapper>

@@ -1,5 +1,7 @@
 package com.lanou.service;
 
+import com.lanou.entity.ShoppingCar;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -11,11 +13,13 @@ public interface ShoppingCarService {
 
     public boolean addToShoppingCar(int gId, int count, int colorId, int sizeId, HttpServletRequest request);
 
-    public void addOne(int gId,HttpServletRequest request);
+    public void addOne(int gId,int colorId,int sizeId,HttpServletRequest request);
 
-    public void reduceOne(int gId,HttpServletRequest request);
+    public void reduceOne(int gId,int colorId,int sizeId,HttpServletRequest request);
 
-    public void removeFromShoppingCar(int gId,HttpServletRequest request);
+    public void removeFromShoppingCar(int gId,int colorId,int sizeId,HttpServletRequest request);
 
     public void removeBySelect(HttpServletRequest request);
+
+    public ShoppingCar findShoppingCarByUid(int uId);
 }
