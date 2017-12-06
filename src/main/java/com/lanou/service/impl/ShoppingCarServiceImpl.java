@@ -1,5 +1,6 @@
 package com.lanou.service.impl;
 
+import com.lanou.dao.DetailsMapper;
 import com.lanou.dao.GoodsMapper;
 import com.lanou.entity.Goods;
 import com.lanou.entity.ShoppingCar;
@@ -21,6 +22,8 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
     @Autowired
     private GoodsMapper goodsMapper;
 
+    @Autowired
+    private DetailsMapper detailsMapper;
 
     public boolean addToShoppingCar(int gId, int count, int colorId,int sizeId, HttpServletRequest request) {
 
@@ -30,10 +33,12 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
         Goods goods = goodsMapper.findByGid(gId);
         item.setgId(gId);
         item.setgName(goods.getgName());
-
+        item.setColor(detailsMapper.findColorBycId(colorId));
+        item.setSize(detailsMapper.findGuigeBygId(sizeId));
         item.setImg(goods.getUrl());
         item.setPrice(goods.getPrice());
         item.setNum(count);
+        item.setgStock(goods.getgStock());
         item.setSubtotal(count*goods.getPrice());
 //        形成一个条目
 
