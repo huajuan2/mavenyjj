@@ -8,6 +8,7 @@
     <resultMap id="GoodsResult" type="Goods">
         <id column="gId" property="gId" javaType="int"/>
         <result column="gName" property="gName" jdbcType="VARCHAR"/>
+        <result column="gPrice" property="price"></result>
     </resultMap>
     <select id="findGoodsList" parameterType="Integer" resultMap="GoodsResult">
           SELECT * FROM 7jia2_goods WHERE gId IN (SELECT goods_id FROM 7jia2_user_goods WHERE user_id = #{gId})
