@@ -1,10 +1,7 @@
 package com.lanou.service.impl;
 
 import com.lanou.dao.DetailsMapper;
-import com.lanou.entity.Color;
-import com.lanou.entity.Details;
-import com.lanou.entity.Goods;
-import com.lanou.entity.GuiGe;
+import com.lanou.entity.*;
 import com.lanou.service.DetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +41,11 @@ public class DetailsServiceImp implements DetailsService {
     public List<Color> findColorByGuiGe(Integer guige_id){
         List<Color> colorList = detailsMapper.findColorByGuiGe(guige_id);
         return colorList;
+    };
+
+    public List<GoodsAndTab> findGoodsAndTab(Integer gId){
+        List<GoodsAndTab> goodsAndTabList = detailsMapper.findGoodsAndTab(gId);
+        return  goodsAndTabList;
     };
 }
 

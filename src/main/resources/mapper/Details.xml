@@ -54,4 +54,15 @@
     <select id="findGuigeBygId" parameterType="int" resultType="String">
         select guigeName from 7jia2_guige where guigeId = #{gId}
     </select>
+
+    <resultMap type="GoodsAndTab" id="GoodsAndTabResult">
+        <id column="goods_tabId" property="goods_tabId" javaType="int"/>
+        <result column="goods_tab_goodsId" property="goods_tab_goodsId" javaType="int"/>
+        <result column="goods_tab_tabName" property="goods_tabName" jdbcType="VARCHAR"/>
+        <result column="goods_tab_tabName2" property="goods_tabName2" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="findGoodsAndTab" parameterType="Integer" resultMap="GoodsAndTabResult">
+        SELECT * FROM 7jia2_goods_tab WHERE goods_tab_goodsId =#{gId}
+    </select>
 </mapper>

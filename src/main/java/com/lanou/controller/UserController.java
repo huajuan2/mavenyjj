@@ -61,12 +61,12 @@ public class UserController {
 
 	//登录
 	@RequestMapping("/login.do")
-//	@ResponseBody
+	@ResponseBody
 	public void findUserByNameAndPwd(User user,HttpServletRequest request,HttpServletResponse response) throws UnknownHostException {
 		User user1 = userService.findUserByNameAndPwd(user);
+		System.out.println(user1);
 		boolean result = false;
 		if (user1!=null){
-			request.getSession().setAttribute("user",user);
 			//获取当前时间
 			Date date = new Date();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -76,10 +76,11 @@ public class UserController {
 			InetAddress address = InetAddress.getLocalHost();
 			String addressIp = address.getHostAddress();
 			System.out.println(addressIp);
-			user.setAddressIp(addressIp);
-			user.setLoginDate(loginDate);
-			userService.updateIpAndTime(user);
+			user1.setAddressIp(addressIp);
+			user1.setLoginDate(loginDate);
+			userService.updateIpAndTime(user1);
 			result = true;
+			request.getSession().setAttribute("user1",user1);
 			//登录成功
 		}
 		//登录失败返回登录
@@ -119,7 +120,7 @@ public class UserController {
 		if (session==null){
 			result = false;
 		}
-		request.removeAttribute("user");
+		request.getSession().removeAttribute("user1");
 		//退出成功
 		FastJson_All.toJson(result,response);
 	}
@@ -149,9 +150,9 @@ public class UserController {
 	}
 
 	//返回Session
-	@RequestMapping("/getSession")
+	@RequestMapping("/getSession.do")
 	public void Getsession(HttpServletRequest request,HttpServletResponse response){
-		FastJson_All.toJson(request.getSession().getAttribute("user"),response);
+		FastJson_All.toJson(request.getSession().getAttribute("user1"),response);
 	}
 }
 

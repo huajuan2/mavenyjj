@@ -2,6 +2,7 @@ package com.lanou.dao;
 
 import com.lanou.entity.Color;
 import com.lanou.entity.Goods;
+import com.lanou.entity.GoodsAndTab;
 import com.lanou.entity.GuiGe;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface DetailsMapper {
     public String findColorBycId(int cId);
 
     public String findGuigeBygId(int gId);
+
+    public List<GoodsAndTab> findGoodsAndTab(Integer gId);
 }

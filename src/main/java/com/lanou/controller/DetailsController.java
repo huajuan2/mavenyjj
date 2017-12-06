@@ -1,9 +1,6 @@
 package com.lanou.controller;
 
-import com.lanou.entity.Color;
-import com.lanou.entity.Details;
-import com.lanou.entity.Goods;
-import com.lanou.entity.GuiGe;
+import com.lanou.entity.*;
 import com.lanou.service.DetailsService;
 import com.lanou.util.FastJson_All;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +31,8 @@ public class DetailsController {
         Goods goodss =  detailsService.findGoodsNamePriceImg(gId);
         List<Color> colorList = detailsService.findColor(gId);
         List<GuiGe> guiGeList = detailsService.findGuiGe(gId);
+        List<GoodsAndTab> goodsAndTabList = detailsService.findGoodsAndTab(gId);
+        map.put("goodsAndTabList",goodsAndTabList);
         map.put("goods",goodss);
         map.put("color",colorList);
         map.put("guige",guiGeList);
