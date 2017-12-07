@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.lanou.service.ShoppingCarService;
 import com.lanou.util.FastJson_All;
 import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,10 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
+	@Autowired
+	private ShoppingCarService shoppingCarService;
+
 	@RequestMapping("/findUsers.do")
 	public String finds(Model model) {
 		List<User> users = userService.findUsers();
@@ -81,6 +85,7 @@ public class UserController {
 			userService.updateIpAndTime(user1);
 			result = true;
 			request.getSession().setAttribute("user1",user1);
+			shoppingCarService.prepareShoppingCar(request);
 			//登录成功
 		}
 		//登录失败返回登录

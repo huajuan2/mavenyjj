@@ -10,7 +10,7 @@ public class ShoppingCar {
 
     private List<ShoppingCarItem> items;
 
-    private int count; //总数
+    private int counts; //总数
 
     private Double totalMoney;
 
@@ -34,12 +34,13 @@ public class ShoppingCar {
         this.items = items;
     }
 
-    public int getCount() {
-        return count;
+
+    public int getCounts() {
+        return counts;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setCounts(int counts) {
+        this.counts = counts;
     }
 
     public Double getTotalMoney() {
@@ -66,9 +67,10 @@ public class ShoppingCar {
     public String toString() {
         return "ShoppingCar{" +
                 "items=" + items +
-                ", count=" + count +
+                ", counts=" + counts +
                 ", totalMoney=" + totalMoney +
                 ", kinds=" + kinds +
+                ", uId=" + uId +
                 '}';
     }
 }

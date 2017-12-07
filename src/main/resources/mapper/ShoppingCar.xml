@@ -15,17 +15,24 @@
     <resultMap id="shoppingCarResult" type="ShoppingCar">
         <result column="user_id" property="uId" javaType="int"></result>
         <result column="kinds" property="kinds" javaType="int"></result>
-        <result column="count" property="count" javaType="int"></result>
+        <result column="counts" property="counts" javaType="int"></result>
         <result column="totalMoney" property="totalMoney" javaType="double"></result>
         <collection property="items" ofType="com.lanou.entity.ShoppingCarItem">
             <result column="g_id" property="gId" javaType="int"></result>
             <result column="num" property="num" javaType="int"></result>
+            <result column="s_id" property="s_id" javaType="int"></result>
             <result column="color_id" property="color_id" javaType="int"></result>
             <result column="guige_id" property="guige_id" javaType="int"></result>
         </collection>
     </resultMap>
 
-
+    <!--<resultMap id="shoppingCarItemResult" type="ShoppingCarItem">-->
+        <!--<result column="g_id" property="gId" javaType="int"></result>-->
+        <!--<result column="num" property="num" javaType="int"></result>-->
+        <!--<result column="s_id" property="s_id" javaType="int"></result>-->
+        <!--<result column="color_id" property="color_id" javaType="int"></result>-->
+        <!--<result column="guige_id" property="guige_id" javaType="int"></result>-->
+    <!--</resultMap>-->
 
     <select id="findShoppingCarByUid" resultMap="shoppingCarResult" parameterType="int">
         select * from 7jia2_shoppingCar s1, 7jia2_shoppingCarItem s2 where s1.user_id = #{uId} and s1.sId = s2.s_id
@@ -33,7 +40,39 @@
 
 
     <insert id="addToShoppingCarItem" parameterType="ShoppingCarItem">
-        insert into 7jia2_shoppingCarItem(g_id,num,s_id,color_id,guige_id) values (#{},#{},#{},#{},#{})
+        insert into 7jia2_shoppingCarItem(g_id,num,s_id,color_id,guige_id) values (#{gId},#{num},#{s_id},#{color_id},#{guige_id})
     </insert>
+
+    <!--???????????????-->
+    <insert id="addToShoppingCar" parameterType="ShoppingCar">
+        insert into 7jia2_shoppingCar(user_id,kinds) values(#{uId},#{kinds})
+    </insert>
+
+    <!--?????-->
+    <update id="fillShoppingCar" parameterType="Map">
+        update 7jia2_shoppingCar set kinds = #{kinds},counts=#{counts},totalMoney=#{totalMoney} where sId = #{sId}
+    </update>
+
+    <!--??user_id?sId-->
+    <select id="findSid" parameterType="int" resultType="int">
+        select sId from 7jia2_shoppingCar where user_id = #{userId}
+    </select>
+
+    <!--?????1-->
+    <update id="addOne" parameterType="int">
+        update 7jia2_shoppingCarItem set num = num+1 where s_id = #{0} and g_id=#{1} and color_id =#{2} and guige_id =#{3}
+    </update>
+
+    <update id="reduceOne" parameterType="int">
+        update 7jia2_shoppingCarItem set num = num-1 where s_id = #{0} and g_id=#{1} and color_id =#{2} and guige_id =#{3}
+    </update>
+
+    <delete id="deleteOneKind" parameterType="int">
+        delete from 7jia2_shoppingCarItem where s_id = #{0} and g_id=#{1} and color_id =#{2} and guige_id =#{3}
+    </delete>
+
+    <update id="addMore" parameterType="int">
+        update 7jia2_shoppingCarItem set num = #{0} where s_id = #{1} and g_id=#{2} and color_id =#{3} and guige_id =#{4}
+    </update>
 
 </mapper>

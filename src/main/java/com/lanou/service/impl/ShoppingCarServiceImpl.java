@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Created by lanou on 2017/12/5.
@@ -59,7 +61,7 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
             List<ShoppingCarItem> shoppingCarItems = new ArrayList<ShoppingCarItem>();
             shoppingCarItems.add(item);
             car.setItems(shoppingCarItems);
-            car.setCount(count);
+            car.setCounts(count);
             car.setTotalMoney(count*goods.getPrice());
             car.setKinds(1);
             sc = car;
@@ -77,7 +79,7 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
             if(i==items.size()){
 //                如果购物车里没有这类商品
                 items.add(item);
-                sc.setCount(sc.getCount()+count);
+                sc.setCounts(sc.getCounts()+count);
                 sc.setTotalMoney(sc.getTotalMoney()+count*goods.getPrice());
                 sc.setKinds(sc.getKinds()+1);
             }
@@ -101,7 +103,7 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
                 break;
             }
         }
-        car.setCount(car.getCount()+1);
+        car.setCounts(car.getCounts()+1);
         car.setTotalMoney(car.getTotalMoney()+addMoney);
         request.getSession().setAttribute("shoppingCar",car);
     }
@@ -119,7 +121,7 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
                 break;
             }
         }
-        car.setCount(car.getCount()-1);
+        car.setCounts(car.getCounts()-1);
         car.setTotalMoney(car.getTotalMoney()-reduceMoney);
         request.getSession().setAttribute("shoppingCar",car);
     }
@@ -138,7 +140,7 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
                 break;
             }
         }
-        car.setCount(car.getCount()-removeCount);
+        car.setCounts(car.getCounts()-removeCount);
         car.setTotalMoney(car.getTotalMoney()-removeMoney);
         car.setKinds(car.getKinds()-1);
         request.getSession().setAttribute("shoppingCar",car);
@@ -165,7 +167,7 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
                 }
             }
         }
-        car.setCount(car.getCount()-removeCount);
+        car.setCounts(car.getCounts()-removeCount);
         car.setTotalMoney(car.getTotalMoney()-removeMoney);
         car.setKinds(car.getKinds()-gIds.length);
         request.getSession().setAttribute("shoppingCar",car);
@@ -244,15 +246,27 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
 
         ShoppingCar car = shoppingCarMapper.findShoppingCarByUid(uId);
         if(car == null){
-//            登录的用户的购物车为空
-            List<ShoppingCarItem> items = new ArrayList<ShoppingCarItem>();
-            items.add(item);
-            car.setItems(items);
-            car.setKinds(1);
-            car.setCount(count);
-            car.setTotalMoney(count*goods.getPrice());
+//            登录的用户的购物车为空，这样填加到购物车的话要改动两张表
+            ShoppingCar car2 = new ShoppingCar();
+            car2.setuId(uId);
+            shoppingCarMapper.addToShoppingCar(car2);
+            int sId = shoppingCarMapper.findSid(uId);
+            item.setS_id(sId);
+            shoppingCarMapper.addToShoppingCarItem(item);
+//            List<ShoppingCarItem> items = new ArrayList<ShoppingCarItem>();
+//            items.add(item);
+//            car2.setItems(items);
+//            car2.setKinds(1);
+//            car2.setCounts(count);
+//            car2.setTotalMoney(count*goods.getPrice());
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("sId",sId);
+            map.put("kinds",1);
+            map.put("counts",count);
+            map.put("totalMoney",count*goods.getPrice());
+            shoppingCarMapper.fillShoppingCar(map);
         }else{
-//            登录用的购物车不为空
+//            登录的用户的购物车不为空，这样添加到购物车的话只要改动一张表
             List<ShoppingCarItem> items2 = car.getItems();
             int i=0;
             for(i=0;i<items2.size();i++){
@@ -264,55 +278,161 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
             }
             if(i==items2.size()){
 //                如果购物车里没有这类商品
+                int sid = shoppingCarMapper.findSid(uId);
+                item.setS_id(sid);
+                shoppingCarMapper.addToShoppingCarItem(item);
 
+                Map<String,Object> map = new HashMap<String,Object>();
+                map.put("sId",sid);
+                map.put("kinds",car.getKinds()+1);
+                map.put("counts",car.getCounts()+count);
+                map.put("totalMoney",car.getTotalMoney()+count*goods.getPrice());
+                shoppingCarMapper.fillShoppingCar(map);
             }
 
         }
 
         return result;
     }
-//    public boolean addToShoppingCarWithUser(int gId, int count, int colorId,int sizeId){
-//        boolean result = true;
-//        ShoppingCarItem item = new ShoppingCarItem();
-//        Goods goods = goodsMapper.findByGid(gId);
-//        item.setgId(gId);
-//        item.setgName(goods.getgName());
-//        item.setColor(detailsMapper.findColorBycId(colorId));
-//        item.setSize(detailsMapper.findGuigeBygId(sizeId));
-//        item.setImg(goods.getUrl());
-//        item.setPrice(goods.getPrice());
-//        item.setNum(count);
-//        item.setgStock(goods.getgStock());
-//        item.setSubtotal(count*goods.getPrice());
-//
-//        List<ShoppingCarItem> items = shoppingCarMapper.findShoppingCarByUid(gId);
-//        ShoppingCar car = new ShoppingCar();
-//        if(items ==null){
-////            购物车为空
-//            List<ShoppingCarItem> items2 = new ArrayList<ShoppingCarItem>();
-//            items2.add(item);
-//            car.setItems(items2);
-//            car.setKinds(1);
-//            car.setCount(count);
-//            car.setTotalMoney(count*goods.getPrice());
-//        }else{
-////            购物车不为空
-//            int i=0;
-//            for(i=0;i<items.size();i++){
-//                if(gId == items.get(i).getgId()){
-////                    买过
-//                    result = false;
-//                    break;
-//                }
-//            }
-//            if(i==items.size()){
-////                没买过
-//                items.add(item);
-//                car.setKinds(car.getKinds()+1);
-//
-//            }
-//        }
-//
-//        return result;
-//    }
+
+    public void addOneWithUser(int gId, int colorId,int sizeId,int uId){
+        int sId = shoppingCarMapper.findSid(uId);
+        ShoppingCar car = shoppingCarMapper.findShoppingCarByUid(uId);
+        List<ShoppingCarItem> items = car.getItems();
+        for(int i=0;i<items.size();i++){
+            if(gId==items.get(i).getgId() && (colorId==items.get(i).getColor_id())
+                    && (sizeId==items.get(i).getGuige_id())){
+                Goods goods = goodsMapper.findByGid(gId);
+//                items.get(i).setNum(items.get(i).getNum()+1);
+                shoppingCarMapper.addOne(sId,gId,colorId,sizeId);
+                Map<String,Object> map = new HashMap<String,Object>();
+                map.put("sId",sId);
+                map.put("kinds",car.getKinds());
+                map.put("counts",car.getCounts()+1);
+                map.put("totalMoney",car.getTotalMoney()+goods.getPrice());
+                shoppingCarMapper.fillShoppingCar(map);
+            }
+        }
+    }
+
+    public void reduceOneWithUser(int gId, int colorId,int sizeId,int uId){
+        int sId = shoppingCarMapper.findSid(uId);
+        ShoppingCar car = shoppingCarMapper.findShoppingCarByUid(uId);
+        List<ShoppingCarItem> items = car.getItems();
+        for(int i=0;i<items.size();i++){
+            if(gId==items.get(i).getgId() && (colorId==items.get(i).getColor_id())
+                    && (sizeId==items.get(i).getGuige_id())){
+                Goods goods = goodsMapper.findByGid(gId);
+//                items.get(i).setNum(items.get(i).getNum()+1);
+                shoppingCarMapper.reduceOne(sId,gId,colorId,sizeId);
+                Map<String,Object> map = new HashMap<String,Object>();
+                map.put("sId",sId);
+                map.put("kinds",car.getKinds());
+                map.put("counts",car.getCounts()-1);
+                map.put("totalMoney",car.getTotalMoney()-goods.getPrice());
+                shoppingCarMapper.fillShoppingCar(map);
+            }
+        }
+    }
+
+    public void deleteOneWithUser(int gId, int colorId,int sizeId,int uId){
+        int sId = shoppingCarMapper.findSid(uId);
+        ShoppingCar car = shoppingCarMapper.findShoppingCarByUid(uId);
+        List<ShoppingCarItem> items = car.getItems();
+        int deleteCount = 0;
+        for(int i=0;i<items.size();i++){
+            if(gId==items.get(i).getgId() && (colorId==items.get(i).getColor_id())
+                    && (sizeId==items.get(i).getGuige_id())){
+                deleteCount = items.get(i).getNum();
+                break;
+            }
+        }
+        Goods goods = goodsMapper.findByGid(gId);
+        shoppingCarMapper.deleteOneKind(sId,gId,colorId,sizeId);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("sId",sId);
+        map.put("kinds",car.getKinds()-1);
+        map.put("counts",car.getCounts()-deleteCount);
+        map.put("totalMoney",car.getTotalMoney()-goods.getPrice()*deleteCount);
+        shoppingCarMapper.fillShoppingCar(map);
+    }
+
+    public void prepareShoppingCar(HttpServletRequest request){
+        User user = (User)request.getSession().getAttribute("user1");
+        ShoppingCar car = (ShoppingCar)request.getSession().getAttribute("shoppingCar");//session中的购物车
+        int uId = user.getuId();
+        ShoppingCar shoppingCar = shoppingCarMapper.findShoppingCarByUid(uId);//用户的购物车
+        if(shoppingCar != null && car != null){
+            int sId = shoppingCarMapper.findSid(uId);
+            List<ShoppingCarItem> items = shoppingCar.getItems();//用户的购物车
+            List<ShoppingCarItem> items2 = car.getItems();//session中的购物车
+            for(int i=0;i<items2.size();i++){
+                shoppingCar = shoppingCarMapper.findShoppingCarByUid(uId); //之所以要重新获取shoppingCar是因为每循环一次导致数据库里面的shoppingCar变动了
+                int j=0;
+                for(j=0;j<items.size();j++){
+                    if(items2.get(i).getgId()==items.get(j).getgId() &&
+                            items2.get(i).getColor_id() == items.get(j).getColor_id() &&
+                            items2.get(i).getGuige_id() == items.get(j).getGuige_id()){
+//                        session购物车的东西和用户购物车的东西重复了，改一张表
+                            int gId = items2.get(i).getgId();
+                            int addNum = items2.get(i).getNum();//session购物车一种商品的个数
+                            Goods goods = goodsMapper.findByGid(gId);
+                          //  double addMoney = addNum*goods.getPrice();
+                            shoppingCarMapper.addMore(items.get(j).getNum()+addNum,sId,gId,items2.get(i).getColor_id(),items2.get(i).getGuige_id());
+//                        Map<String,Object> map = new HashMap<String,Object>();
+//                        map.put("sId",sId);
+//                        map.put("kinds",shoppingCar.getKinds());
+//                        map.put("counts",shoppingCar.getCounts()+addNum);
+//                        map.put("totalMoney",shoppingCar.getTotalMoney()+addMoney);
+//                        shoppingCarMapper.fillShoppingCar(map);
+                        break;
+                    }
+                }
+                if(j==items.size()){
+//                    session购物车的东西和用户购物车的东西不重复
+                    items2.get(i).setS_id(sId);
+                    shoppingCarMapper.addToShoppingCarItem(items2.get(i));
+//                    int gId = items2.get(i).getgId();
+//                    Goods goods = goodsMapper.findByGid(gId);
+//                    Map<String,Object> map = new HashMap<String,Object>();
+//                    map.put("sId",sId);
+//                    map.put("kinds",shoppingCar.getKinds()+1);
+//                    map.put("counts",shoppingCar.getCounts()+items2.get(i).getNum());
+//                    map.put("totalMoney",shoppingCar.getTotalMoney()+ items2.get(i).getNum()*goods.getPrice());
+//                    shoppingCarMapper.fillShoppingCar(map);
+                }
+                Goods goods = goodsMapper.findByGid(items2.get(i).getgId());
+                int addcount = items2.get(i).getNum();
+                double addmoney = items2.get(i).getNum()*goods.getPrice();
+                Map<String,Object> map = new HashMap<String,Object>();
+                map.put("sId",sId);
+                map.put("counts",shoppingCar.getCounts()+addcount);
+                map.put("totalMoney",shoppingCar.getTotalMoney()+addmoney);
+                if(j==items.size()){
+                    map.put("kinds",shoppingCar.getKinds()+1);
+                }else{
+                    map.put("kinds",shoppingCar.getKinds());
+                }
+                shoppingCarMapper.fillShoppingCar(map);
+            }
+
+        }else if(shoppingCar == null && car !=null){
+                car.setuId(uId);
+                shoppingCarMapper.addToShoppingCar(car);
+            int sId = shoppingCarMapper.findSid(uId);
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("sId",sId);
+            map.put("kinds",car.getKinds());
+            map.put("counts",car.getCounts());
+            map.put("totalMoney",car.getTotalMoney());
+            shoppingCarMapper.fillShoppingCar(map);
+
+                for(int i=0;i<car.getItems().size();i++){
+                    car.getItems().get(i).setS_id(sId);
+                    shoppingCarMapper.addToShoppingCarItem(car.getItems().get(i));
+                }
+        }
+
+    }
+
 }

@@ -8,6 +8,7 @@ public class ShoppingCarItem {
     private Integer gId;
     private Integer color_id;
     private Integer guige_id;
+    private Integer s_id;
 
     private String gName;
     private String img;
@@ -17,6 +18,14 @@ public class ShoppingCarItem {
     private Integer num;
     private Integer gStock;
     private Double subtotal;
+
+    public Integer getS_id() {
+        return s_id;
+    }
+
+    public void setS_id(Integer s_id) {
+        this.s_id = s_id;
+    }
 
     public Integer getColor_id() {
         return color_id;

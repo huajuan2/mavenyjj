@@ -22,4 +22,12 @@ public interface ShoppingCarService {
     public void removeBySelect(HttpServletRequest request);
 
     public ShoppingCar findShoppingCarByUid(int uId);
+
+    public boolean addToShoppingCarWithUser(int gId, int count, int colorId, int sizeId,int uId);
+
+    public void addOneWithUser(int gId, int colorId,int sizeId,int uId);
+    public void reduceOneWithUser(int gId, int colorId,int sizeId,int uId);
+    public void deleteOneWithUser(int gId, int colorId,int sizeId,int uId);
+
+    public void prepareShoppingCar(HttpServletRequest request);
 }
