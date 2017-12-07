@@ -1,6 +1,7 @@
 package com.lanou.controller;
 
 import com.lanou.entity.ShoppingCar;
+import com.lanou.entity.User;
 import com.lanou.service.ShoppingCarService;
 import com.lanou.util.FastJson_All;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,27 +43,39 @@ public class ShoppingCarController {
 
     @RequestMapping("/findShoppingCar.do")
     public void findShoppingCar(HttpServletRequest request, HttpServletResponse response){
+       // User user = (User)request.getSession().getAttribute("user");
+//        User user1 = new User();
+//        user1.setuId(1);
+//        request.getSession().setAttribute("user",user1);
+//        if(user1 == null){
+//            ShoppingCar car = (ShoppingCar)request.getSession().getAttribute("shoppingCar");
+//            FastJson_All.toJson(car,response);
+//        }else{
+//            int uId = user1.getuId();
+//            FastJson_All.toJson(shoppingCarService.findShoppingCarByUid(uId),response);
+//        }
+
         ShoppingCar car = (ShoppingCar)request.getSession().getAttribute("shoppingCar");
         FastJson_All.toJson(car,response);
     }
 
     @RequestMapping("/addOne.do")
-    public void addOne(int gId,HttpServletRequest request,HttpServletResponse response){
-        shoppingCarService.addOne(gId,request);
+    public void addOne(int gId,int colorId, int sizeId,HttpServletRequest request,HttpServletResponse response){
+        shoppingCarService.addOne(gId,colorId,sizeId,request);
         ShoppingCar car = (ShoppingCar)request.getSession().getAttribute("shoppingCar");
         FastJson_All.toJson(car,response);
     }
 
     @RequestMapping("/reduceOne.do")
-    public void reduceOne(int gId,HttpServletRequest request,HttpServletResponse response){
-        shoppingCarService.reduceOne(gId,request);
+    public void reduceOne(int gId,int colorId, int sizeId,HttpServletRequest request,HttpServletResponse response){
+        shoppingCarService.reduceOne(gId,colorId,sizeId,request);
         ShoppingCar car = (ShoppingCar)request.getSession().getAttribute("shoppingCar");
         FastJson_All.toJson(car,response);
     }
 
     @RequestMapping("/removeOneKind.do")
-    public void removeOneKind(int gId,HttpServletRequest request,HttpServletResponse response){
-        shoppingCarService.removeFromShoppingCar(gId,request);
+    public void removeOneKind(int gId,int colorId, int sizeId,HttpServletRequest request,HttpServletResponse response){
+        shoppingCarService.removeFromShoppingCar(gId,colorId,sizeId,request);
         ShoppingCar car = (ShoppingCar)request.getSession().getAttribute("shoppingCar");
         FastJson_All.toJson(car,response);
     }

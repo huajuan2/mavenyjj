@@ -6,6 +6,9 @@ package com.lanou.entity;
 public class ShoppingCarItem {
 
     private Integer gId;
+    private Integer color_id;
+    private Integer guige_id;
+
     private String gName;
     private String img;
     private String color;
@@ -14,6 +17,22 @@ public class ShoppingCarItem {
     private Integer num;
     private Integer gStock;
     private Double subtotal;
+
+    public Integer getColor_id() {
+        return color_id;
+    }
+
+    public void setColor_id(Integer color_id) {
+        this.color_id = color_id;
+    }
+
+    public Integer getGuige_id() {
+        return guige_id;
+    }
+
+    public void setGuige_id(Integer guige_id) {
+        this.guige_id = guige_id;
+    }
 
     public Integer getgStock() {
         return gStock;

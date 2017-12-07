@@ -1,9 +1,6 @@
 package com.lanou.service;
 
-import com.lanou.entity.Color;
-import com.lanou.entity.Details;
-import com.lanou.entity.Goods;
-import com.lanou.entity.GuiGe;
+import com.lanou.entity.*;
 
 import java.util.List;
 
@@ -20,4 +17,6 @@ public interface DetailsService {
     public List<GuiGe> findGuiGeByColor(Integer color_id);
     //通过规格找到颜色
     public List<Color> findColorByGuiGe(Integer guige_id);
+    //通过商品Id查商品详情
+    public List<GoodsAndTab> findGoodsAndTab(Integer gId);
 }

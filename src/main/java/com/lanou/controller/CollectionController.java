@@ -44,7 +44,7 @@ public class CollectionController {
     @RequestMapping("/addCollection.do")
 //    @ResponseBody
     public void addCollection(Integer uId, Integer gId, HttpServletRequest request,HttpServletResponse response){
-        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user1");
         int num = 0;
         if (user==null){
 //          String login = "请登录";
