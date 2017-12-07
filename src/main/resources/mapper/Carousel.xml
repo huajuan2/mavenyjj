@@ -8,9 +8,16 @@
     <resultMap type="Carousel" id="carouselResult">
         <id column="cId" property="cId" javaType="int"/>
         <result column="url" property="cName" jdbcType="VARCHAR"/>
+        <result column="floor_id" property="floor_id" javaType="int"/>
     </resultMap>
 
     <select id="selectRandom" parameterType="int" resultMap="carouselResult">
-        select * from 7jia2_carousel order by rand() limit #{num}
+        select * from 7jia2_carousel where floor_id = 0 order by rand() limit #{num}
     </select>
+
+    <select id="selectFloorRandom" resultMap="carouselResult">
+        select * from 7jia2_carousel where floor_id = #{0} order by rand() limit #{1}
+    </select>
+
+
 </mapper>

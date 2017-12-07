@@ -10,4 +10,8 @@ import java.util.List;
 public interface CarouselMapper {
 
     public List<Carousel> selectRandom(int num);
+
+    //楼层的轮播图
+    public List<Carousel> selectFloorRandom(int floor_id,int num);
+
 }

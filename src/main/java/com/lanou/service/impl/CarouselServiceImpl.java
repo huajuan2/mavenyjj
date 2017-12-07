@@ -24,4 +24,15 @@ public class CarouselServiceImpl implements CarouselService{
         System.out.println("num:"+num);
         return carouselMapper.selectRandom(num);
     }
+
+    //楼层的轮播图
+    public List<Carousel> selectFloorRandom(int floor_id){
+
+        int num = 3;
+
+        List<Carousel> carouselList = carouselMapper.selectFloorRandom(floor_id,num);
+
+        return carouselList;
+    }
+
 }
