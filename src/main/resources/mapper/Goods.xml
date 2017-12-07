@@ -11,6 +11,7 @@
         <result column="gCategory_id" property="categoryId" javaType="int"/>
         <result column="gImg" property="url" jdbcType="VARCHAR"/>
         <result column="gPrice" property="price" javaType="double"/>
+        <result column="gMaketPrice" property="gMaketPrice" javaType="double"/>
         <result column="gSale" property="gSale" javaType="int"/>
         <result column="gStock" property="gStock" javaType="int"/>
         <collection property="detailsList" ofType="com.lanou.entity.Details">

@@ -135,7 +135,13 @@ public class GoodsController {
 
         List<Goods> goodsList = goodsService.findGoodsById(map);
 
-        FastJson_All.toJson(goodsList,response);
+        Map<String,Object> maps = new HashMap<String,Object>();
+        Map<String,Object> goodsMap = new HashMap<String,Object>();
+        goodsMap.put("size",goodsList.size());
+        goodsMap.put("goodsList",goodsList);
+        maps.put("goods",goodsMap);
+
+        FastJson_All.toJson(maps,response);
 
     }
 
@@ -147,8 +153,10 @@ public class GoodsController {
         List<Goods> goodsList = goodsService.findGoodsByBrandId(categoryId,brandId);
 
         Map<String,Object> map = new HashMap<String,Object>();
-        map.put("size",goodsList.size());
-        map.put("goodsList",goodsList);
+        Map<String,Object> goodsMap = new HashMap<String,Object>();
+        goodsMap.put("size",goodsList.size());
+        goodsMap.put("goodsList",goodsList);
+        map.put("goods",goodsMap);
 
         FastJson_All.toJson(map,response);
 
