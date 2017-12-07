@@ -21,8 +21,9 @@ public class Goods {
     private List<Color> colorList;
     private List<GuiGe> guiGeList;
     private List<User> userList;
+    private List<Img> imgList;
 
-    public Goods(Integer gId, String gName, Integer brandId, Integer categoryId, String url, double price, Integer gSale, Integer gStock, double gMaketPrice, Integer gJiFen, List<Details> detailsList, List<Color> colorList, List<GuiGe> guiGeList, List<User> userList) {
+    public Goods(Integer gId, String gName, Integer brandId, Integer categoryId, String url, double price, Integer gSale, Integer gStock, double gMaketPrice, Integer gJiFen, List<Details> detailsList, List<Color> colorList, List<GuiGe> guiGeList, List<User> userList, List<Img> imgList) {
         this.gId = gId;
         this.gName = gName;
         this.brandId = brandId;
@@ -37,22 +38,64 @@ public class Goods {
         this.colorList = colorList;
         this.guiGeList = guiGeList;
         this.userList = userList;
+        this.imgList = imgList;
     }
 
-    public List<Color> getColorList(List<Color> colorList) {
-        return colorList;
+
+    public Integer getgId() {
+        return gId;
     }
 
-    public void setColorList(List<Color> colorList) {
-        this.colorList = colorList;
+    public void setgId(Integer gId) {
+        this.gId = gId;
     }
 
-    public List<GuiGe> getGuiGeList() {
-        return guiGeList;
+    public String getgName() {
+        return gName;
     }
 
-    public void setGuiGeList(List<GuiGe> guiGeList) {
-        this.guiGeList = guiGeList;
+    public void setgName(String gName) {
+        this.gName = gName;
+    }
+
+    public Integer getBrandId() {
+        return brandId;
+    }
+
+    public void setBrandId(Integer brandId) {
+        this.brandId = brandId;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Integer getgSale() {
+        return gSale;
+    }
+
+    public void setgSale(Integer gSale) {
+        this.gSale = gSale;
     }
 
     public Integer getgStock() {
@@ -77,57 +120,6 @@ public class Goods {
 
     public void setgJiFen(Integer gJiFen) {
         this.gJiFen = gJiFen;
-
-        this.userList = userList;
-
-    }
-
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public Integer getgId() {
-        return gId;
-    }
-
-    public void setgId(Integer gId) {
-        this.gId = gId;
-    }
-
-    public String getgName() {
-        return gName;
-    }
-
-    public void setgName(String gName) {
-        this.gName = gName;
-    }
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
     }
 
     public List<Details> getDetailsList() {
@@ -138,19 +130,36 @@ public class Goods {
         this.detailsList = detailsList;
     }
 
-    public Integer getgSale() {
-        return gSale;
-    }
-    public Integer getBrandId() {
-        return brandId;
+    public List<Color> getColorList() {
+        return colorList;
     }
 
-    public void setBrandId(Integer brandId) {
-        this.brandId = brandId;
+    public void setColorList(List<Color> colorList) {
+        this.colorList = colorList;
     }
 
-    public void setgSale(Integer gSale) {
-        this.gSale = gSale;
+    public List<GuiGe> getGuiGeList() {
+        return guiGeList;
+    }
+
+    public void setGuiGeList(List<GuiGe> guiGeList) {
+        this.guiGeList = guiGeList;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
+    public List<Img> getImgList() {
+        return imgList;
+    }
+
+    public void setImgList(List<Img> imgList) {
+        this.imgList = imgList;
     }
 
     @Override
@@ -170,6 +179,7 @@ public class Goods {
                 ", colorList=" + colorList +
                 ", guiGeList=" + guiGeList +
                 ", userList=" + userList +
+                ", imgList=" + imgList +
                 '}';
     }
 

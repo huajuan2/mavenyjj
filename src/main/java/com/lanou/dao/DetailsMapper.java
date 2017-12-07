@@ -1,9 +1,6 @@
 package com.lanou.dao;
 
-import com.lanou.entity.Color;
-import com.lanou.entity.Goods;
-import com.lanou.entity.GoodsAndTab;
-import com.lanou.entity.GuiGe;
+import com.lanou.entity.*;
 
 import java.util.List;
 
@@ -26,4 +23,8 @@ public interface DetailsMapper {
     public String findGuigeBygId(int gId);
 
     public List<GoodsAndTab> findGoodsAndTab(Integer gId);
+
+    public List<Img> findTopImg(Integer gId);
+
+    public List<Img> findFootImg(Integer gId);
 }

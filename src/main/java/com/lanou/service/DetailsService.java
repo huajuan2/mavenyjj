@@ -19,4 +19,8 @@ public interface DetailsService {
     public List<Color> findColorByGuiGe(Integer guige_id);
     //通过商品Id查商品详情
     public List<GoodsAndTab> findGoodsAndTab(Integer gId);
+    //通过id查上面的图片
+    public List<Img> findTopImg(Integer gId);
+    //通过id查下面的图片
+    public List<Img> findFootImg(Integer gId);
 }

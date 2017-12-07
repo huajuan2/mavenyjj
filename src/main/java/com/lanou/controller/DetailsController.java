@@ -32,10 +32,14 @@ public class DetailsController {
         List<Color> colorList = detailsService.findColor(gId);
         List<GuiGe> guiGeList = detailsService.findGuiGe(gId);
         List<GoodsAndTab> goodsAndTabList = detailsService.findGoodsAndTab(gId);
+        List<Img> imgTopList = detailsService.findTopImg(gId);
+        List<Img> imgFootList = detailsService.findFootImg(gId);
         map.put("goodsAndTabList",goodsAndTabList);
         map.put("goods",goodss);
         map.put("color",colorList);
         map.put("guige",guiGeList);
+        map.put("imgTop",imgTopList);
+        map.put("imgFoot",imgFootList);
         FastJson_All.toJson(map,response);
     }
 

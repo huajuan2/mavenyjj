@@ -50,11 +50,15 @@
 		UPDATE 7jia2_user SET username=#{username},name=#{name},sex=#{sex},birthDate=#{birthDate},qq=#{qq} where uId=#{uId}
 	</update>
 
-	<update id="updatePassword" parameterType="String">
-		UPDATE 7jia2_user u SET u.password = #{newpassword}
+	<update id="updatePassword" parameterType="User">
+		UPDATE 7jia2_user u SET u.password = #{newpassword} where uId=#{uId}
 	</update>
 
 	<update id="updateIpAndTime" parameterType="User">
 		UPDATE 7jia2_user SET loginDate=#{loginDate},addressIp=#{addressIp} where username=#{username}
+	</update>
+
+	<update id="updateHeadImgUrl" parameterType="User">
+		UPDATE 7jia2_user SET headImgUrl=#{headImgUrl} where uId =#{uId}
 	</update>
 </mapper>
