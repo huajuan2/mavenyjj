@@ -191,7 +191,7 @@ public class UserController {
 			FileUtils.copyInputStreamToFile(file.getInputStream(),files);
 			user.setHeadImgUrl(headImgUrl);
 			userService.updateHeadImgUrl(user);
-		} catch (IOException e) {
+ 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
