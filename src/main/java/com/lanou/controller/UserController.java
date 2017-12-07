@@ -122,7 +122,7 @@ public class UserController {
 	}
 
 	//修改用户名
-	@RequestMapping("/updateUserName.do")
+	@RequestMapping("/updateUserName")
 	public void updateUserName(User user,HttpServletResponse response){
 		boolean result = false;
 		System.out.println(user);
@@ -185,7 +185,7 @@ public class UserController {
 		//user+userid
 			//xiangce
 				//xianggcetupian
-		String headImgUrl = "/Seven_Two/headUrl/user"+user.getuId()+"/"+user.getuId()+".jpg";
+		String headImgUrl = "/Seven_Two/resource/headUrl/user"+user.getuId()+"/"+user.getuId()+".jpg";
 		File files = new File(headImgUrl);
 		try {
 			FileUtils.copyInputStreamToFile(file.getInputStream(),files);
