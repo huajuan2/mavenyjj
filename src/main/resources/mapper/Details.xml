@@ -52,6 +52,6 @@
 
     <!--????Id?????-->
     <select id="findGuigeBygId" parameterType="int" resultType="String">
-        select guigeName from 7jia2_guigeName where guigeName = #{gId}
+        select guigeName from 7jia2_guige where guigeName = #{gId}
     </select>
 </mapper>
