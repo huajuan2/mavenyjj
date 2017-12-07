@@ -14,7 +14,7 @@ public class User {
 	private String phone;
 	private String name;
 	private String sex;
-	@DateTimeFormat(pattern="yyyy-MM-dd hh-mm-s")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date birthDate;
 	private String qq;
 	private List<Goods> goodsList;
@@ -26,7 +26,7 @@ public class User {
 		super();
 	}
 
-	public User(Integer uId, String username) {
+	public User(Integer uId, String username, String password, String phone, String name, String sex, Date birthDate, String qq, List<Goods> goodsList, String addressIp, String loginDate, String headImgUrl) {
 		this.uId = uId;
 		this.username = username;
 		this.password = password;
@@ -38,22 +38,7 @@ public class User {
 		this.goodsList = goodsList;
 		this.addressIp = addressIp;
 		this.loginDate = loginDate;
-	}
-
-	public String getHeadImgUrl() {
-		return headImgUrl;
-	}
-
-	public void setHeadImgUrl(String headImgUrl) {
 		this.headImgUrl = headImgUrl;
-	}
-
-	public List<Goods> getGoodsList() {
-		return goodsList;
-	}
-
-	public void setGoodsList(List<Goods> goodsList) {
-		this.goodsList = goodsList;
 	}
 
 	public Integer getuId() {
@@ -121,6 +106,14 @@ public class User {
 		this.qq = qq;
 	}
 
+	public List<Goods> getGoodsList() {
+		return goodsList;
+	}
+
+	public void setGoodsList(List<Goods> goodsList) {
+		this.goodsList = goodsList;
+	}
+
 	public String getAddressIp() {
 		return addressIp;
 	}
@@ -129,12 +122,21 @@ public class User {
 		this.addressIp = addressIp;
 	}
 
+
 	public String getLoginDate() {
 		return loginDate;
 	}
 
 	public void setLoginDate(String loginDate) {
 		this.loginDate = loginDate;
+	}
+
+	public String getHeadImgUrl() {
+		return headImgUrl;
+	}
+
+	public void setHeadImgUrl(String headImgUrl) {
+		this.headImgUrl = headImgUrl;
 	}
 
 	@Override

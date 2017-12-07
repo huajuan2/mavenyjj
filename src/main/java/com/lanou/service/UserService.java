@@ -24,4 +24,6 @@ public interface UserService {
 	public void updateIpAndTime(User user);
 
 	public boolean updateHeadImgUrl(User user);
+
+	public boolean updateUserName(User user);
 }

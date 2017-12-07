@@ -121,6 +121,18 @@ public class UserController {
 		FastJson_All.toJson(res,response);
 	}
 
+	//修改用户名
+	@RequestMapping("/updateUserName.do")
+	public void updateUserName(User user,HttpServletResponse response){
+		boolean result = false;
+		System.out.println(user);
+		boolean results = userService.updateUserName(user);
+		if (results){
+			result = true;
+		}
+		FastJson_All.toJson(result,response);
+	}
+
 	//退出登录
 	@RequestMapping("/exit.do")
 //	@ResponseBody

@@ -66,4 +66,8 @@ public class UserServiceImpl implements UserService{
 	public boolean updateHeadImgUrl(User user){
 		return userMapper.updateHeadImgUrl(user);
 	};
+
+	public boolean updateUserName(User user){
+		return userMapper.updateUserName(user);
+	};
 }

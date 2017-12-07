@@ -61,4 +61,8 @@
 	<update id="updateHeadImgUrl" parameterType="User">
 		UPDATE 7jia2_user SET headImgUrl=#{headImgUrl} where uId =#{uId}
 	</update>
+
+	<update id="updateUserName" parameterType="User">
+		UPDATE 7jia2_user SET username=#{username} where uId=#{uId}
+	</update>
 </mapper>
