@@ -8,11 +8,20 @@
 </head>
 <body>
 
-<form action="http://localhost:8079/shoppingCar/removeBySelect.do">
-    <input type="checkbox" value="1" name="gIds">
-    <input type="checkbox" value="2" name="gIds">
-    <input type="checkbox" value="3" name="gIds">
-    <input type="submit">
-</form>
+
 </body>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script>
+
+    $.ajax({
+        type:"post",
+        url:"http://localhost:8079/user/getSession.do",
+        async:true,
+        success:function (data) {
+            console.log(data);
+        }
+
+    })
+
+</script>
 </html>

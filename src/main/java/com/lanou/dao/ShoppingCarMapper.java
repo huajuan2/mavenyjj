@@ -1,5 +1,6 @@
 package com.lanou.dao;
 
+import com.lanou.entity.ShoppingCar;
 import com.lanou.entity.ShoppingCarItem;
 
 import java.util.List;
@@ -10,5 +11,5 @@ import java.util.List;
 public interface ShoppingCarMapper {
 
 
-    public List<ShoppingCarItem> findShoppingCarByUid(int uId);
+    public ShoppingCar findShoppingCarByUid(int uId);
 }

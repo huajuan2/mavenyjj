@@ -43,20 +43,17 @@ public class ShoppingCarController {
 
     @RequestMapping("/findShoppingCar.do")
     public void findShoppingCar(HttpServletRequest request, HttpServletResponse response){
-       // User user = (User)request.getSession().getAttribute("user");
-//        User user1 = new User();
-//        user1.setuId(1);
-//        request.getSession().setAttribute("user",user1);
-//        if(user1 == null){
-//            ShoppingCar car = (ShoppingCar)request.getSession().getAttribute("shoppingCar");
-//            FastJson_All.toJson(car,response);
-//        }else{
-//            int uId = user1.getuId();
-//            FastJson_All.toJson(shoppingCarService.findShoppingCarByUid(uId),response);
-//        }
+        User user = (User)request.getSession().getAttribute("user1");
+        if(user == null){
+            ShoppingCar car = (ShoppingCar)request.getSession().getAttribute("shoppingCar");
+            FastJson_All.toJson(car,response);
+        }else{
+            int uId = user.getuId();
+            FastJson_All.toJson(shoppingCarService.findShoppingCarByUid(uId),response);
+        }
 
-        ShoppingCar car = (ShoppingCar)request.getSession().getAttribute("shoppingCar");
-        FastJson_All.toJson(car,response);
+//        ShoppingCar car = (ShoppingCar)request.getSession().getAttribute("shoppingCar");
+//        FastJson_All.toJson(car,response);
     }
 
     @RequestMapping("/addOne.do")

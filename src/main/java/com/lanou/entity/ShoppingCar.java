@@ -16,6 +16,16 @@ public class ShoppingCar {
 
     private int kinds;  //商品种类数
 
+    private int uId; //用户id
+
+    public int getuId() {
+        return uId;
+    }
+
+    public void setuId(int uId) {
+        this.uId = uId;
+    }
+
     public List<ShoppingCarItem> getItems() {
         return items;
     }

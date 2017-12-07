@@ -174,14 +174,42 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
 //  ************下面是登录的情况***************
 
     public ShoppingCar findShoppingCarByUid(int uId) {
-        List<ShoppingCarItem> items = shoppingCarMapper.findShoppingCarByUid(uId);
-        if(items == null){
+//        List<ShoppingCarItem> items = shoppingCarMapper.findShoppingCarByUid(uId);
+//        if(items == null){
+//            return null;
+//        }
+//        double totalMoney = 0;
+//        int count = 0;
+//        for (int i = 0;i<items.size();i++){
+//            int gId = items.get(i).getgId();
+//            Goods goods = goodsMapper.findByGid(gId);
+//            items.get(i).setgName(goods.getgName());
+//            items.get(i).setImg(goods.getUrl());
+//            items.get(i).setPrice(goods.getPrice());
+//            items.get(i).setgStock(goods.getgStock());
+//            items.get(i).setColor(detailsMapper.findColorBycId(items.get(i).getColor_id()));
+//            items.get(i).setSize(detailsMapper.findGuigeBygId(items.get(i).getGuige_id()));
+//            items.get(i).setSubtotal((items.get(i).getNum())*(goods.getPrice()));
+//            totalMoney = totalMoney+(items.get(i).getNum())*(goods.getPrice());
+//            count = count + items.get(i).getNum();
+//        }
+//        ShoppingCar car = new ShoppingCar();
+//        car.setItems(items);
+//        car.setKinds(items.size());
+//        car.setTotalMoney(totalMoney);
+//        car.setCount(count);
+//        return car;
+
+        ShoppingCar car =  shoppingCarMapper.findShoppingCarByUid(uId);
+        if(car == null){
             return null;
         }
+        List<ShoppingCarItem> items = car.getItems();
         double totalMoney = 0;
         int count = 0;
-        for (int i = 0;i<items.size();i++){
+        for(int i=0;i<items.size();i++){
             int gId = items.get(i).getgId();
+//            根据gId来填充ShoppingCarItem
             Goods goods = goodsMapper.findByGid(gId);
             items.get(i).setgName(goods.getgName());
             items.get(i).setImg(goods.getUrl());
@@ -191,22 +219,21 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
             items.get(i).setSize(detailsMapper.findGuigeBygId(items.get(i).getGuige_id()));
             items.get(i).setSubtotal((items.get(i).getNum())*(goods.getPrice()));
             totalMoney = totalMoney+(items.get(i).getNum())*(goods.getPrice());
-            count = count + items.get(i).getNum();
+            count = count+items.get(i).getNum();
         }
-        ShoppingCar car = new ShoppingCar();
-        car.setItems(items);
-        car.setKinds(items.size());
-        car.setTotalMoney(totalMoney);
-        car.setCount(count);
+
         return car;
     }
 
-    public boolean addToShoppingCarWithUser(int gId, int count, int colorId,int sizeId){
+    public boolean addToShoppingCarWithUser(int gId,int count,int colorId,int sizeId,int uId){
         boolean result = true;
+
         ShoppingCarItem item = new ShoppingCarItem();
         Goods goods = goodsMapper.findByGid(gId);
         item.setgId(gId);
         item.setgName(goods.getgName());
+        item.setColor_id(colorId);
+        item.setGuige_id(sizeId);
         item.setColor(detailsMapper.findColorBycId(colorId));
         item.setSize(detailsMapper.findGuigeBygId(sizeId));
         item.setImg(goods.getUrl());
@@ -215,34 +242,77 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
         item.setgStock(goods.getgStock());
         item.setSubtotal(count*goods.getPrice());
 
-        List<ShoppingCarItem> items = shoppingCarMapper.findShoppingCarByUid(gId);
-        ShoppingCar car = new ShoppingCar();
-        if(items ==null){
-//            购物车为空
-            List<ShoppingCarItem> items2 = new ArrayList<ShoppingCarItem>();
-            items2.add(item);
-            car.setItems(items2);
+        ShoppingCar car = shoppingCarMapper.findShoppingCarByUid(uId);
+        if(car == null){
+//            登录的用户的购物车为空
+            List<ShoppingCarItem> items = new ArrayList<ShoppingCarItem>();
+            items.add(item);
+            car.setItems(items);
             car.setKinds(1);
             car.setCount(count);
             car.setTotalMoney(count*goods.getPrice());
         }else{
-//            购物车不为空
+//            登录用的购物车不为空
+            List<ShoppingCarItem> items2 = car.getItems();
             int i=0;
-            for(i=0;i<items.size();i++){
-                if(gId == items.get(i).getgId()){
-//                    买过
+            for(i=0;i<items2.size();i++){
+                if(gId == items2.get(i).getgId() && (colorId==items2.get(i).getColor_id())
+                        && (sizeId == items2.get(i).getGuige_id())){
                     result = false;
                     break;
                 }
             }
-            if(i==items.size()){
-//                没买过
-                items.add(item);
-                car.setKinds(car.getKinds()+1);
+            if(i==items2.size()){
+//                如果购物车里没有这类商品
 
             }
+
         }
 
         return result;
     }
+//    public boolean addToShoppingCarWithUser(int gId, int count, int colorId,int sizeId){
+//        boolean result = true;
+//        ShoppingCarItem item = new ShoppingCarItem();
+//        Goods goods = goodsMapper.findByGid(gId);
+//        item.setgId(gId);
+//        item.setgName(goods.getgName());
+//        item.setColor(detailsMapper.findColorBycId(colorId));
+//        item.setSize(detailsMapper.findGuigeBygId(sizeId));
+//        item.setImg(goods.getUrl());
+//        item.setPrice(goods.getPrice());
+//        item.setNum(count);
+//        item.setgStock(goods.getgStock());
+//        item.setSubtotal(count*goods.getPrice());
+//
+//        List<ShoppingCarItem> items = shoppingCarMapper.findShoppingCarByUid(gId);
+//        ShoppingCar car = new ShoppingCar();
+//        if(items ==null){
+////            购物车为空
+//            List<ShoppingCarItem> items2 = new ArrayList<ShoppingCarItem>();
+//            items2.add(item);
+//            car.setItems(items2);
+//            car.setKinds(1);
+//            car.setCount(count);
+//            car.setTotalMoney(count*goods.getPrice());
+//        }else{
+////            购物车不为空
+//            int i=0;
+//            for(i=0;i<items.size();i++){
+//                if(gId == items.get(i).getgId()){
+////                    买过
+//                    result = false;
+//                    break;
+//                }
+//            }
+//            if(i==items.size()){
+////                没买过
+//                items.add(item);
+//                car.setKinds(car.getKinds()+1);
+//
+//            }
+//        }
+//
+//        return result;
+//    }
 }

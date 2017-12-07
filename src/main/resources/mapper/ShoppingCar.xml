@@ -5,16 +5,35 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lanou.dao.ShoppingCarMapper">
 
-    <resultMap id="shoppingCarResult" type="ShoppingCarItem">
+    <!--<resultMap id="shoppingCaritemResult" type="ShoppingCarItem">-->
+            <!--<result column="g_id" property="gId" javaType="int"></result>-->
+            <!--<result column="num" property="num" javaType="int"></result>-->
+            <!--<result column="color_id" property="color_id" javaType="int"></result>-->
+            <!--<result column="guige_id" property="guige_id" javaType="int"></result>-->
+    <!--</resultMap>-->
+
+    <resultMap id="shoppingCarResult" type="ShoppingCar">
+        <result column="user_id" property="uId" javaType="int"></result>
+        <result column="kinds" property="kinds" javaType="int"></result>
+        <result column="count" property="count" javaType="int"></result>
+        <result column="totalMoney" property="totalMoney" javaType="double"></result>
+        <collection property="items" ofType="com.lanou.entity.ShoppingCarItem">
             <result column="g_id" property="gId" javaType="int"></result>
             <result column="num" property="num" javaType="int"></result>
             <result column="color_id" property="color_id" javaType="int"></result>
             <result column="guige_id" property="guige_id" javaType="int"></result>
+        </collection>
     </resultMap>
+
+
 
     <select id="findShoppingCarByUid" resultMap="shoppingCarResult" parameterType="int">
         select * from 7jia2_shoppingCar s1, 7jia2_shoppingCarItem s2 where s1.user_id = #{uId} and s1.sId = s2.s_id
     </select>
 
+
+    <insert id="addToShoppingCarItem" parameterType="ShoppingCarItem">
+        insert into 7jia2_shoppingCarItem(g_id,num,s_id,color_id,guige_id) values (#{},#{},#{},#{},#{})
+    </insert>
 
 </mapper>
