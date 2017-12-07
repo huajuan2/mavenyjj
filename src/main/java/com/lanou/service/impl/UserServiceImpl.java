@@ -50,8 +50,8 @@ public class UserServiceImpl implements UserService{
 		return true;
 	};
 
-	public boolean updatePassword(String newpassword){
-		boolean result = userMapper.updatePassword(newpassword);
+	public boolean updatePassword(User user){
+		boolean result = userMapper.updatePassword(user);
 		if (result){
 			return true;
 		}
@@ -60,5 +60,10 @@ public class UserServiceImpl implements UserService{
 
 	public void updateIpAndTime(User user){
 		userMapper.updateIpAndTime(user);
+	};
+
+
+	public boolean updateHeadImgUrl(User user){
+		return userMapper.updateHeadImgUrl(user);
 	};
 }

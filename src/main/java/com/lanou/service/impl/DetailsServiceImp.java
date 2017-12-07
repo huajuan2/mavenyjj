@@ -47,6 +47,16 @@ public class DetailsServiceImp implements DetailsService {
         List<GoodsAndTab> goodsAndTabList = detailsMapper.findGoodsAndTab(gId);
         return  goodsAndTabList;
     };
+
+    public List<Img> findTopImg(Integer gId){
+        List<Img> imgTopList = detailsMapper.findTopImg(gId);
+        return imgTopList;
+    };
+
+    public List<Img> findFootImg(Integer gId){
+        List<Img> imgFootList = detailsMapper.findTopImg(gId);
+        return imgFootList;
+    };
 }
 
 

@@ -39,6 +39,7 @@
     </select>
 
 
+
     <insert id="addToShoppingCarItem" parameterType="ShoppingCarItem">
         insert into 7jia2_shoppingCarItem(g_id,num,s_id,color_id,guige_id) values (#{gId},#{num},#{s_id},#{color_id},#{guige_id})
     </insert>
@@ -47,6 +48,11 @@
     <insert id="addToShoppingCar" parameterType="ShoppingCar">
         insert into 7jia2_shoppingCar(user_id,kinds) values(#{uId},#{kinds})
     </insert>
+
+    <!--<insert id="addToShoppingCarItem" parameterType="ShoppingCarItem">-->
+        <!--insert into 7jia2_shoppingCarItem(g_id,num,s_id,color_id,guige_id) values (#{},#{},#{},#{},#{})-->
+    <!--</insert>-->
+
 
     <!--?????-->
     <update id="fillShoppingCar" parameterType="Map">

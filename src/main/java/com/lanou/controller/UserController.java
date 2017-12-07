@@ -1,5 +1,7 @@
 package com.lanou.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
@@ -9,6 +11,7 @@ import java.util.List;
 import com.lanou.service.ShoppingCarService;
 import com.lanou.util.FastJson_All;
 import com.sun.deploy.net.HttpResponse;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lanou.entity.User;
 import com.lanou.service.UserService;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -144,7 +149,8 @@ public class UserController {
 		if (password.equals(user.getPassword()))
 		{
 			//调用更新的方法
-			boolean result = userService.updatePassword(newpassword);
+			user.setPassword(newpassword);
+			boolean result = userService.updatePassword(user);
 			if (result){
 				res = true;
 				//更新成功
@@ -158,6 +164,24 @@ public class UserController {
 	@RequestMapping("/getSession.do")
 	public void Getsession(HttpServletRequest request,HttpServletResponse response){
 		FastJson_All.toJson(request.getSession().getAttribute("user1"),response);
+	}
+
+	//上传头像
+	@RequestMapping("/upload.do")
+	public void updateHead(MultipartFile file,HttpServletRequest request){
+		User user = (User) request.getSession().getAttribute("user1");
+		//user+userid
+			//xiangce
+				//xianggcetupian
+		String headImgUrl = "/Seven_Two/webapp/headUrl/user"+user.getuId()+"/"+user.getuId()+".jpg";
+		File files = new File(headImgUrl);
+		try {
+			FileUtils.copyInputStreamToFile(file.getInputStream(),files);
+			user.setHeadImgUrl(headImgUrl);
+			userService.updateHeadImgUrl(user);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
 

@@ -10,7 +10,18 @@
 <head>
     <title>Title</title>
 </head>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"
+            +request.getServerName()+":"
+            +request.getServerPort()+path+"/";
+%>
 <body>
-<h1>没有收藏过</h1>
+
+    <form action="<%=basePath%>user/upload.do" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="上传">
+    </form>
+
 </body>
 </html>

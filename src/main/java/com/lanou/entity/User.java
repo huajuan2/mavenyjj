@@ -20,6 +20,7 @@ public class User {
 	private List<Goods> goodsList;
 	private String addressIp;
 	private String loginDate;
+	private String headImgUrl;
 
 	public User() {
 		super();
@@ -37,6 +38,14 @@ public class User {
 		this.goodsList = goodsList;
 		this.addressIp = addressIp;
 		this.loginDate = loginDate;
+	}
+
+	public String getHeadImgUrl() {
+		return headImgUrl;
+	}
+
+	public void setHeadImgUrl(String headImgUrl) {
+		this.headImgUrl = headImgUrl;
 	}
 
 	public List<Goods> getGoodsList() {
@@ -142,6 +151,7 @@ public class User {
 				", goodsList=" + goodsList +
 				", addressIp='" + addressIp + '\'' +
 				", loginDate='" + loginDate + '\'' +
+				", headImgUrl='" + headImgUrl + '\'' +
 				'}';
 	}
 }

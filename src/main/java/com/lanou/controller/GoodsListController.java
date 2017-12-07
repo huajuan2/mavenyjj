@@ -52,11 +52,14 @@ public class GoodsListController {
 //
 //        map.put("goods",goodsMap);
 
+
+        Category category = categoryService.findCategoryByCategoryId(categoryId);
+
         List<Tab> tabList = tabController.finds(categoryId);
 
         List<Category> categoryList = categoryService.findCategoryListByCategoryId(categoryId);
 
-        if (categoryList != null){
+        if (categoryList.size()==0){
 
             Map<String,Object> map1 = new HashMap<String,Object>();
             map1.put("tabName","分类");
@@ -75,6 +78,7 @@ public class GoodsListController {
             map.put("brands",map2);
         }
         map.put("tabList",tabList);
+        map.put("categoryName",category.getcName());
 
         FastJson_All.toJson(map,response);
 

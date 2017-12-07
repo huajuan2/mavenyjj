@@ -1,5 +1,6 @@
 package com.lanou.controller;
 
+import com.lanou.entity.Category;
 import com.lanou.entity.Goods;
 import com.lanou.service.CategoryService;
 import com.lanou.service.GoodsAndTabService;
@@ -146,6 +147,7 @@ public class GoodsController {
     }
 
 
+
     //根据品牌查商品
     @RequestMapping("/findGoodsByBrandId.do")
     public void findGoodsByBrandId(HttpServletResponse response,int categoryId,int brandId){
@@ -160,8 +162,25 @@ public class GoodsController {
 
         FastJson_All.toJson(map,response);
 
-
     }
+
+//    //根据层级id（categoryId）查商品
+//    @RequestMapping("/findGoodsByCategoryId.do")
+//    public void findGoodsByCategoryId(HttpServletResponse response,int categoryId){
+//
+//        Category category = categoryService.findCategoryByCategoryId(categoryId);
+//        List<Goods> goodsList = goodsService.findGoodsByCategoryId(categoryId);
+//
+//        Map<String,Object> map = new HashMap<String,Object>();
+//        Map<String,Object> goodsMap = new HashMap<String,Object>();
+//        goodsMap.put("size",goodsList.size());
+//        goodsMap.put("goodsList",goodsList);
+//        map.put("goods",goodsMap);
+//        map.put("categoryName",category.getcName());
+//
+//        FastJson_All.toJson(map,response);
+//
+//    }
 
 
 }
