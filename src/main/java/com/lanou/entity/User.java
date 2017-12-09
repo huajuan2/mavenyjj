@@ -21,12 +21,21 @@ public class User {
 	private String addressIp;
 	private String loginDate;
 	private String headImgUrl;
+	private String oldPassword;
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
 
 	public User() {
 		super();
 	}
 
-	public User(Integer uId, String username, String password, String phone, String name, String sex, Date birthDate, String qq, List<Goods> goodsList, String addressIp, String loginDate, String headImgUrl) {
+	public User(Integer uId, String username, String password, String phone, String name, String sex, Date birthDate, String qq, List<Goods> goodsList, String addressIp, String loginDate, String headImgUrl, String oldPassword) {
 		this.uId = uId;
 		this.username = username;
 		this.password = password;
@@ -39,6 +48,7 @@ public class User {
 		this.addressIp = addressIp;
 		this.loginDate = loginDate;
 		this.headImgUrl = headImgUrl;
+		this.oldPassword = oldPassword;
 	}
 
 	public Integer getuId() {
@@ -154,6 +164,7 @@ public class User {
 				", addressIp='" + addressIp + '\'' +
 				", loginDate='" + loginDate + '\'' +
 				", headImgUrl='" + headImgUrl + '\'' +
+				", oldPassword='" + oldPassword + '\'' +
 				'}';
 	}
 }

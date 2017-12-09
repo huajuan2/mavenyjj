@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.lanou.service.ShoppingCarService;
 import com.lanou.util.FastJson_All;
+import com.lanou.util.FileUtil;
 import com.sun.deploy.net.HttpResponse;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,12 +110,14 @@ public class UserController {
 	//修改用户信息(密码和手机号除外)
 	@RequestMapping("/updateUserInfo.do")
 //	@ResponseBody
-	public void updateUserInfo(User user,HttpServletResponse response){
+	public void updateUserInfo(User user,HttpServletResponse response,HttpServletRequest request){
 		System.out.println(user);
 		boolean result = userService.updateUserInfo(user);
 		boolean res = false;
 		if (result){
 			//修改成功
+			User user1 = userService.findUserById(user.getuId());
+			request.getSession().setAttribute("user1",user1);
 			res = true;
 		}
 			//修改失败
@@ -123,11 +126,13 @@ public class UserController {
 
 	//修改用户名
 	@RequestMapping("/updateUserName")
-	public void updateUserName(User user,HttpServletResponse response){
+	public void updateUserName(User user,HttpServletResponse response,HttpServletRequest request){
 		boolean result = false;
 		System.out.println(user);
 		boolean results = userService.updateUserName(user);
 		if (results){
+			User user1 = userService.findUserById(user.getuId());
+			request.getSession().setAttribute("user1",user1);
 			result = true;
 		}
 		FastJson_All.toJson(result,response);
@@ -150,19 +155,19 @@ public class UserController {
 	//修改密码
 	@RequestMapping("/updatePassword.do")
 //	@ResponseBody
-	public void updatePassword(HttpServletRequest request,Integer uId,HttpServletResponse response){
-		User user = userService.findUserById(uId);
+	public void updatePassword(HttpServletRequest request,HttpServletResponse response,User user){
+		User user1 = (User)request.getSession().getAttribute("user1");
+		System.out.println("user1是:"+user1);
+		System.out.println("user是:"+user);
+		System.out.println(user.getOldPassword());
 		boolean res = false;
 		//oldPassword:输入的旧密码
-		//password:本来的密码
-		String password = request.getParameter("oldPassword");
-		String newpassword = request.getParameter("newPassword");
 		//如果输入的密码和本来的密码相同
-		if (password.equals(user.getPassword()))
+		if (user.getOldPassword().equals(user1.getPassword()))
 		{
 			//调用更新的方法
-			user.setPassword(newpassword);
-			boolean result = userService.updatePassword(user);
+			user1.setPassword(user.getPassword());
+			boolean result = userService.updatePassword(user1);
 			if (result){
 				res = true;
 				//更新成功
@@ -174,23 +179,35 @@ public class UserController {
 
 	//返回Session
 	@RequestMapping("/getSession.do")
+	@ResponseBody
 	public void Getsession(HttpServletRequest request,HttpServletResponse response){
 		FastJson_All.toJson(request.getSession().getAttribute("user1"),response);
+//		User user = (User) request.getSession().getAttribute("user1");
+//		return user;
 	}
 
 	//上传头像
 	@RequestMapping("/upload.do")
-	public void updateHead(MultipartFile file,HttpServletRequest request){
+	public void updateHead(MultipartFile file,HttpServletRequest request,HttpServletResponse response){
 		User user = (User) request.getSession().getAttribute("user1");
+		boolean results = false;
 		//user+userid
 			//xiangce
 				//xianggcetupian
-		String headImgUrl = "/Seven_Two/resource/headUrl/user"+user.getuId()+"/"+user.getuId()+".jpg";
-		File files = new File(headImgUrl);
+		String headImg = "/usr/local/tomcat7/webapps/Seven_Two/resource/headUrl/user"+user.getuId()+"/"+user.getuId()+".jpg";
+		FileUtil.createFiles(headImg);
+		File files = new File(headImg);
 		try {
-			FileUtils.copyInputStreamToFile(file.getInputStream(),files);
+		 	FileUtils.copyInputStreamToFile(file.getInputStream(),files);
+		 	String headImgUrl = "http://139.199.11.183:8080/Seven_Two/resource/headUrl/user"+user.getuId()+"/"+user.getuId()+".jpg";
 			user.setHeadImgUrl(headImgUrl);
-			userService.updateHeadImgUrl(user);
+			boolean result = userService.updateHeadImgUrl(user);
+			if (result){
+				results = true;
+				User user1 = userService.findUserById(user.getuId());
+				request.getSession().setAttribute("user1",user1);
+			}
+			FastJson_All.toJson(results,response);
  		} catch (IOException e) {
 			e.printStackTrace();
 		}

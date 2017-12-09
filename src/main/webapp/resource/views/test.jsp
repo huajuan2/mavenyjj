@@ -17,11 +17,9 @@
             +request.getServerPort()+path+"/";
 %>
 <body>
-
-    <form action="<%=basePath%>user/upload.do" method="post" enctype="multipart/form-data">
+    <form action="http://139.199.11.183:8080/Seven_Two/user/upload.do" method="post" enctype="multipart/form-data">
         <input type="file" name="file">
         <input type="submit" value="上传">
     </form>
-
 </body>
 </html>
