@@ -23,7 +23,7 @@ public class ShoppingCarController {
     @Autowired
     private ShoppingCarService shoppingCarService;
 
-    @RequestMapping("/addToShoppingCar.do")
+    @RequestMapping("/addGoodsToShoppingCar.do")
     public void addToShoppingCar(int gId, int count, int colorId, int sizeId, HttpServletRequest request,HttpServletResponse response){
         User user = (User)request.getSession().getAttribute("user1");
         if(user == null){
@@ -43,7 +43,7 @@ public class ShoppingCarController {
             FastJson_All.toJson(map,response);
         }else{
             int uId = user.getuId();
-            ShoppingCar shoppingCar = (ShoppingCar)request.getSession().getAttribute("shoppingCar");
+            //ShoppingCar shoppingCar = (ShoppingCar)request.getSession().getAttribute("shoppingCar");
             boolean result = shoppingCarService.addToShoppingCarWithUser(gId,count,colorId,sizeId,uId);
             ShoppingCar car = shoppingCarService.findShoppingCarByUid(uId);
             Map<String,Object> map = new HashMap<String,Object>();
