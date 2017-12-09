@@ -127,8 +127,19 @@ public class ShoppingCarController {
 
     @RequestMapping("/removeBySelect.do")
     public void removeBySelect(HttpServletRequest request,HttpServletResponse response){
-        shoppingCarService.removeBySelect(request);
-        ShoppingCar car = (ShoppingCar)request.getSession().getAttribute("shoppingCar");
-        FastJson_All.toJson(car,response);
+        User user = (User)request.getSession().getAttribute("user1");
+        if(user==null){
+            shoppingCarService.removeBySelect(request);
+            ShoppingCar car = (ShoppingCar)request.getSession().getAttribute("shoppingCar");
+            FastJson_All.toJson(car,response);
+        }else{
+            int uId = user.getuId();
+            shoppingCarService.deleteBySelectWithUser(request);
+            FastJson_All.toJson(shoppingCarService.findShoppingCarByUid(uId),response);
+        }
+
     }
+
+
+
 }

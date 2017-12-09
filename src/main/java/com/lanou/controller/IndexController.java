@@ -38,6 +38,9 @@ public class IndexController {
     @Autowired
     private HotSelectService hotSelectService;
 
+    @Autowired
+    private NoticeService noticeService;
+
     private static int TUANGOU_PAGE = 0;
 
     private static int TEMAI_PAGE = 0;
@@ -50,6 +53,7 @@ public class IndexController {
         List<String> hot = hotSelectService.findHot();
         List<Goods> tuangou = goodsService.findTuangou(0);
         List<Goods> temai = goodsService.findTemai(0);
+        List<Notice> notices = noticeService.findNoticeRandom();
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("categories",categories);//一级目录
         map.put("carousels",carousels);//轮播图
@@ -57,6 +61,7 @@ public class IndexController {
         map.put("hotSelect",hot);//热门搜索
         map.put("tuangou",tuangou);//团购
         map.put("temai",temai);//特卖
+        map.put("notices",notices);//公告
 //        return map;
         FastJson_All.toJson(map,response);
     }
@@ -107,5 +112,10 @@ public class IndexController {
     @RequestMapping("/enterTemai.do")
     public void enterTemai(HttpServletResponse response){
         FastJson_All.toJson(goodsService.findAllTemai(),response);
+    }
+
+    @RequestMapping("/findAllNotice.do")
+    public void findAllNotice(HttpServletResponse response){
+        FastJson_All.toJson(noticeService.findAllNotice(),response);
     }
 }

@@ -26,13 +26,13 @@
         </collection>
     </resultMap>
 
-    <!--<resultMap id="shoppingCarItemResult" type="ShoppingCarItem">-->
-        <!--<result column="g_id" property="gId" javaType="int"></result>-->
-        <!--<result column="num" property="num" javaType="int"></result>-->
-        <!--<result column="s_id" property="s_id" javaType="int"></result>-->
-        <!--<result column="color_id" property="color_id" javaType="int"></result>-->
-        <!--<result column="guige_id" property="guige_id" javaType="int"></result>-->
-    <!--</resultMap>-->
+    <resultMap id="shoppingCarItemResult" type="ShoppingCarItem">
+        <result column="g_id" property="gId" javaType="int"></result>
+        <result column="num" property="num" javaType="int"></result>
+        <result column="s_id" property="s_id" javaType="int"></result>
+        <result column="color_id" property="color_id" javaType="int"></result>
+        <result column="guige_id" property="guige_id" javaType="int"></result>
+    </resultMap>
 
     <select id="findShoppingCarByUid" resultMap="shoppingCarResult" parameterType="int">
         select * from 7jia2_shoppingCar s1, 7jia2_shoppingCarItem s2 where s1.user_id = #{uId} and s1.sId = s2.s_id
@@ -81,4 +81,26 @@
         update 7jia2_shoppingCarItem set num = #{0} where s_id = #{1} and g_id=#{2} and color_id =#{3} and guige_id =#{4}
     </update>
 
+
+    <select id="selectId" parameterType="int" resultType="Integer">
+        select id from 7jia2_shoppingCarItem where s_id=#{0} and g_id=#{1} and color_id=#{2} and guige_id=#{3}
+    </select>
+
+    <delete id="deleteInId">
+        delete from 7jia2_shoppingCarItem where id IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="findNumById" parameterType="int" resultType="int">
+        select num from 7jia2_shoppingCarItem where id = #{id}
+    </select>
+
+    <select id="selectInId" resultMap="shoppingCarItemResult">
+        select * from 7jia2_shoppingCarItem where id IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
 </mapper>

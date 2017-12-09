@@ -30,4 +30,5 @@ public interface ShoppingCarService {
     public void deleteOneWithUser(int gId, int colorId,int sizeId,int uId);
 
     public void prepareShoppingCar(HttpServletRequest request);
+    public void deleteBySelectWithUser(HttpServletRequest request);
 }

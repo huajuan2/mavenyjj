@@ -357,6 +357,43 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
         shoppingCarMapper.fillShoppingCar(map);
     }
 
+    public void deleteBySelectWithUser(HttpServletRequest request){
+        String gIds[] = request.getParameterValues("gId");
+        String colorId[] = request.getParameterValues("colorId");
+        String sizeId[] = request.getParameterValues("sizeId");
+
+        User user = (User)request.getSession().getAttribute("user1");
+        int uId = user.getuId();
+        int sId = shoppingCarMapper.findSid(uId);
+        ShoppingCar car = shoppingCarMapper.findShoppingCarByUid(uId);
+        int length = gIds.length;
+        List<Integer> ids = new ArrayList<Integer>();
+        int removeCount = 0;
+        double removeMoney = 0;
+        for(int i=0;i<length;i++){
+            Goods goods = goodsMapper.findByGid(Integer.parseInt(gIds[i]));
+//            goods.getPrice();
+            int id = shoppingCarMapper.selectId(sId,Integer.parseInt(gIds[i]),Integer.parseInt(colorId[i]),Integer.parseInt(sizeId[i]));
+            ids.add(id);
+            removeMoney += shoppingCarMapper.findNumById(id)*goods.getPrice();
+            removeCount += shoppingCarMapper.findNumById(id);
+        }
+        System.out.println("要删除的id集合："+ids);
+        shoppingCarMapper.deleteInId(ids);
+
+
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("sId",sId);
+        map.put("kinds",car.getKinds()-length);
+        map.put("counts",car.getCounts()-removeCount);
+        map.put("totalMoney",car.getTotalMoney()-removeMoney);
+        shoppingCarMapper.fillShoppingCar(map);
+
+    }
+
+
+
+
     public void prepareShoppingCar(HttpServletRequest request){
         User user = (User)request.getSession().getAttribute("user1");
         ShoppingCar car = (ShoppingCar)request.getSession().getAttribute("shoppingCar");//session中的购物车

@@ -18,7 +18,15 @@ public class Floor {
     private List<Category> title;
     private List<Goods> t1Goods;
     private List<Goods> t2Goods;
+    private List<Carousel> carousels;
 
+    public List<Carousel> getCarousels() {
+        return carousels;
+    }
+
+    public void setCarousels(List<Carousel> carousels) {
+        this.carousels = carousels;
+    }
 
     public List<Category> getTitle() {
         return title;

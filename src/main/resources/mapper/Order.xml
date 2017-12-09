@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.OrderMapper">
+
+    <resultMap id="orderResult" type="Order">
+        <id column="oId" property="oId" javaType="int"></id>
+        <result column="order_time" property="order_time" javaType="String"></result>
+        <result column="order_state" property="state" javaType="int"></result>
+        <result column="receive_id" property="receive_id" javaType="int"></result>
+        <result column="totalMoney" property="totalMoney" javaType="double"></result>
+    </resultMap>
+
+    <resultMap id="orderGoodsResult" type="ShoppingCarItem">
+        <result column="g_id" property="gId" javaType="int"></result>
+        <result column="num" property="num" javaType="int"></result>
+        <result column="color_id" property="color_id" javaType="int"></result>
+        <result column="guige_id" property="guige_id" javaType="int"></result>
+    </resultMap>
+
+
+    <insert id="addOrder" parameterType="Order">
+        insert into 7jia2_order(order_time,order_state,receive_id,u_id,totalMoney) values(
+        #{order_time},#{state},#{receive_id},#{uId},#{totalMoney}
+        )
+    </insert>
+
+    <select id="findNewId" resultType="int">
+        select max(oId) from 7jia2_order
+    </select>
+
+    <insert id="addOrderGoods" parameterType="Map">
+        insert into 7jia2_orderGoods(g_id,num,color_id,guige_id,o_id) values(
+        #{g_id},#{num},#{color_id},#{guige_id},#{o_id}
+        )
+    </insert>
+
+    <select id="findOrderByUid" parameterType="int" resultMap="orderResult">
+        select * from 7jia2_order where u_id = #{u_id}
+    </select>
+
+    <select id="findOrderGoodsByOid" parameterType="int" resultMap="orderGoodsResult">
+        select * from 7jia2_orderGoods where o_id = #{o_Id}
+    </select>
+
+    <select id="findOrderByOid" parameterType="int" resultMap="orderResult">
+        select * from 7jia2_order where oId = #{oId}
+    </select>
+
+    <select id="findOrderReceive" parameterType="int" resultType="int">
+        select receive_id from 7jia2_order where oId = #{oId}
+    </select>
+</mapper>

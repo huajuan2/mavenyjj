@@ -1,9 +1,6 @@
 package com.lanou.service.impl;
 
-import com.lanou.dao.BrandMapper;
-import com.lanou.dao.CategoryMapper;
-import com.lanou.dao.FloorMapper;
-import com.lanou.dao.GoodsMapper;
+import com.lanou.dao.*;
 import com.lanou.entity.Brand;
 import com.lanou.entity.Category;
 import com.lanou.entity.Floor;
@@ -33,6 +30,9 @@ public class FloorServiceImpl implements FloorService{
     @Autowired
     private GoodsMapper goodsMapper;
 
+    @Autowired
+    private CarouselMapper carouselMapper;
+
     public Floor showFloor(int fId) {
         Floor floor = floorMapper.showFloor(fId);
         Category c = categoryMapper.findByFid(fId);
@@ -57,6 +57,7 @@ public class FloorServiceImpl implements FloorService{
         floor.setT1Goods(goodsMapper.findGoodsInCategoryIdRandom(goodsMapper.findGoodsIdByCategory2(title.get(0).getcId())));
         floor.setT2Goods(goodsMapper.findGoodsInCategoryIdRandom(goodsMapper.findGoodsIdByCategory2(title.get(1).getcId())));
 
+        floor.setCarousels(carouselMapper.selectFloorRandom(fId,3));
         return floor;
     }
 }

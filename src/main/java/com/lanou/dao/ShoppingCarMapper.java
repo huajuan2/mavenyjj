@@ -2,6 +2,7 @@ package com.lanou.dao;
 
 import com.lanou.entity.ShoppingCar;
 import com.lanou.entity.ShoppingCarItem;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -29,4 +30,12 @@ public interface ShoppingCarMapper {
     public void deleteOneKind(int sId,int g_id,int color_id, int guige_id);
 
     public void addMore(int num,int sId,int g_id,int color_id, int guige_id);
+
+    public int selectId(int sId,int g_id,int color_id, int guige_id);
+
+    public void deleteInId(@Param("list")List<Integer> ids);
+
+    public int findNumById(int id);
+
+    public List<ShoppingCarItem> selectInId(@Param("list")List<Integer> ids);
 }

@@ -10,6 +10,4 @@ import java.util.List;
 public interface CarouselService {
     public List<Carousel> showCarousel();
 
-    //楼层的轮播图
-    public List<Carousel> selectFloorRandom(int floor_id);
 }
