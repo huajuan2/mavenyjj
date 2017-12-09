@@ -127,7 +127,7 @@ public class OrderServiceImpl implements OrderService{
 
     public Map<String,Object> submitOrder(Receive newReceive, HttpServletRequest request){
         User user = (User)request.getSession().getAttribute("user1");
-        String isSave = (String)request.getSession().getAttribute("isSave");
+        String isSave = request.getParameter("isSave");
         double totalMoney = (Double)request.getSession().getAttribute("totalMoney");
         List<ShoppingCarItem> items = (List<ShoppingCarItem>)request.getSession().getAttribute("shoppingGoods");
         String id = request.getParameter("id");
@@ -208,8 +208,20 @@ public class OrderServiceImpl implements OrderService{
         Map<String,Object> map1 = new HashMap<String,Object>();
         map1.put("orderId",oId);
         map1.put("totalMoney",totalMoney);
+
+//        订单提交完后把该订单存到session中以方便等会儿回来支付
+ //       request.setAttribute("");
+
         return map1;
     }
+
+    public void payForOrder(HttpServletRequest request){
+//      由两个入口进入，提交订单后直接付款（从request里获取）+查看订单选择付款（传订单id）
+
+    }
+
+
+
 
     public List<Order> findMyOrder(HttpServletRequest request){
         User user = (User)request.getSession().getAttribute("user1");
