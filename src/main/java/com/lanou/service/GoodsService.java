@@ -51,4 +51,16 @@ public interface GoodsService {
     public List<Goods> findGoodsByBrandId(int gCategory_id,int brandId);
 
 
+    //*****************************************************************************************//
+    //****后台管理系统****//
+
+    //根据条件分页展示商品
+    public List<Goods> selectAllGoods(int page,List<Integer> list,int brandId,String likeName);
+    //得到获得的商品的ID的集合，得到总个数size
+    public List<Integer> selectAllGoodsId(List<Integer> list,int brandId,String likeName);
+
+
+    //根据商品的具体id查找商品
+    public Goods selectGoodsById(int goodsId);
+
 }

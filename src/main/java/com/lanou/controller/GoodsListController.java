@@ -59,7 +59,7 @@ public class GoodsListController {
 
         List<Category> categoryList = categoryService.findCategoryListByCategoryId(categoryId);
 
-        if (categoryList.size()==0){
+        if (categoryList.size() !=0){
 
             Map<String,Object> map1 = new HashMap<String,Object>();
             map1.put("tabName","分类");

@@ -64,4 +64,17 @@ public interface GoodsMapper {
     public List<Goods> findGoodsByBrandId(Map<String,Object> map);
 
 
+
+
+    //*****************************************************************************************//
+    //******后台管理系统****//
+
+    //根据条件分页展示商品
+    public List<Goods> selectAllGoods(Map<String,Object> map);
+    //得到获得的商品的ID的集合，得到总个数size
+    public List<Integer> selectAllGoodsId(Map<String,Object> map);
+
+    //根据商品的具体id查找商品
+    public Goods selectGoodsById(int goodsId);
+
 }

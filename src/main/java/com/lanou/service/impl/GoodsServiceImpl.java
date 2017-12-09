@@ -179,6 +179,46 @@ public class GoodsServiceImpl implements GoodsService {
 
     }
 
+
+    //*****************************************************************************************//
+    //后台管理系统
+
+    public List<Goods> selectAllGoods(int page,List<Integer> list,int brandId,String likeName){
+        int count = 5;
+        page = (page-1)*count;
+
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("page",page);
+        map.put("count",count);
+        map.put("list",list);
+        map.put("brandId",brandId);
+        map.put("likeName",likeName);
+
+        List<Goods> goodsList = goodsMapper.selectAllGoods(map);
+
+        return goodsList;
+    }
+    //得到获得的商品的ID的集合，得到总个数size
+    public List<Integer> selectAllGoodsId(List<Integer> list,int brandId,String likeName){
+
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("list",list);
+        map.put("brandId",brandId);
+        map.put("likeName",likeName);
+
+        List<Integer> lists = goodsMapper.selectAllGoodsId(map);
+        return lists;
+    }
+
+
+
+    //根据商品的具体id查找商品
+    public Goods selectGoodsById(int goodsId){
+
+        Goods goods = goodsMapper.selectGoodsById(goodsId);
+        return goods;
+    }
+
 }
 
 

@@ -26,5 +26,14 @@
 	  
 	<mvc:annotation-driven></mvc:annotation-driven> <!-- 启动注解 -->
 
+	<!-- 拦截器 -->
+	<mvc:interceptors>
+		<!-- 拦截器具体拦截某一个方法 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/shoppingCar/addToShoppingCar.do"/>
+			<bean class="com.lanou.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
 
 </beans>

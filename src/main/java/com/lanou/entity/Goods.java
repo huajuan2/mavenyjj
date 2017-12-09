@@ -17,13 +17,14 @@ public class Goods {
     private Integer gStock;
     private double gMaketPrice;
     private Integer gJiFen;
+    private Integer gDeleteId;
     private List<Details> detailsList;
     private List<Color> colorList;
     private List<GuiGe> guiGeList;
     private List<User> userList;
     private List<Img> imgList;
 
-    public Goods(Integer gId, String gName, Integer brandId, Integer categoryId, String url, double price, Integer gSale, Integer gStock, double gMaketPrice, Integer gJiFen, List<Details> detailsList, List<Color> colorList, List<GuiGe> guiGeList, List<User> userList, List<Img> imgList) {
+    public Goods(Integer gId, String gName, Integer brandId, Integer categoryId, String url, double price, Integer gSale, Integer gStock, double gMaketPrice, Integer gJiFen, Integer gDeleteId, List<Details> detailsList, List<Color> colorList, List<GuiGe> guiGeList, List<User> userList, List<Img> imgList) {
         this.gId = gId;
         this.gName = gName;
         this.brandId = brandId;
@@ -34,13 +35,13 @@ public class Goods {
         this.gStock = gStock;
         this.gMaketPrice = gMaketPrice;
         this.gJiFen = gJiFen;
+        this.gDeleteId = gDeleteId;
         this.detailsList = detailsList;
         this.colorList = colorList;
         this.guiGeList = guiGeList;
         this.userList = userList;
         this.imgList = imgList;
     }
-
 
     public Integer getgId() {
         return gId;
@@ -162,6 +163,14 @@ public class Goods {
         this.imgList = imgList;
     }
 
+    public Integer getgDeleteId() {
+        return gDeleteId;
+    }
+
+    public void setgDeleteId(Integer gDeleteId) {
+        this.gDeleteId = gDeleteId;
+    }
+
     @Override
     public String toString() {
         return "Goods{" +
@@ -175,6 +184,7 @@ public class Goods {
                 ", gStock=" + gStock +
                 ", gMaketPrice=" + gMaketPrice +
                 ", gJiFen=" + gJiFen +
+                ", gDeleteId=" + gDeleteId +
                 ", detailsList=" + detailsList +
                 ", colorList=" + colorList +
                 ", guiGeList=" + guiGeList +

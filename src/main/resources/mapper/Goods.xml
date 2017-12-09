@@ -14,6 +14,7 @@
         <result column="gMaketPrice" property="gMaketPrice" javaType="double"/>
         <result column="gSale" property="gSale" javaType="int"/>
         <result column="gStock" property="gStock" javaType="int"/>
+        <result column="gDeleteId" property="gDeleteId" javaType="int"/>
         <collection property="detailsList" ofType="com.lanou.entity.Details">
             <id column="detailsId" property="detailsId" javaType="int"/>
             <result column="detailsColor" property="detailsColor" jdbcType="VARCHAR"/>
@@ -29,7 +30,7 @@
     </resultMap>
 
     <select id="findGoodsByCategoryId" resultMap="goodsResult">
-        select * from 7jia2_goods where gCategory_id = #{gCategory_id}
+        select * from 7jia2_goods where gCategory_id = #{gCategory_id} and gDeleteId = 0
     </select>
 
     
@@ -39,7 +40,7 @@
          <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
          </foreach>
-
+         and gDeleteId = 0
     </select>
 
     <select id="findGoodsIdByCategory1" resultType="int">
@@ -53,7 +54,7 @@
     </select>
 
     <select id="findGoodsInCategoryIdRandom" resultMap="goodsResult">
-        select * from 7jia2_goods where gCategory_id in
+        select * from 7jia2_goods where gDeleteId = 0 and gCategory_id in
         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -63,7 +64,7 @@
 
     <!--//根据价格排序（升序）-->
     <select id="findGoodsByCategoryIdOderByPrice" resultMap="goodsResult">
-        select * from 7jia2_goods as g where gCategory_id in
+        select * from 7jia2_goods as g where gDeleteId = 0 and gCategory_id in
         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -73,7 +74,7 @@
 
     <!--//根据价格排序（降序）-->
     <select id="findGoodsByCategoryIdOderByPriceDesc" resultMap="goodsResult">
-        select * from 7jia2_goods as g where gCategory_id in
+        select * from 7jia2_goods as g where gDeleteId = 0 and gCategory_id in
         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -82,7 +83,7 @@
 
     <!--//商品列表页根据销量Sale排序（降序）-->
     <select id="findGoodsByCategoryIdOrderBySale" resultMap="goodsResult">
-        select * from 7jia2_goods as g where gCategory_id in
+        select * from 7jia2_goods as g where gDeleteId = 0 and gCategory_id in
         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -92,40 +93,40 @@
 
     <!--模糊查询-->
     <select id="findByLikeName" parameterType="String" resultMap="goodsResult">
-        select * from 7jia2_goods where gName like #{likeName}
+        select * from 7jia2_goods where gDeleteId = 0 and gName like #{likeName}
     </select>
 
 
     <!--根据商品Id来找商品-->
     <select id="findByGid" resultMap="goodsResult" parameterType="int">
-        select * from 7jia2_goods where gId = #{gId}
+        select * from 7jia2_goods where gDeleteId = 0 and gId = #{gId}
     </select>
 
     <!--查找一批团购商品-->
     <select id="findTuangou" parameterType="int" resultMap="goodsResult">
-        select * from 7jia2_goods where gTuangou = 1 limit #{page},6;
+        select * from 7jia2_goods where gDeleteId = 0 and gTuangou = 1 limit #{page},6;
     </select>
 
     <!--查找所有团购商品-->
     <select id="findAllTuangou" resultMap="goodsResult">
-        select * from 7jia2_goods where gTuangou = 1
+        select * from 7jia2_goods where gDeleteId = 0 and gTuangou = 1
     </select>
 
     <!--查找特卖商品-->
     <select id="findTemai"  parameterType="int" resultMap="goodsResult">
-        select * from 7jia2_goods where gTemai = 1 limit #{page},6;
+        select * from 7jia2_goods where gDeleteId = 0 and gTemai = 1 limit #{page},6;
     </select>
 
     <!--查找所有特卖商品-->
     <select id="findAllTemai" resultMap="goodsResult">
-        select * from 7jia2_goods where gTemai = 1
+        select * from 7jia2_goods where gDeleteId = 0 and gTemai = 1
     </select>
 
 
 
     <!--//商品列表页根据价格区间-->
     <select id="findGoodsByCategoryAndPriceQuJian" resultMap="goodsResult">
-        select * from 7jia2_goods as g where gCategory_id in
+        select * from 7jia2_goods as g where gDeleteId = 0 and gCategory_id in
         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -134,7 +135,7 @@
 
     <!--根据商品id集合查找商品-->
     <select id="findGoodsById" resultMap="goodsResult">
-        select * from 7jia2_goods where gCategory_id in
+        select * from 7jia2_goods where gDeleteId = 0 and gCategory_id in
         <foreach collection="list1" item="item1" index="index" open="(" separator="," close=")">
             #{item1}
         </foreach>
@@ -147,7 +148,7 @@
 
     <!--//根据品牌id和第三层级的id集合查找商品-->
     <select id="findGoodsByBrandId" resultMap="goodsResult">
-        select * from 7jia2_goods as g where gCategory_id in
+        select * from 7jia2_goods as g where gDeleteId = 0 and gCategory_id in
         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -155,4 +156,50 @@
     </select>
 
 
+
+
+
+
+    <!--*****************************************************************************************-->
+    <!--*********后台管理系统*********-->
+
+    <!--//根据条件分页展示商品-->
+    <select id="selectAllGoods" resultMap="goodsResult">
+        SELECT * from 7jia2_goods as g where gDeleteId = 0
+        <if test="brandId != 0">
+            and gBrand_id = #{brandId}
+        </if>
+        <if test="likeName != null">
+            and gName like concat(concat('%',#{likeName}),'%')
+        </if>
+        <if test="list.size!=0">
+            and gCategory_id in
+            <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        limit #{page},#{count}
+    </select>
+
+    <!--//得到获得的商品的ID的集合，得到总个数size-->
+    <select id="selectAllGoodsId" resultMap="goodsResult">
+        SELECT gId from 7jia2_goods as g where gDeleteId = 0
+        <if test="brandId != 0">
+            and gBrand_id = #{brandId}
+        </if>
+        <if test="likeName != null">
+            and gName like concat(concat('%',#{likeName}),'%')
+        </if>
+        <if test="list.size!=0">
+            and gCategory_id in
+            <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+    <!--//根据商品的具体id查找商品-->
+    <select id="selectGoodsById" resultMap="goodsResult">
+        SELECT * FROM 7jia2_goods where gId = #{goodsId}
+    </select>
 </mapper>
