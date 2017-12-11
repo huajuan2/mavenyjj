@@ -148,16 +148,16 @@ public class DetailsController {
     //根据颜色查商品规格
     //需要颜色id（color_id）
     @RequestMapping("/findGuigeByColor.do")
-    public void find2(Integer color_id,HttpServletResponse response){
-       List<GuiGe> guiGeList =  detailsService.findGuiGeByColor(color_id);
+    public void find2(Integer color_id,HttpServletResponse response,Integer gId){
+       List<GuiGe> guiGeList =  detailsService.findGuiGeByColor(color_id,gId);
        FastJson_All.toJson(guiGeList,response);
     }
 
     //根据规格查商品颜色
     //需要规格id（guige_id）
     @RequestMapping("/findColorByGuige.do")
-    public void find3(Integer guige_id,HttpServletResponse response){
-        List<Color> colorList = detailsService.findColorByGuiGe(guige_id);
+    public void find3(Integer guige_id,HttpServletResponse response,Integer gId){
+        List<Color> colorList = detailsService.findColorByGuiGe(guige_id,gId);
         FastJson_All.toJson(colorList,response);
     }
 

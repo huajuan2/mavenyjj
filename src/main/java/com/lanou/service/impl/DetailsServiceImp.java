@@ -41,13 +41,13 @@ public class DetailsServiceImp implements DetailsService {
         return guiGeList;
     };
 
-    public List<GuiGe> findGuiGeByColor(Integer color_id){
-        List<GuiGe> guiGeList = detailsMapper.findGuiGeByColor(color_id);
+    public List<GuiGe> findGuiGeByColor(Integer color_id, Integer gId){
+        List<GuiGe> guiGeList = detailsMapper.findGuiGeByColor(color_id,gId);
         return guiGeList;
     };
 
-    public List<Color> findColorByGuiGe(Integer guige_id){
-        List<Color> colorList = detailsMapper.findColorByGuiGe(guige_id);
+    public List<Color> findColorByGuiGe(Integer guige_id, Integer gId){
+        List<Color> colorList = detailsMapper.findColorByGuiGe(guige_id,gId);
         return colorList;
     };
 
