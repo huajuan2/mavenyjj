@@ -24,4 +24,6 @@ public interface OrderService {
     public Map<String,Object> payForOrder(HttpServletRequest request);
 
     public boolean cancelOrder(HttpServletRequest request);
+
+    public List<Order> findOrderByLimit(HttpServletRequest request);
 }

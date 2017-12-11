@@ -70,4 +70,8 @@ public class OrderController {
         FastJson_All.toJson(result,response);
     }
 
+    @RequestMapping("/findOrderByLimit.do")
+    public void findOrderByLimit(HttpServletRequest request,HttpServletResponse response){
+        FastJson_All.toJson(orderService.findOrderByLimit(request),response);
+    }
 }

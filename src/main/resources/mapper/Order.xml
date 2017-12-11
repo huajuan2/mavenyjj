@@ -71,7 +71,7 @@
     </update>
 
     <select id="findIfBuying" resultType="Integer">
-        select count(*) from 7jia2_orderGoods where g_id = #{0} and o_id in
+        select count(*) from 7jia2_orderGoods where g_id = #{gId} and o_id in
         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -79,5 +79,40 @@
 
     <select id="findBuyingOidByUid" resultType="Integer">
         select oId from 7jia2_order where u_id = #{u_id} and order_state = 1
+    </select>
+
+    <select id="findByLimit" resultType="Integer" parameterType="Map">
+        select * from 7jia2_order where 1=1
+        <if test="oId != null">
+            and oId = #{oId}
+        </if>
+        <if test="beginTime != null">
+            and order_time <![CDATA[>=]]> #{beginTime}
+        </if>
+        <if test="endTime !=null">
+            and order_time <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="state != null">
+            and order_state = #{state}
+        </if>
+    </select>
+
+
+    <select id="findOrderByLikeName" parameterType="Map" resultType="Integer">
+        select count(*) from 7jia2_goods where gName like concat(concat('%',#{likeName}),'%') and gId in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findGidByOid" parameterType="int" resultType="Integer">
+        select g_id from 7jia2_orderGoods where o_id = #{oId}
+    </select>
+
+    <select id="findOrderInOid" resultMap="orderResult">
+        select * from 7jia2_order where oId in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </select>
 </mapper>

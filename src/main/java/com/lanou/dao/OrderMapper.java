@@ -36,4 +36,12 @@ public interface OrderMapper {
     public Integer findIfBuying(Map<String,Object> map);
 
     public List<Integer> findBuyingOidByUid(int u_id);
+
+    public List<Integer> findByLimit(Map<String,Object> map);
+
+    public Integer findOrderByLikeName(Map<String,Object> map);
+
+    public List<Integer> findGidByOid(int oId);
+
+    public List<Order> findOrderInOid(@Param("list")List<Integer> list);
 }

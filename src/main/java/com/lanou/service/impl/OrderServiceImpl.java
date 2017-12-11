@@ -6,6 +6,7 @@ import com.lanou.service.OrderService;
 import com.lanou.service.ShoppingCarService;
 import com.lanou.util.FastJson_All;
 import javafx.beans.binding.ObjectExpression;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -251,7 +252,7 @@ public class OrderServiceImpl implements OrderService{
 
 
     public List<Order> findMyOrder(HttpServletRequest request){
-//        在查看我的订单的时候， 如果超过一定期限自动取消订单（当前时间减去下单时间超过1h）
+//        在查看我的订单的时候， 如果超过一定期限自动取消订单（当前时间减去下单时间超过5h）
 
         Date nowDate = new Date();
         User user = (User)request.getSession().getAttribute("user1");
@@ -268,7 +269,7 @@ public class OrderServiceImpl implements OrderService{
             }catch (ParseException e){
                 e.getStackTrace();
             }
-            if(nowDate.getTime()-orderTime.getTime()>1000*60*60){
+            if(nowDate.getTime()-orderTime.getTime()>1000*60*60*5){
                 orderMapper.cancelOrder(orders.get(i).getoId());
             }
 
@@ -297,6 +298,64 @@ public class OrderServiceImpl implements OrderService{
         int rId = orderMapper.findOrderReceive(oId);
         order.setReceive(receiveMapper.findReceiveById(rId));
         return order;
+    }
+
+    public List<Order> findOrderByLimit(HttpServletRequest request){
+//        根据条件查询订单
+        String oId = request.getParameter("oId");
+        Integer oId1 = null;
+        if(oId != null){
+            oId1 = Integer.parseInt(oId);
+        }
+        String beginTime = request.getParameter("beginTime");
+        String endTime = request.getParameter("endTime");
+        String state = request.getParameter("state");
+        String likeName = request.getParameter("likeName");
+        Integer state1 = null;
+        if(state !=null){
+            state1 = Integer.parseInt(state);
+        }
+
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("oId",oId1);
+        map.put("beginTime",beginTime);
+        map.put("endTime",endTime);
+        map.put("state",state1);
+        List<Integer> orderIds = orderMapper.findByLimit(map);
+        List<Integer> orderIds1 = new ArrayList<Integer>();  //最后放满足条件的oId集合
+        List<Order> orders = new ArrayList<Order>();  //最后放满足条件的Order集合
+        for (int i=0;i<orderIds.size();i++){
+            List<Integer>  gIds = orderMapper.findGidByOid(orderIds.get(i));
+            Map<String,Object> map1 = new HashMap<String,Object>();
+            map1.put("likeName",likeName);
+            map1.put("list",gIds);
+            if(orderMapper.findOrderByLikeName(map1)>0){
+                orderIds1.add(orderIds.get(i));
+            }
+        }
+        if(orderIds1.size()==0){
+            return null;
+        }else{
+            orders = orderMapper.findOrderInOid(orderIds1);
+            for(int i=0;i<orders.size();i++){
+
+                int o_id = orders.get(i).getoId();
+                List<ShoppingCarItem> items = orderMapper.findOrderGoodsByOid(o_id);
+                for(int j=0;j<items.size();j++){
+                    int gId = items.get(j).getgId();
+                    Goods goods = goodsMapper.findByGid(gId);
+                    items.get(j).setgName(goods.getgName());
+                    items.get(j).setImg(goods.getUrl());
+                    items.get(j).setColor(detailsMapper.findColorBycId(items.get(j).getColor_id()));
+                    items.get(j).setSize(detailsMapper.findGuigeBygId(items.get(j).getGuige_id()));
+                    items.get(j).setgStock(goods.getgStock());
+                    items.get(j).setPrice(goods.getPrice());
+                    items.get(j).setSubtotal(items.get(j).getNum()*goods.getPrice());
+                }
+                orders.get(i).setItems(items);
+            }
+        }
+        return orders;
     }
 
 }
