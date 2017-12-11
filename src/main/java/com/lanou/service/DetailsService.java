@@ -31,4 +31,6 @@ public interface DetailsService {
     public Integer finCount(Integer gId);
     //添加评论
     public boolean addComment(Comment comment);
+
+    public Integer findBuying(Integer uId,Integer gId);
 }

@@ -114,23 +114,35 @@ public class DetailsController {
         map.put("commentList",commentList);
         FastJson_All.toJson(map,response);
     }
-    //添加评论(需要)
-    @RequestMapping("/addComment.do")
-    public void find5(Comment comment, HttpServletResponse response, HttpServletRequest request){
+
+    //判断是否登录和购买过此商品
+    @RequestMapping("/findIfBuying.do")
+    public void find5(Integer goods_id,HttpServletRequest request,HttpServletResponse response){
         User user =(User) request.getSession().getAttribute("user1");
-        Integer result = 1;
+        Integer sum = 1;
         if (user==null){
-            result = 0;
+            sum = 0;//请登录
         }else {
-            Date date = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String commentDate = dateFormat.format(date);
-            comment.setCommentDate(commentDate);
-            comment.setUser_id(user.getuId());
-            if (detailsService.addComment(comment)){
-                result = 2;
+            Integer num = detailsService.findBuying(user.getuId(),goods_id);
+            if (num==0){
+                sum = 2;//没有买过此商品
             }
         }
+        FastJson_All.toJson(sum,response);
+    }
+    //添加评论(需要)
+    @RequestMapping("/addComment.do")
+    public void find6(Comment comment, HttpServletResponse response, HttpServletRequest request){
+        User user =(User) request.getSession().getAttribute("user1");
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String commentDate = dateFormat.format(date);
+        comment.setCommentDate(commentDate);
+        comment.setUser_id(user.getuId());
+        boolean result = false;
+            if (detailsService.addComment(comment)){
+                result = true;
+            }
         FastJson_All.toJson(result,response);
     }
     //根据颜色查商品规格

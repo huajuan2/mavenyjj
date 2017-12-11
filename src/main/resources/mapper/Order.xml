@@ -71,7 +71,7 @@
     </update>
 
     <select id="findIfBuying" resultType="Integer">
-        select count(*) from 7jia2_orderGoods where g_id = #{0} and o_id in
+        select count(*) from 7jia2_orderGoods where g_id = #{gId} and o_id in
         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
         </foreach>
