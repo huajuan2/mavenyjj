@@ -219,6 +219,9 @@ public class GoodsServiceImpl implements GoodsService {
         return goods;
     }
 
+    public List<Goods> selectBottomGoods() {
+        return goodsMapper.selectRandom10();
+    }
 }
 
 

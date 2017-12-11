@@ -63,4 +63,6 @@ public interface GoodsService {
     //根据商品的具体id查找商品
     public Goods selectGoodsById(int goodsId);
 
+    public List<Goods> selectBottomGoods();
+
 }

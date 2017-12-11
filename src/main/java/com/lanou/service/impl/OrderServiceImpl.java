@@ -5,10 +5,12 @@ import com.lanou.entity.*;
 import com.lanou.service.OrderService;
 import com.lanou.service.ShoppingCarService;
 import com.lanou.util.FastJson_All;
+import javafx.beans.binding.ObjectExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.HashMap;
@@ -209,25 +211,67 @@ public class OrderServiceImpl implements OrderService{
         map1.put("orderId",oId);
         map1.put("totalMoney",totalMoney);
 
-//        订单提交完后把该订单存到session中以方便等会儿回来支付
- //       request.setAttribute("");
 
         return map1;
     }
 
-    public void payForOrder(HttpServletRequest request){
-//      由两个入口进入，提交订单后直接付款（从request里获取）+查看订单选择付款（传订单id）
+    public Map<String,Object> payForOrder(HttpServletRequest request){
+//      由两个入口进入，提交订单后直接付款+查看订单选择付款(都要传oId)
+        int oId = Integer.parseInt(request.getParameter("oId"));
+        //orderMapper.payForOrder(oId);//订单状态改为1：已付款
+        User user = (User)request.getSession().getAttribute("user1");
+        int uId = user.getuId();
+        double leftMoney = orderMapper.findUserMoney(uId);
+        double orderMoney = orderMapper.findOrderByOid(oId).getTotalMoney();
+        Map<String,Object> info = new HashMap<String, Object>();
+        if(leftMoney>=orderMoney){
+            Map<String,Object> map = new HashMap<String, Object>();
+            map.put("leftMoney",leftMoney-orderMoney);
+            map.put("uId",uId);
+            orderMapper.payMoney(map);
+            orderMapper.payForOrder(oId);//订单状态改为1：已付款
+            info.put("result",true);
+        }else{
+            info.put("result",false);
+        }
+        info.put("orderMoney",orderMoney);
+        info.put("userMoney",leftMoney);
+        return info;
 
     }
 
 
+    public boolean cancelOrder(HttpServletRequest request){
+//     手动取消
+        int oId = Integer.parseInt(request.getParameter("oId"));
+        return  orderMapper.cancelOrder(oId);
+
+    } 
+
 
 
     public List<Order> findMyOrder(HttpServletRequest request){
+//        在查看我的订单的时候， 如果超过一定期限自动取消订单（当前时间减去下单时间超过1h）
+
+        Date nowDate = new Date();
         User user = (User)request.getSession().getAttribute("user1");
         int uId = user.getuId();
         List<Order> orders = orderMapper.findOrderByUid(uId);
+
         for(int i=0;i<orders.size();i++){
+
+            String time = orders.get(i).getOrder_time();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date orderTime = null;
+            try {
+                 orderTime = format.parse(time);
+            }catch (ParseException e){
+                e.getStackTrace();
+            }
+            if(nowDate.getTime()-orderTime.getTime()>1000*60*60){
+                orderMapper.cancelOrder(orders.get(i).getoId());
+            }
+
             int o_id = orders.get(i).getoId();
             List<ShoppingCarItem> items = orderMapper.findOrderGoodsByOid(o_id);
             for(int j=0;j<items.size();j++){

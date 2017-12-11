@@ -1,5 +1,6 @@
 package com.lanou.service;
 
+import com.lanou.entity.Goods;
 import com.lanou.entity.ShoppingCar;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,4 +32,6 @@ public interface ShoppingCarService {
 
     public void prepareShoppingCar(HttpServletRequest request);
     public void deleteBySelectWithUser(HttpServletRequest request);
+
+    public List<Goods> guessYouLike(HttpServletRequest request);
 }

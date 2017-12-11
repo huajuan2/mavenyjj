@@ -58,4 +58,16 @@ public class OrderController {
     public void findOneOrder(int oId,HttpServletResponse response){
         FastJson_All.toJson(orderService.findOneOrder(oId),response);
     }
+
+    @RequestMapping("/payForOrder.do")
+    public void payForOrder(HttpServletRequest request,HttpServletResponse response){
+        FastJson_All.toJson(orderService.payForOrder(request),response);
+    }
+
+    @RequestMapping("/cancelOrder.do")
+    public void cancelOrder(HttpServletRequest request,HttpServletResponse response){
+        Boolean result = orderService.cancelOrder(request);
+        FastJson_All.toJson(result,response);
+    }
+
 }

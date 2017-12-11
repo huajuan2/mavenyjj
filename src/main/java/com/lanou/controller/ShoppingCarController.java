@@ -1,5 +1,6 @@
 package com.lanou.controller;
 
+import com.lanou.entity.Goods;
 import com.lanou.entity.ShoppingCar;
 import com.lanou.entity.User;
 import com.lanou.service.ShoppingCarService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -140,6 +142,11 @@ public class ShoppingCarController {
 
     }
 
+    @RequestMapping("/findHasSelected.do")
+    public void findHasSelected(HttpServletRequest request,HttpServletResponse response){
+        List<Goods> youLike = shoppingCarService.guessYouLike(request);
+        FastJson_All.toJson(youLike,response);
 
+    }
 
 }

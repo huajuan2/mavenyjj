@@ -20,4 +20,8 @@ public interface OrderService {
     public List<Order> findMyOrder(HttpServletRequest request);
 
     public Order findOneOrder(int oId);
+
+    public Map<String,Object> payForOrder(HttpServletRequest request);
+
+    public boolean cancelOrder(HttpServletRequest request);
 }
