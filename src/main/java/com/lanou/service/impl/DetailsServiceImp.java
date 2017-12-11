@@ -2,6 +2,7 @@ package com.lanou.service.impl;
 
 import com.lanou.dao.DetailsMapper;
 import com.lanou.dao.GoodsMapper;
+import com.lanou.dao.OrderMapper;
 import com.lanou.entity.*;
 import com.lanou.service.DetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
+import java.util.HashMap;
 /**
  * Created by lanou on 2017/12/4.
  */
@@ -22,6 +24,8 @@ public class DetailsServiceImp implements DetailsService {
     @Autowired
     private DetailsMapper detailsMapper;
 
+    @Autowired
+    private OrderMapper orderMapper;
     public Goods findGoodsNamePriceImg(Integer gId){
         Goods goodss = detailsMapper.findGoodsNamePriceImg(gId);
         return goodss;
@@ -37,13 +41,13 @@ public class DetailsServiceImp implements DetailsService {
         return guiGeList;
     };
 
-    public List<GuiGe> findGuiGeByColor(Integer color_id){
-        List<GuiGe> guiGeList = detailsMapper.findGuiGeByColor(color_id);
+    public List<GuiGe> findGuiGeByColor(Integer color_id, Integer gId){
+        List<GuiGe> guiGeList = detailsMapper.findGuiGeByColor(color_id,gId);
         return guiGeList;
     };
 
-    public List<Color> findColorByGuiGe(Integer guige_id){
-        List<Color> colorList = detailsMapper.findColorByGuiGe(guige_id);
+    public List<Color> findColorByGuiGe(Integer guige_id, Integer gId){
+        List<Color> colorList = detailsMapper.findColorByGuiGe(guige_id,gId);
         return colorList;
     };
 
@@ -58,7 +62,7 @@ public class DetailsServiceImp implements DetailsService {
     };
 
     public List<Img> findFootImg(Integer gId){
-        List<Img> imgFootList = detailsMapper.findTopImg(gId);
+        List<Img> imgFootList = detailsMapper.findFootImg(gId);
         return imgFootList;
     };
 
@@ -80,6 +84,19 @@ public class DetailsServiceImp implements DetailsService {
     public boolean addComment(Comment comment){
         boolean result = detailsMapper.addComment(comment);
         return result;
+    }
+
+    public Integer findBuying(Integer uId,Integer gId){
+        System.out.println("gId是："+gId);
+       List<Integer> integerList =orderMapper.findBuyingOidByUid(uId);
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("gId",gId);
+        map.put("list",integerList);
+        System.out.println(integerList);
+        Integer sum = orderMapper.findIfBuying(map);
+        System.out.println(map);
+        System.out.println("sum是:"+sum);
+        return sum;
     }
 }
 

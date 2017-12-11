@@ -33,7 +33,7 @@
         <result column="guigeName" property="guigeName" jdbcType="VARCHAR"></result>
     </resultMap>
     <select id="findGuiGeByColor" parameterType="Integer" resultMap="findGuiGeResult">
-        SELECT * FROM 7jia2_guige WHERE guigeId in (SELECT guige_Id FROM 7jia2_color_guige WHERE color_id=#{color_id})
+        SELECT * FROM 7jia2_guige WHERE guigeId in (SELECT guige_Id FROM 7jia2_color_guige WHERE color_id=#{0} and goods_id =#{1})
     </select>
 
 
@@ -42,9 +42,8 @@
         <result column="colorName" property="colorName" jdbcType="VARCHAR"></result>
     </resultMap>
     <select id="findColorByGuiGe" parameterType="Integer" resultMap="findColorResult">
-        SELECT * FROM 7jia2_color WHERE colorId in (SELECT color_id FROM 7jia2_color_guige WHERE guige_id=#{guige_id})
+        SELECT * FROM 7jia2_color WHERE colorId in (SELECT color_id FROM 7jia2_color_guige WHERE guige_id=#{0} and goods_id =#{1})
     </select>
-
 
     <select id="findColorBycId" parameterType="int" resultType="String">
         select colorName from 7jia2_color where colorId = #{cId}

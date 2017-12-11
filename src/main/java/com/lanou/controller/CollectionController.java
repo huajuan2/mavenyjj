@@ -26,9 +26,17 @@ public class CollectionController {
     //通过用户Id查询收藏的商品(查看收藏夹)
     @RequestMapping("/findGoodsList.do")
 //    @ResponseBody
-    public void findGoodsList(Integer uId,HttpServletResponse response){
-          List<Goods> goodsList = collectionService.findGoodsList(uId);
-          FastJson_All.toJson(goodsList,response);
+    public void findGoodsList(HttpServletRequest request,HttpServletResponse response){
+            User user  =(User) request.getSession().getAttribute("user1");
+            boolean result = true;
+            if (user==null){
+                result = false;
+                FastJson_All.toJson(result,response);
+            }else {
+                List<Goods> goodsList = collectionService.findGoodsList(user.getuId());
+                FastJson_All.toJson(goodsList,response);
+            }
+
     }
 
 //    @RequestMapping("/findRepeat")
@@ -43,16 +51,16 @@ public class CollectionController {
     //收藏商品
     @RequestMapping("/addCollection.do")
 //    @ResponseBody
-    public void addCollection(Integer uId, Integer gId, HttpServletRequest request,HttpServletResponse response){
+    public void addCollection(Integer gId, HttpServletRequest request,HttpServletResponse response){
         User user = (User) request.getSession().getAttribute("user1");
         int num = 0;
         if (user==null){
 //          String login = "请登录";
             num = 1;
         }
-        Integer result = collectionService.findRepeat(uId, gId);
+        Integer result = collectionService.findRepeat(user.getuId(), gId);
         if (result==null){
-            boolean results = collectionService.addCollection(uId, gId);
+            boolean results = collectionService.addCollection(user.getuId(), gId);
             if (results){
 //                String OK = "商品收藏成功!";
                 num =2;
@@ -64,8 +72,9 @@ public class CollectionController {
 
     @RequestMapping("/deleteCollection.do")
 //    @ResponseBody
-    public void delete(Integer uId, Integer gId,HttpServletResponse response){
-        boolean result = collectionService.deleteCollection(uId, gId);
+    public void delete(Integer gId,HttpServletResponse response,HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("user1");
+        boolean result = collectionService.deleteCollection(user.getuId(), gId);
         boolean res = false;
         if (result){
             //删除成功

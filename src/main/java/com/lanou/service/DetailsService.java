@@ -2,6 +2,7 @@ package com.lanou.service;
 
 import com.lanou.entity.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -14,9 +15,9 @@ public interface DetailsService {
     //找规格
     public List<GuiGe> findGuiGe(Integer gId);
     //通过颜色找到规格
-    public List<GuiGe> findGuiGeByColor(Integer color_id);
+    public List<GuiGe> findGuiGeByColor(Integer color_id, Integer gId);
     //通过规格找到颜色
-    public List<Color> findColorByGuiGe(Integer guige_id);
+    public List<Color> findColorByGuiGe(Integer guige_id, Integer gId);
     //通过商品Id查商品详情
     public List<GoodsAndTab> findGoodsAndTab(Integer gId);
     //通过id查上面的图片
@@ -31,4 +32,6 @@ public interface DetailsService {
     public Integer finCount(Integer gId);
     //添加评论
     public boolean addComment(Comment comment);
+
+    public Integer findBuying(Integer uId,Integer gId);
 }

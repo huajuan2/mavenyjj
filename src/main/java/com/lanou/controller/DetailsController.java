@@ -114,38 +114,50 @@ public class DetailsController {
         map.put("commentList",commentList);
         FastJson_All.toJson(map,response);
     }
-    //添加评论(需要)
-    @RequestMapping("/addComment.do")
-    public void find5(Comment comment, HttpServletResponse response, HttpServletRequest request){
+
+    //判断是否登录和购买过此商品
+    @RequestMapping("/findIfBuying.do")
+    public void find5(Integer goods_id,HttpServletRequest request,HttpServletResponse response){
         User user =(User) request.getSession().getAttribute("user1");
-        Integer result = 1;
+        Integer sum = 1;
         if (user==null){
-            result = 0;
+            sum = 0;//请登录
         }else {
-            Date date = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String commentDate = dateFormat.format(date);
-            comment.setCommentDate(commentDate);
-            comment.setUser_id(user.getuId());
-            if (detailsService.addComment(comment)){
-                result = 2;
+            Integer num = detailsService.findBuying(user.getuId(),goods_id);
+            if (num==0){
+                sum = 2;//没有买过此商品
             }
         }
+        FastJson_All.toJson(sum,response);
+    }
+    //添加评论(需要)
+    @RequestMapping("/addComment.do")
+    public void find6(Comment comment, HttpServletResponse response, HttpServletRequest request){
+        User user =(User) request.getSession().getAttribute("user1");
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String commentDate = dateFormat.format(date);
+        comment.setCommentDate(commentDate);
+        comment.setUser_id(user.getuId());
+        boolean result = false;
+            if (detailsService.addComment(comment)){
+                result = true;
+            }
         FastJson_All.toJson(result,response);
     }
     //根据颜色查商品规格
     //需要颜色id（color_id）
     @RequestMapping("/findGuigeByColor.do")
-    public void find2(Integer color_id,HttpServletResponse response){
-       List<GuiGe> guiGeList =  detailsService.findGuiGeByColor(color_id);
+    public void find2(Integer color_id,HttpServletResponse response,Integer gId){
+       List<GuiGe> guiGeList =  detailsService.findGuiGeByColor(color_id,gId);
        FastJson_All.toJson(guiGeList,response);
     }
 
     //根据规格查商品颜色
     //需要规格id（guige_id）
     @RequestMapping("/findColorByGuige.do")
-    public void find3(Integer guige_id,HttpServletResponse response){
-        List<Color> colorList = detailsService.findColorByGuiGe(guige_id);
+    public void find3(Integer guige_id,HttpServletResponse response,Integer gId){
+        List<Color> colorList = detailsService.findColorByGuiGe(guige_id,gId);
         FastJson_All.toJson(colorList,response);
     }
 
