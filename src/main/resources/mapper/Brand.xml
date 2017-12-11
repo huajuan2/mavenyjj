@@ -28,4 +28,10 @@
         select * from 7jia2_brand where brandId in (select brand_id from 7jia2_brand_category where category_id = #{id})
     </select>
 
+
+    <!--//????id????-->
+    <select id="selectBrandById" parameterType="int" resultMap="brandResult">
+        SELECT * from 7jia2_brand brandId = #{brandId}
+    </select>
+
 </mapper>

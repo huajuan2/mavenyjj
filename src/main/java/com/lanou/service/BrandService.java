@@ -16,4 +16,7 @@ public interface BrandService {
 
     public List<Brand> showByC_id(int cId);
 
+    //根据品牌id查找品牌
+    public Brand selectBrandById(int brandId);
+
 }

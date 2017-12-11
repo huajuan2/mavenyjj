@@ -36,5 +36,17 @@ public class BrandServiceImpl implements BrandService{
 
 
 
+    //*****************************************************************************************//
+    //后台管理系统
+
+    //根据品牌id查找品牌
+    public Brand selectBrandById(int brandId){
+
+        Brand brand = brandMapper.selectBrandById(brandId);
+
+        return brand;
+    }
+
+
 
 }

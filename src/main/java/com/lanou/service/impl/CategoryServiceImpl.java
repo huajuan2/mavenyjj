@@ -113,4 +113,23 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
 
+    //*****************************************************************************************//
+    //****后台管理系统****//
+
+    //根据层级id查找层级
+    public Category selectCategoryById(int categoryId){
+
+        Category category = categoryMapper.selectCategoryById(categoryId);
+        return category;
+    }
+
+    //根据parentId查找层级
+    public List<Category> selectCategoryByParentId(int categoryId){
+
+        List<Category> categoryList = categoryMapper.selectCategoryByParentId(categoryId);
+
+        return categoryList;
+    }
+
+
 }

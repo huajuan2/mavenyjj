@@ -77,4 +77,22 @@ public interface GoodsMapper {
     //根据商品的具体id查找商品
     public Goods selectGoodsById(int goodsId);
 
+    //修改商品
+    public boolean updateGoodsById(Map<String,Object> map);
+
+    //删除商品（逻辑删除）
+    public boolean luojiDelete(int goodsId);
+
+    //----------------------------添加新的商品------------------------------------//
+    public boolean addNewGoods(Map<String,Object> map);
+
+
+
+    //查看回收站的商品
+    public List<Goods> selectRecycleGoods(int page,int count);
+    //查看回收站的商品
+    public List<Integer> selectRecycleGoodsId();
+
+    //把商品从回收站放回到商品（反删除）
+    public boolean huiFuGoods(int goodsId);
 }

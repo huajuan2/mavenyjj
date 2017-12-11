@@ -2,6 +2,7 @@ package com.lanou.service.impl;
 
 import com.lanou.dao.CategoryMapper;
 import com.lanou.dao.GoodsMapper;
+import com.lanou.entity.Brand;
 import com.lanou.entity.Category;
 import com.lanou.entity.Goods;
 import com.lanou.service.CategoryService;
@@ -183,8 +184,7 @@ public class GoodsServiceImpl implements GoodsService {
     //*****************************************************************************************//
     //后台管理系统
 
-    public List<Goods> selectAllGoods(int page,List<Integer> list,int brandId,String likeName){
-        int count = 5;
+    public List<Goods> selectAllGoods(int page,List<Integer> list,int count,int brandId,String likeName){
         page = (page-1)*count;
 
         Map<String,Object> map = new HashMap<String, Object>();
@@ -210,13 +210,108 @@ public class GoodsServiceImpl implements GoodsService {
         return lists;
     }
 
-
-
-    //根据商品的具体id查找商品
+    //根据商品的具体id查找商品（查看商品时展示，此时不可点，以及修改商品时的展示，此时可以进行修改）
     public Goods selectGoodsById(int goodsId){
-
         Goods goods = goodsMapper.selectGoodsById(goodsId);
+
+
+
         return goods;
+    }
+
+    //修改商品(点击确认修改时，发的请求)
+    public boolean updateGoodsById(Goods goods){
+
+        Map<String,Object> map = new HashMap<String,Object>();
+
+        int gId = goods.getgId();
+//        int gBrand_id = goods.getBrandId();
+        String gName = goods.getgName();
+//        int gCategory_id = goods.getCategoryId();
+//        String gImg = goods.getUrl();
+        double gPrice = goods.getPrice();
+        double gMaketPrice = goods.getgMaketPrice();
+        int gStock =goods.getgStock();
+        int gJiFen = goods.getgJiFen();
+
+        map.put("gId",gId);
+//        map.put("gBrand_id",gBrand_id);
+        map.put("gName",gName);
+//        map.put("gCategory_id",gCategory_id);
+//        map.put("gImg",gImg);
+        map.put("gPrice",gPrice);
+        map.put("gMaketPrice",gMaketPrice);
+        map.put("gStock",gStock);
+        map.put("gJiFen",gJiFen);
+
+
+        boolean result = goodsMapper.updateGoodsById(map);
+
+        return result;
+    }
+
+    //删除商品（逻辑删除）
+    public boolean luojiDelete(int goodsId){
+
+        boolean result = goodsMapper.luojiDelete(goodsId);
+
+        return result;
+    }
+
+    //----------------------------添加新的商品------------------------------------//
+    public boolean addNewGoods(Goods goods){
+
+        Map<String,Object> map = new HashMap<String,Object>();
+
+        int gBrand_id = goods.getBrandId();
+        String gName = goods.getgName();
+        int gCategory_id = goods.getCategoryId();
+        String gImg = goods.getUrl();
+        double gPrice = goods.getPrice();
+        double gMaketPrice = goods.getgMaketPrice();
+        int gStock =goods.getgStock();
+        int gJiFen = goods.getgJiFen();
+
+        map.put("gBrand_id",gBrand_id);
+        map.put("gName",gName);
+        map.put("gCategory_id",gCategory_id);
+        map.put("gImg",gImg);
+        map.put("gPrice",gPrice);
+        map.put("gMaketPrice",gMaketPrice);
+        map.put("gStock",gStock);
+        map.put("gJiFen",gJiFen);
+
+        boolean result = goodsMapper.addNewGoods(map);
+
+        return result;
+    }
+
+
+    //----------------------------商品回收站------------------------------------//
+
+    //查看回收站的商品
+    public List<Goods> selectRecycleGoods(int page,int count){
+        page = (page-1)*count;
+
+        List<Goods> goodsList = goodsMapper.selectRecycleGoods(page,count);
+
+
+        return goodsList;
+    }
+    //查看回收站的商品
+    public List<Integer> selectRecycleGoodsId(){
+
+        List<Integer> list = goodsMapper.selectRecycleGoodsId();
+
+        return list;
+    }
+
+    //把商品从回收站放回到商品（反删除）
+    public boolean huiFuGoods(int goodsId){
+
+        boolean result =goodsMapper.huiFuGoods(goodsId);
+
+        return result;
     }
 
 }

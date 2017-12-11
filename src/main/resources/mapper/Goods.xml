@@ -14,6 +14,7 @@
         <result column="gMaketPrice" property="gMaketPrice" javaType="double"/>
         <result column="gSale" property="gSale" javaType="int"/>
         <result column="gStock" property="gStock" javaType="int"/>
+        <result column="gJiFen" property="gJiFen" javaType="int"/>
         <result column="gDeleteId" property="gDeleteId" javaType="int"/>
         <collection property="detailsList" ofType="com.lanou.entity.Details">
             <id column="detailsId" property="detailsId" javaType="int"/>
@@ -200,6 +201,42 @@
 
     <!--//根据商品的具体id查找商品-->
     <select id="selectGoodsById" resultMap="goodsResult">
-        SELECT * FROM 7jia2_goods where gId = #{goodsId}
+        SELECT * FROM 7jia2_goods where gDeleteId = 0 and gId = #{goodsId}
     </select>
+
+    <!--//修改商品-->
+    <update id="updateGoodsById">
+        update 7jia2_goods set gName=#{gName},gPrice=#{gPrice},gMaketPrice=#{gMaketPrice},gStock=#{gStock},gJiFen=#{gJiFen}
+         where gId = #{gId}
+    </update>
+
+    <!--//删除商品（逻辑删除）-->
+    <update id="luojiDelete" parameterType="int">
+        update 7jia2_goods set gDeleteId = 1 where gId= #{goodsId}
+    </update>
+
+
+    <!--********  添加新的商品  ********-->
+
+    <insert id="addNewGoods">
+        insert into 7jia2_goods (gName,gBrand_id,gCategory_id,gImg,gPrice,gMaketPrice,gStock,gJiFen)
+         values(#{gName},#{gBrand_id},#{gCategory_id},#{gImg},#{gPrice},#{gMaketPrice},#{gStock},#{gJiFen})
+    </insert>
+
+
+    <!--********  商品回收站  ********-->
+
+    <!--//根据条件分页展示商品-->
+    <select id="selectRecycleGoods" resultMap="goodsResult">
+        SELECT * from 7jia2_goods as g where gDeleteId = 1
+         limit #{0},#{1}
+    </select>
+    <!--//根据条件分页展示商品-->
+    <select id="selectRecycleGoodsId" resultMap="goodsResult">
+        SELECT * from 7jia2_goods as g where gDeleteId = 1
+    </select>
+
+    <update id="huiFuGoods" parameterType="int">
+        update 7jia2_goods set gDeleteId = 0 where gId= #{0}
+    </update>
 </mapper>

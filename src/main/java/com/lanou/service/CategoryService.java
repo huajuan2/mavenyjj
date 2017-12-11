@@ -24,4 +24,17 @@ public interface CategoryService {
 
     //根据categoryId查找对应的三级分类
     public List<Integer> findThirdCategoryIdByCategoryId(int categoryId);
+
+
+
+    //*****************************************************************************************//
+    //****后台管理系统****//
+
+    //根据层级id查找层级
+    public Category selectCategoryById(int categoryId);
+
+    //根据parentId查找层级
+    public List<Category> selectCategoryByParentId(int categoryId);
 }
+
+

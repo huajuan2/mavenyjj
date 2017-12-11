@@ -55,12 +55,31 @@ public interface GoodsService {
     //****后台管理系统****//
 
     //根据条件分页展示商品
-    public List<Goods> selectAllGoods(int page,List<Integer> list,int brandId,String likeName);
+    public List<Goods> selectAllGoods(int page,List<Integer> list,int count,int brandId,String likeName);
     //得到获得的商品的ID的集合，得到总个数size
     public List<Integer> selectAllGoodsId(List<Integer> list,int brandId,String likeName);
 
-
     //根据商品的具体id查找商品
     public Goods selectGoodsById(int goodsId);
+
+    //修改商品
+    public boolean updateGoodsById(Goods goods);
+
+    //删除商品（逻辑删除）
+    public boolean luojiDelete(int goodsId);
+
+    //----------------------------添加新的商品------------------------------------//
+    //添加新商品
+    public boolean addNewGoods(Goods goods);
+
+
+
+    //查看回收站的商品
+    public List<Goods> selectRecycleGoods(int page,int count);
+    //查看回收站的商品
+    public List<Integer> selectRecycleGoodsId();
+
+    //把商品从回收站放回到商品（反删除）
+    public boolean huiFuGoods(int goodsId);
 
 }
