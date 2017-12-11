@@ -62,7 +62,7 @@ public class DetailsServiceImp implements DetailsService {
     };
 
     public List<Img> findFootImg(Integer gId){
-        List<Img> imgFootList = detailsMapper.findTopImg(gId);
+        List<Img> imgFootList = detailsMapper.findFootImg(gId);
         return imgFootList;
     };
 
