@@ -9,8 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,10 +26,64 @@ public class DetailsController {
     @Autowired
     private DetailsService detailsService;
 
+    private static final int LIKESIZE = 5;
+
+    private static LinkedList like = new LinkedList();
+
     //根据商品id查询商品详情(Id，名称，颜色，规格等等)
     //需要参数商品id
     @RequestMapping("/findGoodsNamePriceImg.do")
-    public void find1(Integer gId, HttpServletResponse response){
+    public void find1(Integer gId, HttpServletResponse response, HttpServletRequest request){
+
+        Cookie[] cookies = request.getCookies();
+        if(cookies!=null) {
+            int i = 0;
+            for (i = 0; i < cookies.length; i++) {
+                if ("userLike".equals(cookies[i].getName())) {
+                    String likes = cookies[i].getValue();
+                    likes = likes.substring(1, likes.length() - 1);
+                    String userlikes[] = likes.split(",");
+                    System.out.println("数组长度：" + userlikes.length);
+                    int j = 0;
+                    for (j = 0; j < userlikes.length; j++) {
+                        if (gId == Integer.parseInt(userlikes[j].trim())) {
+                            System.out.println("j的值是:" + j);
+                            break;
+                        }
+                    }
+                    if (j == userlikes.length) {
+                        if (userlikes.length >= LIKESIZE) {
+
+                            like.removeFirst();
+                            like.addLast(gId);
+                        } else {
+                            like.add(gId);
+                        }
+                        Cookie cookie = new Cookie("userLike", like.toString());
+                        cookie.setPath("/");
+                        cookie.setMaxAge(60 * 60 * 24 * 7);
+                        response.addCookie(cookie);
+                        break;
+                    }
+                    break;
+                }
+
+            }
+            if (i == cookies.length) {
+                like.add(gId);
+                Cookie cookie = new Cookie("userLike", like.toString());
+                cookie.setPath("/");
+                cookie.setMaxAge(60 * 60 * 24 * 7);
+                response.addCookie(cookie);
+            }
+        }else{
+            like.add(gId);
+            Cookie cookie = new Cookie("userLike", like.toString());
+            cookie.setPath("/");
+            cookie.setMaxAge(60 * 60 * 24 * 7);
+            response.addCookie(cookie);
+        }
+
         Map<String,Object> map = new HashMap<String,Object>();
         Goods goodss =  detailsService.findGoodsNamePriceImg(gId);
         List<Color> colorList = detailsService.findColor(gId);

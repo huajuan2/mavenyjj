@@ -202,4 +202,10 @@
     <select id="selectGoodsById" resultMap="goodsResult">
         SELECT * FROM 7jia2_goods where gId = #{goodsId}
     </select>
+
+
+    <!--//从所有商品中随机10个-->
+    <select id="selectRandom10" resultMap="goodsResult">
+        select * from 7jia2_goods limit 10
+    </select>
 </mapper>

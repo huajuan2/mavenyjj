@@ -11,6 +11,7 @@ import com.lanou.service.ShoppingCarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -472,4 +473,30 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
 
     }
 
+
+
+//    最近浏览
+    public List<Goods> guessYouLike(HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        if(cookies == null){
+            return null;
+        }else{
+            System.out.println(cookies);
+            System.out.println("+++++++++:"+cookies.length);
+            List<Goods> goods = new ArrayList<Goods>();
+            for(int i=0;i<cookies.length;i++){
+                if("userLike".equals(cookies[i].getName())){
+                    String likes = cookies[i].getValue();
+                    likes = likes.substring(1, likes.length() - 1);
+                    String userlikes[] = likes.split(",");
+                    for (int j=0;j<userlikes.length;j++){
+                        Goods good = goodsMapper.findByGid(Integer.parseInt(userlikes[j].trim()));
+                        goods.add(good);
+                    }
+                }
+            }
+            return goods;
+        }
+
+    }
 }

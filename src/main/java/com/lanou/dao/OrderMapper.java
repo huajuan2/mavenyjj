@@ -2,6 +2,7 @@ package com.lanou.dao;
 
 import com.lanou.entity.Order;
 import com.lanou.entity.ShoppingCarItem;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -23,4 +24,16 @@ public interface OrderMapper {
     public Order findOrderByOid(int oId);
 
     public int findOrderReceive(int oId);
+
+    public boolean payForOrder(int oId);
+
+    public double findUserMoney(int uId);
+
+    public boolean payMoney(Map<String,Object> map);
+
+    public boolean cancelOrder(int oId);
+
+    public Integer findIfBuying(Map<String,Object> map);
+
+    public List<Integer> findBuyingOidByUid(int u_id);
 }

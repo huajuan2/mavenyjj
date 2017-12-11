@@ -54,6 +54,7 @@ public class IndexController {
         List<Goods> tuangou = goodsService.findTuangou(0);
         List<Goods> temai = goodsService.findTemai(0);
         List<Notice> notices = noticeService.findNoticeRandom();
+        List<Goods> bottomGoods = goodsService.selectBottomGoods();
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("categories",categories);//一级目录
         map.put("carousels",carousels);//轮播图
@@ -62,6 +63,7 @@ public class IndexController {
         map.put("tuangou",tuangou);//团购
         map.put("temai",temai);//特卖
         map.put("notices",notices);//公告
+        map.put("bottomGoods",bottomGoods);//底部商品
 //        return map;
         FastJson_All.toJson(map,response);
     }
