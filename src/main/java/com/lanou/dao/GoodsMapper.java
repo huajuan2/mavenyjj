@@ -77,6 +77,7 @@ public interface GoodsMapper {
     //根据商品的具体id查找商品
     public Goods selectGoodsById(int goodsId);
 
+
     //修改商品
     public boolean updateGoodsById(Map<String,Object> map);
 
@@ -95,4 +96,7 @@ public interface GoodsMapper {
 
     //把商品从回收站放回到商品（反删除）
     public boolean huiFuGoods(int goodsId);
+
+    public List<Goods> selectRandom10();
+
 }

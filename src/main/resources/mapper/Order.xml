@@ -52,4 +52,32 @@
     <select id="findOrderReceive" parameterType="int" resultType="int">
         select receive_id from 7jia2_order where oId = #{oId}
     </select>
+
+    <update id="payForOrder" parameterType="int">
+        update 7jia2_order set order_state = 1 where oId = #{oId}
+    </update>
+
+    <!--??id???????-->
+    <select id="findUserMoney" parameterType="int" resultType="double">
+        select money from 7jia2_user where uId = #{uId}
+    </select>
+    <!--??-->
+    <update id="payMoney" parameterType="Map">
+        update 7jia2_user set money = #{leftMoney} where uId = #{uId};
+    </update>
+
+    <update id="cancelOrder" parameterType="int">
+        update 7jia2_order set order_state = 2 where oId = #{oId}
+    </update>
+
+    <select id="findIfBuying" resultType="Integer">
+        select count(*) from 7jia2_orderGoods where g_id = #{0} and o_id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findBuyingOidByUid" resultType="Integer">
+        select oId from 7jia2_order where u_id = #{u_id} and order_state = 1
+    </select>
 </mapper>

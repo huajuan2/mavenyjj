@@ -219,6 +219,7 @@ public class GoodsServiceImpl implements GoodsService {
         return goods;
     }
 
+
     //修改商品(点击确认修改时，发的请求)
     public boolean updateGoodsById(Goods goods){
 
@@ -312,6 +313,11 @@ public class GoodsServiceImpl implements GoodsService {
         boolean result =goodsMapper.huiFuGoods(goodsId);
 
         return result;
+    }
+
+
+    public List<Goods> selectBottomGoods() {
+        return goodsMapper.selectRandom10();
     }
 
 }

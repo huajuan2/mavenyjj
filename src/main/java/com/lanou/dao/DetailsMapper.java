@@ -27,4 +27,10 @@ public interface DetailsMapper {
     public List<Img> findTopImg(Integer gId);
 
     public List<Img> findFootImg(Integer gId);
+
+    public List<Comment> findComment(Integer gId);
+
+    public Integer finCount(Integer gId);
+
+    public boolean addComment(Comment comment);
 }

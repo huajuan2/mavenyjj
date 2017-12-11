@@ -204,6 +204,7 @@
         SELECT * FROM 7jia2_goods where gDeleteId = 0 and gId = #{goodsId}
     </select>
 
+
     <!--//修改商品-->
     <update id="updateGoodsById">
         update 7jia2_goods set gName=#{gName},gPrice=#{gPrice},gMaketPrice=#{gMaketPrice},gStock=#{gStock},gJiFen=#{gJiFen}
@@ -239,4 +240,11 @@
     <update id="huiFuGoods" parameterType="int">
         update 7jia2_goods set gDeleteId = 0 where gId= #{0}
     </update>
+
+
+    <!--//从所有商品中随机10个-->
+    <select id="selectRandom10" resultMap="goodsResult">
+        select * from 7jia2_goods limit 10
+    </select>
+
 </mapper>

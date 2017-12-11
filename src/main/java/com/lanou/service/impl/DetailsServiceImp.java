@@ -1,11 +1,15 @@
 package com.lanou.service.impl;
 
 import com.lanou.dao.DetailsMapper;
+import com.lanou.dao.GoodsMapper;
 import com.lanou.entity.*;
 import com.lanou.service.DetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +61,26 @@ public class DetailsServiceImp implements DetailsService {
         List<Img> imgFootList = detailsMapper.findTopImg(gId);
         return imgFootList;
     };
+
+    public List<Comment> findComment(Integer gId){
+        List<Comment> commentList = detailsMapper.findComment(gId);
+        return commentList;
+    };
+
+//    public User findUserComment(Integer gId){
+//        User user = detailsMapper.findUserComment(gId);
+//        return  user;
+//    };
+
+    public Integer finCount(Integer gId){
+        Integer num = detailsMapper.finCount(gId);
+        return num;
+    };
+
+    public boolean addComment(Comment comment){
+        boolean result = detailsMapper.addComment(comment);
+        return result;
+    }
 }
 
 

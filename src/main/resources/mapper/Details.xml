@@ -78,4 +78,34 @@
     <select id="findFootImg" resultMap="findImgListResult">
         SELECT * FROM 7jia2_detailsImg WHERE imgStatus = 0 AND goods_id = #{gId}
     </select>
+
+
+    <resultMap id="commentResult" type="Comment">
+        <id column="commentId" property="commentId" javaType="Integer"></id>
+        <result column="commentIndex" property="commentIndex" jdbcType="INTEGER"></result>
+        <result column="commentInfo" property="commentInfo" jdbcType="VARCHAR"></result>
+        <result column="commentDate" property="commentDate" jdbcType="VARCHAR"></result>
+        <result column="commentLike" property="commentLike" jdbcType="INTEGER"></result>
+        <result column="goods_id" property="goods_id" jdbcType="INTEGER"></result>
+        <result column="user_id" property="user_id" jdbcType="INTEGER"></result>
+        <association property="user" javaType="com.lanou.entity.User">
+            <id column="uId" property="uId" javaType="int"></id>
+            <result column="username" property="username" jdbcType="VARCHAR"></result>
+            <result column="headImgUrl" property="headImgUrl" jdbcType="VARCHAR"></result>
+        </association>
+        <association property="goods" javaType="com.lanou.entity.Goods">
+            <id column="gId" property="gId" javaType="int"></id>
+        </association>
+    </resultMap>
+    <select id="findComment" resultMap="commentResult" parameterType="Integer">
+        SELECT * FROM 7jia2_comment c,7jia2_user u,7jia2_goods g WHERE g.gId=c.goods_id AND u.uId=c.user_id AND c.goods_id=#{gId}
+    </select>
+
+    <select id="finCount" resultType="Integer" parameterType="Integer">
+        SELECT COUNT(*) FROM  7jia2_comment WHERE goods_id =#{gId}
+    </select>
+
+    <insert id="addComment" parameterType="Comment">
+        INSERT INTO 7jia2_comment(commentIndex,commentInfo,commentDate,goods_id,user_id) VALUES(#{commentIndex},#{commentInfo},#{commentDate},#{goods_id},#{user_id});
+    </insert>
 </mapper>

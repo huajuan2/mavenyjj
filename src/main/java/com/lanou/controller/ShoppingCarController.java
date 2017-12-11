@@ -1,5 +1,6 @@
 package com.lanou.controller;
 
+import com.lanou.entity.Goods;
 import com.lanou.entity.ShoppingCar;
 import com.lanou.entity.User;
 import com.lanou.service.ShoppingCarService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -23,7 +25,7 @@ public class ShoppingCarController {
     @Autowired
     private ShoppingCarService shoppingCarService;
 
-    @RequestMapping("/addToShoppingCar.do")
+    @RequestMapping("/addGoodsToShoppingCar.do")
     public void addToShoppingCar(int gId, int count, int colorId, int sizeId, HttpServletRequest request,HttpServletResponse response){
         User user = (User)request.getSession().getAttribute("user1");
         if(user == null){
@@ -43,7 +45,7 @@ public class ShoppingCarController {
             FastJson_All.toJson(map,response);
         }else{
             int uId = user.getuId();
-            ShoppingCar shoppingCar = (ShoppingCar)request.getSession().getAttribute("shoppingCar");
+            //ShoppingCar shoppingCar = (ShoppingCar)request.getSession().getAttribute("shoppingCar");
             boolean result = shoppingCarService.addToShoppingCarWithUser(gId,count,colorId,sizeId,uId);
             ShoppingCar car = shoppingCarService.findShoppingCarByUid(uId);
             Map<String,Object> map = new HashMap<String,Object>();
@@ -140,6 +142,11 @@ public class ShoppingCarController {
 
     }
 
+    @RequestMapping("/findHasSelected.do")
+    public void findHasSelected(HttpServletRequest request,HttpServletResponse response){
+        List<Goods> youLike = shoppingCarService.guessYouLike(request);
+        FastJson_All.toJson(youLike,response);
 
+    }
 
 }

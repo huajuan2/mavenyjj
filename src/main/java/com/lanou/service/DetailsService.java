@@ -23,4 +23,12 @@ public interface DetailsService {
     public List<Img> findTopImg(Integer gId);
     //通过id查下面的图片
     public List<Img> findFootImg(Integer gId);
+    //通过商品Id查找评论
+    public List<Comment> findComment(Integer gId);
+    //通过商品Id查找用户
+//    public User findUserComment(Integer gId);
+    //通过goods_id查找评论数量
+    public Integer finCount(Integer gId);
+    //添加评论
+    public boolean addComment(Comment comment);
 }

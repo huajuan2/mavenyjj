@@ -62,6 +62,7 @@ public interface GoodsService {
     //根据商品的具体id查找商品
     public Goods selectGoodsById(int goodsId);
 
+
     //修改商品
     public boolean updateGoodsById(Goods goods);
 
@@ -81,5 +82,8 @@ public interface GoodsService {
 
     //把商品从回收站放回到商品（反删除）
     public boolean huiFuGoods(int goodsId);
+
+    public List<Goods> selectBottomGoods();
+
 
 }

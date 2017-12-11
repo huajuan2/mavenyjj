@@ -51,7 +51,7 @@
 	</update>
 
 	<update id="updatePassword" parameterType="User">
-		UPDATE 7jia2_user u SET u.password = #{newpassword} where uId=#{uId}
+		UPDATE 7jia2_user u SET u.password = #{password} where uId=#{uId}
 	</update>
 
 	<update id="updateIpAndTime" parameterType="User">
