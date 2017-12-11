@@ -1,5 +1,7 @@
 package com.lanou.entity;
 
+import java.util.List;
+
 /**
  * Created by lanou on 2017/12/2.
  */
@@ -15,6 +17,15 @@ public class Details {
     private Integer detailsJiFen;
     private Integer detailsStatus;
     private Integer goods_id;
+    private List<Comment> commentList;
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
 
     public Integer getDetailsId() {
         return detailsId;
@@ -97,7 +108,7 @@ public class Details {
     }
 
 
-    public Details(Integer detailsId, String detailsColor, String detailsImgUrl, String detailsGuiGe, Integer detailsStock, Double detailsPrice, Double detailsMarketPrice, Integer detailsJiFen, Integer detailsStatus, Integer goods_id) {
+    public Details(Integer detailsId, String detailsColor, String detailsImgUrl, String detailsGuiGe, Integer detailsStock, Double detailsPrice, Double detailsMarketPrice, Integer detailsJiFen, Integer detailsStatus, Integer goods_id, List<Comment> commentList) {
         this.detailsId = detailsId;
         this.detailsColor = detailsColor;
         this.detailsImgUrl = detailsImgUrl;
@@ -108,6 +119,7 @@ public class Details {
         this.detailsJiFen = detailsJiFen;
         this.detailsStatus = detailsStatus;
         this.goods_id = goods_id;
+        this.commentList = commentList;
     }
 
     public Details() {
@@ -126,7 +138,7 @@ public class Details {
                 ", detailsJiFen=" + detailsJiFen +
                 ", detailsStatus=" + detailsStatus +
                 ", goods_id=" + goods_id +
+                ", commentList=" + commentList +
                 '}';
     }
-
 }

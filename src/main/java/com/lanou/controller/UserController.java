@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -188,7 +189,8 @@ public class UserController {
 
 	//上传头像
 	@RequestMapping("/upload.do")
-	public void updateHead(MultipartFile file,HttpServletRequest request,HttpServletResponse response){
+	public void updateHead(MultipartFile files,HttpServletRequest request,HttpServletResponse response){
+		System.out.println(files);
 		User user = (User) request.getSession().getAttribute("user1");
 		boolean results = false;
 		//user+userid
@@ -196,9 +198,9 @@ public class UserController {
 				//xianggcetupian
 		String headImg = "/usr/local/tomcat7/webapps/Seven_Two/resource/headUrl/user"+user.getuId()+"/"+user.getuId()+".jpg";
 		FileUtil.createFiles(headImg);
-		File files = new File(headImg);
+		File files1 = new File(headImg);
 		try {
-		 	FileUtils.copyInputStreamToFile(file.getInputStream(),files);
+		 	FileUtils.copyInputStreamToFile(files.getInputStream(),files1);
 		 	String headImgUrl = "http://139.199.11.183:8080/Seven_Two/resource/headUrl/user"+user.getuId()+"/"+user.getuId()+".jpg";
 			user.setHeadImgUrl(headImgUrl);
 			boolean result = userService.updateHeadImgUrl(user);

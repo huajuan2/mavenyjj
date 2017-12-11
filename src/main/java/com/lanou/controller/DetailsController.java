@@ -9,7 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +37,8 @@ public class DetailsController {
         List<GoodsAndTab> goodsAndTabList = detailsService.findGoodsAndTab(gId);
         List<Img> imgTopList = detailsService.findTopImg(gId);
         List<Img> imgFootList = detailsService.findFootImg(gId);
+        Integer num = detailsService.finCount(gId);
+        map.put("num",num);
         map.put("goodsAndTabList",goodsAndTabList);
         map.put("goods",goodss);
         map.put("color",colorList);
@@ -43,6 +48,33 @@ public class DetailsController {
         FastJson_All.toJson(map,response);
     }
 
+    //根据商品id查询所有评论以及评论人的信息
+    @RequestMapping("/findComment.do")
+    public void find4(Integer gId,HttpServletResponse response){
+        Map<String,Object> map = new HashMap<String, Object>();
+        List<Comment> commentList = detailsService.findComment(gId);
+        map.put("commentList",commentList);
+        FastJson_All.toJson(map,response);
+    }
+    //添加评论(需要)
+    @RequestMapping("/addComment.do")
+    public void find5(Comment comment, HttpServletResponse response, HttpServletRequest request){
+        User user =(User) request.getSession().getAttribute("user1");
+        Integer result = 1;
+        if (user==null){
+            result = 0;
+        }else {
+            Date date = new Date();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String commentDate = dateFormat.format(date);
+            comment.setCommentDate(commentDate);
+            comment.setUser_id(user.getuId());
+            if (detailsService.addComment(comment)){
+                result = 2;
+            }
+        }
+        FastJson_All.toJson(result,response);
+    }
     //根据颜色查商品规格
     //需要颜色id（color_id）
     @RequestMapping("/findGuigeByColor.do")

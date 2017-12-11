@@ -22,6 +22,15 @@ public class User {
 	private String loginDate;
 	private String headImgUrl;
 	private String oldPassword;
+	private List<Comment> commentList;
+
+	public List<Comment> getCommentList() {
+		return commentList;
+	}
+
+	public void setCommentList(List<Comment> commentList) {
+		this.commentList = commentList;
+	}
 
 	public String getOldPassword() {
 		return oldPassword;
@@ -35,7 +44,7 @@ public class User {
 		super();
 	}
 
-	public User(Integer uId, String username, String password, String phone, String name, String sex, Date birthDate, String qq, List<Goods> goodsList, String addressIp, String loginDate, String headImgUrl, String oldPassword) {
+	public User(Integer uId, String username, String password, String phone, String name, String sex, Date birthDate, String qq, List<Goods> goodsList, String addressIp, String loginDate, String headImgUrl, String oldPassword, List<Comment> commentList) {
 		this.uId = uId;
 		this.username = username;
 		this.password = password;
@@ -49,7 +58,9 @@ public class User {
 		this.loginDate = loginDate;
 		this.headImgUrl = headImgUrl;
 		this.oldPassword = oldPassword;
+		this.commentList = commentList;
 	}
+
 
 	public Integer getuId() {
 		return uId;
