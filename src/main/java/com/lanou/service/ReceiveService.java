@@ -1,5 +1,6 @@
 package com.lanou.service;
 
+import com.lanou.entity.City;
 import com.lanou.entity.Receive;
 
 import java.util.List;
@@ -18,4 +19,8 @@ public interface ReceiveService {
     public boolean updateReceive(Receive receive);
 
     public boolean deleteReceive(int id);
+
+    public List<City> findCityLevelOne();
+
+    public List<City> findCityChildLevel(int parentId);
 }

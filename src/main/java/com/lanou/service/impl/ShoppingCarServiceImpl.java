@@ -203,7 +203,7 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
 //        car.setCount(count);
 //        return car;
 
-        ShoppingCar car =  shoppingCarMapper.findShoppingCarByUid(uId);
+        ShoppingCar car = shoppingCarMapper.findShoppingCarByUid(uId);
         if(car == null){
             return null;
         }
@@ -489,7 +489,7 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
                     String likes = cookies[i].getValue();
                     likes = likes.substring(1, likes.length() - 1);
                     String userlikes[] = likes.split(",");
-                    for (int j=0;j<userlikes.length;j++){
+                    for (int j=userlikes.length-1;j>=0;j--){
                         Goods good = goodsMapper.findByGid(Integer.parseInt(userlikes[j].trim()));
                         goods.add(good);
                     }

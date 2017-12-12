@@ -1,6 +1,8 @@
 package com.lanou.service.impl;
 
+import com.lanou.dao.CityMapper;
 import com.lanou.dao.ReceiveMapper;
+import com.lanou.entity.City;
 import com.lanou.entity.Receive;
 import com.lanou.service.ReceiveService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class ReceiveServiceImpl implements ReceiveService {
 
     @Autowired
     private ReceiveMapper receiveMapper;
+
+    @Autowired
+    private CityMapper cityMapper;
 
     public List<Receive> findAllReceivesByUser(int uId) {
         return receiveMapper.findReceivesByUid(uId);
@@ -49,4 +54,13 @@ public class ReceiveServiceImpl implements ReceiveService {
             return  false;
         }
     }
+
+    public List<City> findCityLevelOne(){
+        return cityMapper.findLevelOne();
+    }
+
+    public List<City> findCityChildLevel(int parentId){
+        return cityMapper.findChildLevel(parentId);
+    }
+
 }

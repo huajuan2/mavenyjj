@@ -57,7 +57,10 @@ public class DetailsController {
                     }
                     if (j == userlikes.length) {
                         if (userlikes.length >= LIKESIZE) {
-
+//                            把userlikes[]里的元素装到like中
+                            for(int k=0;k<LIKESIZE;k++){
+                                like.add(userlikes[k].trim());
+                            }
                             like.removeFirst();
                             like.addLast(gId);
                         } else {

@@ -46,7 +46,7 @@
 
     <!--???????????????-->
     <insert id="addToShoppingCar" parameterType="ShoppingCar">
-        insert into 7jia2_shoppingCar(user_id,kinds) values(#{uId},#{kinds})
+        insert into 7jia2_shoppingCar(user_id) values(#{uId})
     </insert>
 
     <!--<insert id="addToShoppingCarItem" parameterType="ShoppingCarItem">-->

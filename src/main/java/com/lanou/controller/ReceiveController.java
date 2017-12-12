@@ -53,4 +53,16 @@ public class ReceiveController {
         FastJson_All.toJson(result,response);
     }
 
+//    选择省
+    @RequestMapping("/findProvince.do")
+    public void findProvince(HttpServletResponse response){
+        FastJson_All.toJson(receiveService.findCityLevelOne(),response);
+    }
+
+    @RequestMapping("/findChildCity.do")
+    public void findChildCity(int cityId,HttpServletResponse response){
+        FastJson_All.toJson(receiveService.findCityChildLevel(cityId),response);
+    }
+
+
 }

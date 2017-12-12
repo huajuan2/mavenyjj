@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.CityMapper">
+
+    <resultMap id="cityResult" type="City">
+        <id column="cityId" property="cityId"></id>
+        <result column="cityName" property="cityName"></result>
+    </resultMap>
+
+    <!--????-->
+    <select id="findLevelOne" resultMap="cityResult">
+        select * from 7jia2_area where parentId = 0
+    </select>
+
+    <!--?????-->
+    <select id="findChildLevel" parameterType="int" resultMap="cityResult">
+        select * from 7jia2_area where parentId = #{parentId}
+    </select>
+
+</mapper>
