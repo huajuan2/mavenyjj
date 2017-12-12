@@ -22,5 +22,5 @@ public interface ReceiveService {
 
     public List<City> findCityLevelOne();
 
-    public List<City> findCityChildLevel(int parentId);
+    public List<City> findCityChildLevel(Integer parentId);
 }

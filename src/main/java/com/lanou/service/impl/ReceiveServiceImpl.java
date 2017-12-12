@@ -59,7 +59,10 @@ public class ReceiveServiceImpl implements ReceiveService {
         return cityMapper.findLevelOne();
     }
 
-    public List<City> findCityChildLevel(int parentId){
+    public List<City> findCityChildLevel(Integer parentId){
+        if (parentId==null){
+            return null;
+        }
         return cityMapper.findChildLevel(parentId);
     }
 

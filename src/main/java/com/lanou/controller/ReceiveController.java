@@ -60,7 +60,7 @@ public class ReceiveController {
     }
 
     @RequestMapping("/findChildCity.do")
-    public void findChildCity(int cityId,HttpServletResponse response){
+    public void findChildCity(Integer cityId,HttpServletResponse response){
         FastJson_All.toJson(receiveService.findCityChildLevel(cityId),response);
     }
 

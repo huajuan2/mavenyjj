@@ -294,7 +294,20 @@ public class OrderServiceImpl implements OrderService{
     public Order findOneOrder(int oId){
 //        找单个订单要把收货地址展示出来
         Order order = orderMapper.findOrderByOid(oId);
-        order.setItems(orderMapper.findOrderGoodsByOid(oId));
+        int o_id = order.getoId();
+        List<ShoppingCarItem> items = orderMapper.findOrderGoodsByOid(o_id);
+        for(int j=0;j<items.size();j++){
+            int gId = items.get(j).getgId();
+            Goods goods = goodsMapper.findByGid(gId);
+            items.get(j).setgName(goods.getgName());
+            items.get(j).setImg(goods.getUrl());
+            items.get(j).setColor(detailsMapper.findColorBycId(items.get(j).getColor_id()));
+            items.get(j).setSize(detailsMapper.findGuigeBygId(items.get(j).getGuige_id()));
+            items.get(j).setgStock(goods.getgStock());
+            items.get(j).setPrice(goods.getPrice());
+            items.get(j).setSubtotal(items.get(j).getNum()*goods.getPrice());
+        }
+        order.setItems(items);
         int rId = orderMapper.findOrderReceive(oId);
         order.setReceive(receiveMapper.findReceiveById(rId));
         return order;
@@ -357,5 +370,29 @@ public class OrderServiceImpl implements OrderService{
         }
         return orders;
     }
+
+// ****************后台管理系统****************
+//    查看所有逻辑存在的订单
+//    public List<Integer> findOrdersByManager(Integer oId,Integer state,Integer page,Integer count){
+//        page = (page-1)*count;
+//        Map<String,Object> map = new HashMap<String,Object>();
+//        map.put("oId",oId);
+//        map.put("state",state);
+//        map.put("page",page);
+//        map.put("count",count);
+//        List<Integer> oIds =  orderMapper.findOrderByManager(map);
+//        for (int i=0;i<oIds.size();i++){
+//
+//        }
+//
+//
+//
+//    }
+
+//    逻辑删除订单
+    public void deleteOrder(){
+
+    }
+
 
 }

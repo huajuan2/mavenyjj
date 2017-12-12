@@ -26,4 +26,6 @@ public interface OrderService {
     public boolean cancelOrder(HttpServletRequest request);
 
     public List<Order> findOrderByLimit(HttpServletRequest request);
+
+    //public List<Integer> findOrdersByManager(Integer oId,Integer state,Integer page,Integer count);
 }

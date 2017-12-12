@@ -44,4 +44,9 @@ public interface OrderMapper {
     public List<Integer> findGidByOid(int oId);
 
     public List<Order> findOrderInOid(@Param("list")List<Integer> list);
+
+//    订单管理
+    public List<Integer> findOrderByManager(Map<String,Object> map);
+
+    public Integer findOrderByReceiveName(Map<String,Object> map);
 }

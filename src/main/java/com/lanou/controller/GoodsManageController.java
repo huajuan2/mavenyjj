@@ -37,7 +37,7 @@ public class GoodsManageController {
 
     //查看所有商品（里面包括对三个条件的判断查询）
     @RequestMapping("/selectAllGoods.do")
-    public void selectAllGoods(HttpServletResponse response,int count, int page,int categoryId,int brandId,String likeName){
+    public void selectAllGoods(HttpServletResponse response,Integer count, Integer page,Integer categoryId,Integer brandId,String likeName){
 
         Map<String,Object> map = new HashMap<String,Object>();
 

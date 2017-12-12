@@ -99,7 +99,11 @@
 
 
     <select id="findOrderByLikeName" parameterType="Map" resultType="Integer">
-        select count(*) from 7jia2_goods where gName like concat(concat('%',#{likeName}),'%') and gId in
+        select count(*) from 7jia2_goods where
+        <if test="likeName != null">
+             gName like concat(concat('%',#{likeName}),'%') and
+        </if>
+         gId in
         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -115,4 +119,28 @@
             #{item}
         </foreach>
     </select>
+
+    <!--**********??????**********-->
+    <select id="findOrderByManager" resultType="Integer" parameterType="Map">
+        select oId from 7jia2_order where deleteId = 0
+        <if test="oId != null">
+            and oId = #{oId}
+        </if>
+        <if test="state !=null">
+            and order_state = #{state}
+        </if>
+        limit #{page},#{count}
+    </select>
+
+    <!--<select id="findOrderByReceiveName" parameterType="Map" resultType="Integer">-->
+        <!--select count(*) from 7jia2_receive r,7jia2_order o where-->
+        <!--<if test="receive_name !=null">-->
+            <!--r.receive_name = #{receive_name} and-->
+        <!--</if>-->
+        <!--o.receive_id = r.receive_id and o.oId in-->
+        <!--<foreach collection="list" item="item" index="index" open="(" separator="," close=")">-->
+            <!--#{item}-->
+        <!--</foreach>-->
+    <!--</select>-->
+
 </mapper>

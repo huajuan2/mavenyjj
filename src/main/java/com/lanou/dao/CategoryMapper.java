@@ -26,4 +26,5 @@ public interface CategoryMapper {
     //根据parentId查找层级
     public List<Category> selectCategoryByParentId(int parentId);
 
+    public List<Integer> selectLevel3();
 }

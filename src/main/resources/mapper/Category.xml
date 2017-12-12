@@ -43,4 +43,13 @@
         SELECT * from 7jia2_category where parentId = #{parentId}
     </select>
 
+    <!--<select>-->
+        <!--select * from 7jia2_category where parentId = -->
+    <!--</select>-->
+    <!--????????-->
+    <select id="selectLevel3" resultType="Integer">
+        select categoryId from 7jia2_category where parentId in
+        (select categoryId from 7jia2_category where parentId in
+        (select categoryId from 7jia2_category where parentId = 0))
+    </select>
 </mapper>
