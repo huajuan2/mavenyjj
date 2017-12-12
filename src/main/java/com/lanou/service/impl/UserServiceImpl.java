@@ -70,4 +70,15 @@ public class UserServiceImpl implements UserService{
 	public boolean updateUserName(User user){
 		return userMapper.updateUserName(user);
 	};
+
+
+	public List<User> findAllUsers(){
+		return userMapper.findAllUsers();
+	};
+
+	public boolean deleteUser(Integer uId){
+		boolean result = userMapper.deleteUser(uId);
+		return  result;
+	};
 }
+

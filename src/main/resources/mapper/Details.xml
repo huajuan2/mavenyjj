@@ -70,6 +70,11 @@
         <result column="imgName" property="imgName" jdbcType="VARCHAR"></result>
     </resultMap>
 
+
+    <select id="findCenterImg" resultMap="findImgListResult">
+        SELECT * FROM 7jia2_detailsImg WHERE imgStatus = 2 AND goods_id = #{gId}
+    </select>
+
     <select id="findTopImg" resultMap="findImgListResult">
         SELECT * FROM 7jia2_detailsImg WHERE imgStatus = 1 AND goods_id = #{gId}
     </select>

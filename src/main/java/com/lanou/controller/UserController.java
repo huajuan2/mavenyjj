@@ -101,11 +101,11 @@ public class UserController {
 
 	//通过uId查找用户信息
 	@RequestMapping("/findUserById.do")
-//	@ResponseBody
-	public void findUserById(Integer uId,HttpServletResponse response){
+	@ResponseBody
+	public User findUserById(Integer uId,HttpServletResponse response){
 		User user =userService.findUserById(uId);
 		System.out.println(user);
-		FastJson_All.toJson(user,response);
+		return user;
 	}
 
 	//修改用户信息(密码和手机号除外)
@@ -213,6 +213,29 @@ public class UserController {
  		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	//***********************************************************************
+	//后台用户管理系统
+	//只展示一部分东西
+	@ResponseBody
+	@RequestMapping("/findAllUsers.do")
+	public List<User> findAllUsers(HttpServletResponse response){
+		List<User> userList = userService.findAllUsers();
+		return userList;
+	}
+	//通过uId查找信息
+	//修改用户的信息
+
+	//删除用户(需要uId,返回true成功，false失败)
+	@RequestMapping("/deleteUser.do")
+	public void deleteUser(HttpServletResponse response,Integer uId){
+		boolean results = false;
+		boolean result = userService.deleteUser(uId);
+		if (result){
+			results = true;
+		}
+		FastJson_All.toJson(results,response);
 	}
 }
 

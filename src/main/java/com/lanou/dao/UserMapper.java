@@ -25,4 +25,10 @@ public interface UserMapper {
 	public boolean updateHeadImgUrl(User user);
 
 	public boolean updateUserName(User user);
+
+
+
+	public List<User> findAllUsers();
+
+	public boolean deleteUser(Integer uId);
 }

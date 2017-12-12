@@ -26,4 +26,9 @@ public interface UserService {
 	public boolean updateHeadImgUrl(User user);
 
 	public boolean updateUserName(User user);
+
+	//后台用户信息管理
+	public List<User> findAllUsers();
+
+	public boolean deleteUser(Integer uId);
 }

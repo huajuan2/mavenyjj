@@ -65,4 +65,24 @@
 	<update id="updateUserName" parameterType="User">
 		UPDATE 7jia2_user SET username=#{username} where uId=#{uId}
 	</update>
+
+	<!--后台用户管理-->
+	<!--*************************************************************-->
+	<resultMap id="UsersResult" type="User">
+		<id column="uId" property="uId" javaType="Integer"></id>
+		<result column="username" property="username" jdbcType="VARCHAR"></result>
+		<result column="phone" property="phone" jdbcType="VARCHAR"></result>
+		<result column="name" property="name" jdbcType="VARCHAR"></result>
+		<result column="sex" property="sex" jdbcType="VARCHAR"></result>
+		<result column="qq" property="qq" jdbcType="VARCHAR"></result>
+		<result column="loginDate" property="loginDate" jdbcType="VARCHAR"></result>
+		<result column="addressIp" property="addressIp" jdbcType="VARCHAR"></result>
+	</resultMap>
+	<select id="findAllUsers" resultMap="UsersResult">
+		SELECT * FROM 7jia2_user WHERE deleteId = 0
+	</select>
+
+	<update id="deleteUser" parameterType="Integer">
+		UPDATE 7jia2_user SET deleteId = 1 WHERE uId = #{uId}
+	</update>
 </mapper>

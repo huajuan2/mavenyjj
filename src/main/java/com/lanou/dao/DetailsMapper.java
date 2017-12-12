@@ -24,6 +24,8 @@ public interface DetailsMapper {
 
     public List<GoodsAndTab> findGoodsAndTab(Integer gId);
 
+    public List<Img> findCenterImg(Integer gId);
+
     public List<Img> findTopImg(Integer gId);
 
     public List<Img> findFootImg(Integer gId);

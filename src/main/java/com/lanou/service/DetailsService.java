@@ -20,6 +20,8 @@ public interface DetailsService {
     public List<Color> findColorByGuiGe(Integer guige_id, Integer gId);
     //通过商品Id查商品详情
     public List<GoodsAndTab> findGoodsAndTab(Integer gId);
+    //通过id查上面的大图
+    public List<Img> findCenterImg(Integer gId);
     //通过id查上面的图片
     public List<Img> findTopImg(Integer gId);
     //通过id查下面的图片
