@@ -31,7 +31,6 @@
 
     <!--//????id????-->
     <select id="selectBrandById" parameterType="int" resultMap="brandResult">
-        SELECT * from 7jia2_brand brandId = #{brandId}
+        SELECT * from 7jia2_brand WHERE brandId =#{brandId}
     </select>
-
 </mapper>

@@ -73,7 +73,7 @@ public class GoodsManageController {
 
         Map<String,Object> map = new HashMap<String,Object>();
         Goods goods = goodsService.selectGoodsById(goodsId);
-
+        System.out.println(goods);
         Brand brand = brandService.selectBrandById(goods.getBrandId());
 
         Category category = categoryService.selectCategoryById(goods.getCategoryId());

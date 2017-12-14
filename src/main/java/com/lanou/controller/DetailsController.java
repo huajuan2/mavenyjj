@@ -154,7 +154,7 @@ public class DetailsController {
     //需要颜色id（color_id）
     @RequestMapping("/findGuigeByColor.do")
     public void find2(Integer color_id,HttpServletResponse response,Integer gId){
-       List<GuiGe> guiGeList =  detailsService.findGuiGeByColor(color_id,gId);
+       List<GuiGe> guiGeList =detailsService.findGuiGeByColor(color_id,gId);
        FastJson_All.toJson(guiGeList,response);
     }
 
