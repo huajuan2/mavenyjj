@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lanou.dao.ManagerMapper">
+	<resultMap id="managerResult" type="Manager">
+		<id column="mId" property="mId" javaType="Integer"></id>
+		<result column="mName" property="mName" jdbcType="VARCHAR"></result>
+		<result column="mPassword" property="mPassword" jdbcType="VARCHAR"></result>
+	</resultMap>
+	<select id="loginManager" resultMap="managerResult" parameterType="Manager">
+		SELECT * FROM 7jia2_manager WHERE mName = #{mName} and mPassword = #{mPassword}
+	</select>
+</mapper>

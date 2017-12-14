@@ -29,7 +29,6 @@ public interface ShoppingCarService {
     public void addOneWithUser(int gId, int colorId,int sizeId,int uId);
     public void reduceOneWithUser(int gId, int colorId,int sizeId,int uId);
     public void deleteOneWithUser(int gId, int colorId,int sizeId,int uId);
-
     public void prepareShoppingCar(HttpServletRequest request);
     public void deleteBySelectWithUser(HttpServletRequest request);
 

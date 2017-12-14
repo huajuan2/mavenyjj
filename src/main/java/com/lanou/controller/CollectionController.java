@@ -36,7 +36,6 @@ public class CollectionController {
                 List<Goods> goodsList = collectionService.findGoodsList(user.getuId());
                 FastJson_All.toJson(goodsList,response);
             }
-
     }
 
 //    @RequestMapping("/findRepeat")
@@ -72,9 +71,10 @@ public class CollectionController {
 
     @RequestMapping("/deleteCollection.do")
 //    @ResponseBody
-    public void delete(Integer gId,HttpServletResponse response,HttpServletRequest request){
+    public void delete(HttpServletResponse response,HttpServletRequest request){
         User user = (User) request.getSession().getAttribute("user1");
-        boolean result = collectionService.deleteCollection(user.getuId(), gId);
+        int user_id = user.getuId();
+        boolean result = collectionService.deleteCollection(request,user_id);
         boolean res = false;
         if (result){
             //删除成功

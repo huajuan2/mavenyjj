@@ -1,7 +1,9 @@
 package com.lanou.service;
 
 import com.lanou.entity.*;
+import org.apache.ibatis.annotations.Param;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -36,4 +38,15 @@ public interface DetailsService {
     public boolean addComment(Comment comment);
 
     public Integer findBuying(Integer uId,Integer gId);
+
+
+    //**************************************************
+    //评论管理
+    public List<Comment> findALLComment();
+
+    //隐藏评论
+    public boolean hiddenComment(HttpServletRequest request);
+    //显示评论
+    public boolean showComment(HttpServletRequest request);
+
 }

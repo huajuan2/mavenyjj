@@ -1,7 +1,9 @@
 package com.lanou.dao;
 
 import com.lanou.entity.*;
+import org.apache.ibatis.annotations.Param;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -35,4 +37,11 @@ public interface DetailsMapper {
     public Integer finCount(Integer gId);
 
     public boolean addComment(Comment comment);
+
+    public List<Comment> findAllComment();
+
+    public boolean hiddenComment(@Param("list")List<Integer> commentId);
+
+    public boolean showComment(@Param("list")List<Integer> commentId);
+
 }

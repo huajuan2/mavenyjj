@@ -104,6 +104,29 @@ public class DetailsServiceImp implements DetailsService {
         System.out.println("sum是:"+sum);
         return sum;
     }
+
+
+    public List<Comment> findALLComment(){
+        return detailsMapper.findAllComment();
+    };
+
+    public boolean hiddenComment(HttpServletRequest request){
+         String[] commentId = request.getParameterValues("commentId");
+         List<Integer> list = new ArrayList<Integer>();
+         for (int i=0;i<commentId.length;i++){
+               list.add(Integer.valueOf(commentId[i]));
+        }
+        return detailsMapper.hiddenComment(list);
+    }
+
+    public boolean showComment(HttpServletRequest request){
+        String[] commentId = request.getParameterValues("commentId");
+        List<Integer> list = new ArrayList<Integer>();
+        for (int i=0;i<commentId.length;i++){
+            list.add(Integer.valueOf(commentId[i]));
+        }
+        return detailsMapper.showComment(list);
+    }
 }
 
 

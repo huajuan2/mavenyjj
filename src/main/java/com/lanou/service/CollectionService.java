@@ -1,7 +1,9 @@
 package com.lanou.service;
 
 import com.lanou.entity.Goods;
+import org.apache.ibatis.annotations.Param;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -14,6 +16,7 @@ public interface CollectionService {
 
     public boolean addCollection(Integer uId,Integer gId);
 
-    public boolean deleteCollection(Integer uId,Integer gId);
+//    public boolean deleteCollection(Integer uId,Integer gId);
 
+    public boolean deleteCollection(HttpServletRequest request,Integer user_id);
 }

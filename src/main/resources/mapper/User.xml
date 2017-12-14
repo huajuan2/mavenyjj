@@ -12,7 +12,6 @@
 		select * from mybatis_user
 	</select>
 
-
 	<resultMap id="NameResult" type="User">
 		<id column="uId" property="uId" javaType="int"/>
 		<result column="username" property="username" jdbcType="VARCHAR"/>
@@ -25,7 +24,6 @@
 	<insert id="regUser" parameterType="User">
 		INSERT INTO 7jia2_user (username,password,phone)VALUES (#{username},#{password},#{phone})
 	</insert>
-
 
 	<resultMap id="userIdResult" type="User">
 		<id column="uId" property="uId" javaType="int"></id>
@@ -43,7 +41,7 @@
 		<result column="password" property="password" jdbcType="VARCHAR"></result>
 	</resultMap>
 	<select id="findUserByNameAndPwd" resultMap="NameAndPwdResult" parameterType="User">
-		SELECT * FROM 7jia2_user u WHERE u.username=#{username} and u.password=#{password}
+		SELECT * FROM 7jia2_user u WHERE u.username=#{username} and u.password=#{password} and deleteId=0
 	</select>
 
 	<update id="updateUserInfo" parameterType="User">

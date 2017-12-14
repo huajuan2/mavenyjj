@@ -166,4 +166,32 @@ public class DetailsController {
         FastJson_All.toJson(colorList,response);
     }
 
+    //**************************************************************************
+    //评论管理
+    @RequestMapping("/findAllComment.do")
+    public void find7(HttpServletResponse response){
+        List<Comment> commentList  = detailsService.findALLComment();
+        FastJson_All.toJson(commentList,response);
+    }
+
+    //批量隐藏评论
+    @RequestMapping("/hiddenComment.do")
+    public void find8(HttpServletResponse response,HttpServletRequest request){
+        boolean result = false;
+        if (detailsService.hiddenComment(request)){
+            result = true;
+        }
+        FastJson_All.toJson(result,response);
+    }
+    //批量评论显示
+    @RequestMapping("/showComment.do")
+    public void find9(HttpServletRequest request,HttpServletResponse response){
+        boolean result = false;
+        if (detailsService.showComment(request)){
+            result = true;
+        }
+        FastJson_All.toJson(result,response);
+    }
+
+
 }
