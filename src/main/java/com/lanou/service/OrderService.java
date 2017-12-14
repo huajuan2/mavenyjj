@@ -2,6 +2,7 @@ package com.lanou.service;
 
 import com.lanou.entity.Order;
 import com.lanou.entity.Receive;
+import org.aspectj.weaver.ast.Or;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -27,5 +28,9 @@ public interface OrderService {
 
     public List<Order> findOrderByLimit(HttpServletRequest request);
 
-    //public List<Integer> findOrdersByManager(Integer oId,Integer state,Integer page,Integer count);
+    public List<Order> findOrdersByManager(Integer oId, Integer state, Integer page, Integer count, String receiveName);
+
+    public boolean deleteOrder(Integer oId);
+
+    public List<Order> findByDetails(HttpServletRequest request,Receive receive);
 }

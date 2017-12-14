@@ -49,4 +49,10 @@ public interface OrderMapper {
     public List<Integer> findOrderByManager(Map<String,Object> map);
 
     public Integer findOrderByReceiveName(Map<String,Object> map);
+
+    public boolean deleteByLogic(int oId);
+
+    public Integer selectByReceive(Map<String,Object> map);
+
+    public Integer selectOrderByUserName(Map<String,Object> map);
 }

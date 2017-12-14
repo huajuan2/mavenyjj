@@ -15,6 +15,7 @@ public interface ShoppingCarMapper {
 
     public ShoppingCar findShoppingCarByUid(int uId);
 
+    public ShoppingCar findShoppingCarByUid2(int uId);
     public void addToShoppingCarItem(ShoppingCarItem item);
 
     public void addToShoppingCar(ShoppingCar car);

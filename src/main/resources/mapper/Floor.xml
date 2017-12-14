@@ -19,6 +19,54 @@
     <!--</select>-->
 
     <select id="showFloor" parameterType="int" resultMap="floorResult">
-        select * from 7jia2_floor f where f.floorId = #{fId}
+        select * from 7jia2_floor f where f.floorId = #{fId} and deleteId = 0
     </select>
+
+    <select id="showAllFloors" resultMap="floorResult">
+        select * from 7jia2_floor and deleteId = 0
+    </select>
+
+    <select id="selectFloorName" resultType="String">
+        select floorName from 7jia2_floor where floorId = #{fId} and deleteId = 0
+    </select>
+    <!--????-->
+
+    <update id="exchangeFloor">
+        update 7jia2_floor set floorName = #{floorName} where floorId = #{fId} and deleteId = 0
+    </update>
+
+    <select id="selectCidByFid" parameterType="int" resultType="int">
+        select categoryId from 7jia2_category where f_id = #{fId} and deleteId = 0
+    </select>
+    <update id="changeFloorContent">
+        update 7jia2_category set f_id = #{0} where categoryId = #{1} and deleteId = 0
+    </update>
+
+    <select id="selectlunbo" parameterType="int" resultType="Integer">
+        select cId from 7jia2_carousel where floor_id = #{fId} and deleteId = 0
+    </select>
+
+    <update id="updatelunbo">
+        update 7jia2_carousel set floor_id = #{fId} where cId in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and deleteId = 0
+    </update>
+
+    <update id="changeFloorName">
+        update 7jia2_floor set floorName = #{floorName} where floorId = #{fId} and deleteId = 0
+    </update>
+
+    <update id="deleteFloor" parameterType="int">
+        update 7jia2_floor set deleteId = 1 where floorId = #{floorId}
+    </update>
+
+    <select id="selectHasDeleted" resultMap="floorResult">
+        select * from 7jia2_floor where deleteId = 1;
+    </select>
+
+    <update id="replaceFloor" parameterType="int">
+        update 7jia2_floor set deleteId = 0 where floorId = #{floorId}
+    </update>
 </mapper>

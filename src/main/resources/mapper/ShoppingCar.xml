@@ -38,7 +38,9 @@
         select * from 7jia2_shoppingCar s1, 7jia2_shoppingCarItem s2 where s1.user_id = #{uId} and s1.sId = s2.s_id
     </select>
 
-
+    <select id="findShoppingCarByUid2" resultMap="shoppingCarResult" parameterType="int">
+      select * from 7jia2_shoppingCar where user_id = #{uId}
+    </select>
 
     <insert id="addToShoppingCarItem" parameterType="ShoppingCarItem">
         insert into 7jia2_shoppingCarItem(g_id,num,s_id,color_id,guige_id) values (#{gId},#{num},#{s_id},#{color_id},#{guige_id})

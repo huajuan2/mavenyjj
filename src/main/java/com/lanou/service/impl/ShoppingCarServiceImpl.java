@@ -245,7 +245,7 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
         item.setgStock(goods.getgStock());
         item.setSubtotal(count*goods.getPrice());
 
-        ShoppingCar car = shoppingCarMapper.findShoppingCarByUid(uId);
+        ShoppingCar car = shoppingCarMapper.findShoppingCarByUid2(uId);
         if(car == null){
 //            登录的用户的购物车为空，这样填加到购物车的话要改动两张表
             ShoppingCar car2 = new ShoppingCar();

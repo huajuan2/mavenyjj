@@ -15,6 +15,15 @@ public class Order {
     private int uId;
     private List<ShoppingCarItem> items; //订单的商品由购物车里的全部/部分商品组成
     private double totalMoney;
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public int getReceive_id() {
         return receive_id;

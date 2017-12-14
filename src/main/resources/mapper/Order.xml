@@ -11,6 +11,9 @@
         <result column="order_state" property="state" javaType="int"></result>
         <result column="receive_id" property="receive_id" javaType="int"></result>
         <result column="totalMoney" property="totalMoney" javaType="double"></result>
+        <association property="user" javaType="com.lanou.entity.User">
+            <result column="username" property="username"></result>
+        </association>
     </resultMap>
 
     <resultMap id="orderGoodsResult" type="ShoppingCarItem">
@@ -38,7 +41,7 @@
     </insert>
 
     <select id="findOrderByUid" parameterType="int" resultMap="orderResult">
-        select * from 7jia2_order where u_id = #{u_id}
+        select * from 7jia2_order where u_id = #{u_id} and deleteId = 0
     </select>
 
     <select id="findOrderGoodsByOid" parameterType="int" resultMap="orderGoodsResult">
@@ -46,11 +49,11 @@
     </select>
 
     <select id="findOrderByOid" parameterType="int" resultMap="orderResult">
-        select * from 7jia2_order where oId = #{oId}
+        select * from 7jia2_order o, 7jia2_user u where oId = #{oId} and o.u_Id = u.uId and o.deleteId = 0
     </select>
 
     <select id="findOrderReceive" parameterType="int" resultType="int">
-        select receive_id from 7jia2_order where oId = #{oId}
+        select receive_id from 7jia2_order where oId = #{oId} and deleteId = 0
     </select>
 
     <update id="payForOrder" parameterType="int">
@@ -78,11 +81,11 @@
     </select>
 
     <select id="findBuyingOidByUid" resultType="Integer">
-        select oId from 7jia2_order where u_id = #{u_id} and order_state = 1
+        select oId from 7jia2_order where u_id = #{u_id} and order_state = 1 and deleteId = 0
     </select>
 
     <select id="findByLimit" resultType="Integer" parameterType="Map">
-        select * from 7jia2_order where 1=1
+        select oId from 7jia2_order where 1=1
         <if test="oId != null">
             and oId = #{oId}
         </if>
@@ -95,6 +98,10 @@
         <if test="state != null">
             and order_state = #{state}
         </if>
+        <if test="userId !=null">
+            and u_id = #{userId}
+        </if>
+        and deleteId = 0
     </select>
 
 
@@ -114,10 +121,11 @@
     </select>
 
     <select id="findOrderInOid" resultMap="orderResult">
-        select * from 7jia2_order where oId in
+        select * from 7jia2_order o, 7jia2_user u where oId in
         <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
             #{item}
         </foreach>
+        and o.u_id = u.uId and o.deleteId = 0
     </select>
 
     <!--**********??????**********-->
@@ -129,18 +137,51 @@
         <if test="state !=null">
             and order_state = #{state}
         </if>
-        limit #{page},#{count}
+        limit #{page},#{count} and deleteId = 0
     </select>
 
-    <!--<select id="findOrderByReceiveName" parameterType="Map" resultType="Integer">-->
-        <!--select count(*) from 7jia2_receive r,7jia2_order o where-->
-        <!--<if test="receive_name !=null">-->
-            <!--r.receive_name = #{receive_name} and-->
-        <!--</if>-->
-        <!--o.receive_id = r.receive_id and o.oId in-->
-        <!--<foreach collection="list" item="item" index="index" open="(" separator="," close=")">-->
-            <!--#{item}-->
-        <!--</foreach>-->
-    <!--</select>-->
+    <select id="findOrderByReceiveName" parameterType="Map" resultType="Integer">
+        select count(*) from 7jia2_receive r,7jia2_order o where
+        <if test="receive_name !=null">
+            r.receive_name = #{receive_name} and
+        </if>
+        o.receive_id = r.receive_id and o.oId = #{oId} and o.deleteId = 0
+    </select>
 
+    <update id="deleteByLogic" parameterType="integer">
+        update 7jia2_order set deleteId = 1 where oId = #{oId}
+    </update>
+
+    <!--????????????-->
+    <select id="selectByReceive" parameterType="Map" resultType="Integer">
+        select count(*) from 7jia2_receive r,7jia2_order o where 1=1
+        <if test="receive_name != null">
+           and receive_name = #{receive_name}
+        </if>
+        <if test="receive_area != null">
+           and receive_area = #{receive_area}
+        </if>
+        <if test="receive_address != null">
+           and receive_address = #{receive_address}
+        </if>
+        <if test="receive_mobile != null">
+           and receive_mobile = #{receive_mobile}
+        </if>
+        <if test="receive_telephone != null">
+            and receive_telephone = #{receive_telephone}
+        </if>
+        <if test="receive_code != null">
+            and receive_code = #{receive_code}
+        </if>
+        and o.receive_id = r.receive_id and o.oId = #{oId} and o.deleteId = 0
+    </select>
+
+    <select id="selectOrderByUserName" parameterType="Map" resultType="Integer">
+        select count(*) from 7jia2_user u,7jia2_order o where
+        <if test="username != null">
+          u.username = #{username} and
+        </if>
+        u.uId = o.u_id and o.oId = #{oId}
+        and o.deleteId = 0
+    </select>
 </mapper>

@@ -99,4 +99,5 @@ public interface GoodsMapper {
 
     public List<Goods> selectRandom10();
 
+    public List<String> findLikeList(String likeName);
 }

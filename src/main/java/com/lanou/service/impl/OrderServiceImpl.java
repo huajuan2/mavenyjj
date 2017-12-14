@@ -314,7 +314,9 @@ public class OrderServiceImpl implements OrderService{
     }
 
     public List<Order> findOrderByLimit(HttpServletRequest request){
-//        根据条件查询订单
+//        根据条件查询个人订单
+        User user = (User)request.getSession().getAttribute("user1");
+        int uId = user.getuId();
         String oId = request.getParameter("oId");
         Integer oId1 = null;
         if(oId != null){
@@ -334,6 +336,7 @@ public class OrderServiceImpl implements OrderService{
         map.put("beginTime",beginTime);
         map.put("endTime",endTime);
         map.put("state",state1);
+        map.put("userId",uId);
         List<Integer> orderIds = orderMapper.findByLimit(map);
         List<Integer> orderIds1 = new ArrayList<Integer>();  //最后放满足条件的oId集合
         List<Order> orders = new ArrayList<Order>();  //最后放满足条件的Order集合
@@ -371,28 +374,113 @@ public class OrderServiceImpl implements OrderService{
         return orders;
     }
 
-// ****************后台管理系统****************
-//    查看所有逻辑存在的订单
-//    public List<Integer> findOrdersByManager(Integer oId,Integer state,Integer page,Integer count){
-//        page = (page-1)*count;
-//        Map<String,Object> map = new HashMap<String,Object>();
-//        map.put("oId",oId);
-//        map.put("state",state);
-//        map.put("page",page);
-//        map.put("count",count);
-//        List<Integer> oIds =  orderMapper.findOrderByManager(map);
-//        for (int i=0;i<oIds.size();i++){
-//
-//        }
-//
-//
-//
-//    }
-
-//    逻辑删除订单
-    public void deleteOrder(){
+ //****************后台管理系统****************
+ //   查看所有逻辑存在的订单
+    public List<Order> findOrdersByManager(Integer oId,Integer state,Integer page,Integer count,String receiveName){
+        page = (page-1)*count;
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("oId",oId);
+        map.put("state",state);
+        map.put("page",page);
+        map.put("count",count);
+        List<Integer> oIds =  orderMapper.findOrderByManager(map);
+        List<Integer> oIds2 = new ArrayList<Integer>();//用来装满足条件的oId集合
+        List<Order> orders = new ArrayList<Order>();
+        for (int i=0;i<oIds.size();i++){
+            Map<String,Object> map1 = new HashMap<String,Object>();
+            map1.put("receive_name",receiveName);
+            map1.put("oId",oIds.get(i));
+            if(orderMapper.findOrderByReceiveName(map1)>0){
+                oIds2.add(oIds.get(i));
+            }
+        }
+        if(oIds2.size()==0){
+            return null;
+        }else{
+            orders = orderMapper.findOrderInOid(oIds2);
+            for(int i=0;i<orders.size();i++){
+//                int o_id = orders.get(i).getoId();
+//                List<ShoppingCarItem> items = orderMapper.findOrderGoodsByOid(o_id);
+//                for(int j=0;j<items.size();j++){
+//                    int gId = items.get(j).getgId();
+//                    Goods goods = goodsMapper.findByGid(gId);
+//                    items.get(j).setgName(goods.getgName());
+//                    items.get(j).setImg(goods.getUrl());
+//                    items.get(j).setColor(detailsMapper.findColorBycId(items.get(j).getColor_id()));
+//                    items.get(j).setSize(detailsMapper.findGuigeBygId(items.get(j).getGuige_id()));
+//                    items.get(j).setgStock(goods.getgStock());
+//                    items.get(j).setPrice(goods.getPrice());
+//                    items.get(j).setSubtotal(items.get(j).getNum()*goods.getPrice());
+//                }
+                orders.get(i).setReceive(receiveMapper.findReceiveById(orders.get(i).getReceive_id()));
+                //orders.get(i).setItems(items);
+            }
+        }
+        return orders;
 
     }
 
+//    逻辑删除订单
+    public boolean deleteOrder(Integer oId){
+        return orderMapper.deleteByLogic(oId);
+    }
 
+//    按详细内容查询
+    public List<Order> findByDetails(HttpServletRequest request,Receive receive){
+
+        String username = request.getParameter("username");
+        String oId = request.getParameter("oId");
+        Integer oId1 = null;
+        if(oId != null){
+            oId1 = Integer.parseInt(oId);
+        }
+        String beginTime = request.getParameter("beginTime");
+        String endTime = request.getParameter("endTime");
+        String state = request.getParameter("state");
+        Integer state1 =null;
+        if(state != null){
+            state1 = Integer.parseInt(state);
+        }
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("oId",oId1);
+        map.put("beginTime",beginTime);
+        map.put("endTime",endTime);
+        map.put("state",state1);
+        List<Integer> orderIds = orderMapper.findByLimit(map);
+        System.out.println("集合1:"+orderIds);
+        List<Integer> orderIds1 = new ArrayList<Integer>();  //最后放满足条件的oId集合
+        List<Order> orders = new ArrayList<Order>();  //最后放满足条件(除购买人)的Order集合
+        for(int i=0;i<orderIds.size();i++){
+            Map<String,Object> map1 = new HashMap<String,Object>();
+            map1.put("receive_name",receive.getName());
+            map1.put("receive_area",receive.getArea());
+            map1.put("receive_address",receive.getAddress());
+            map1.put("receive_mobile",receive.getMobile());
+            map1.put("receive_telephone",receive.getTelephone());
+            map1.put("receive_code",receive.getCode());
+            map1.put("oId",orderIds.get(i));
+            if(orderMapper.selectByReceive(map1)>0){
+                orderIds1.add(orderIds.get(i));
+            }
+        }
+        if(orderIds1.size()==0){
+            return null;
+        }else{
+            System.out.println(orderIds1);
+            List<Integer> orderIds2 = new ArrayList<Integer>();
+            for(int k=0;k<orderIds1.size();k++){
+                Map<String,Object> map2 = new HashMap<String,Object>();
+                map2.put("username",username);
+                map2.put("oId",orderIds1.get(k));
+                if(orderMapper.selectOrderByUserName(map2)>0){
+                    orderIds2.add(orderIds1.get(k));
+                }
+            }
+            orders = orderMapper.findOrderInOid(orderIds2);
+            for(int i=0;i<orders.size();i++){
+                orders.get(i).setReceive(receiveMapper.findReceiveById(orders.get(i).getReceive_id()));
+            }
+        }
+        return orders;
+    }
 }

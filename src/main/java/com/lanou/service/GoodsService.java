@@ -85,5 +85,6 @@ public interface GoodsService {
 
     public List<Goods> selectBottomGoods();
 
+    public List<String> findLikeList(String likeName);
 
 }

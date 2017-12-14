@@ -320,6 +320,10 @@ public class GoodsServiceImpl implements GoodsService {
         return goodsMapper.selectRandom10();
     }
 
+
+    public List<String> findLikeList(String likeName){
+        return goodsMapper.findLikeList(likeName);
+    }
 }
 
 

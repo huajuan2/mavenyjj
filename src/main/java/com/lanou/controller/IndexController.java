@@ -55,6 +55,7 @@ public class IndexController {
         List<Goods> temai = goodsService.findTemai(0);
         List<Notice> notices = noticeService.findNoticeRandom();
         List<Goods> bottomGoods = goodsService.selectBottomGoods();
+        List<Floor> floors = floorService.showAllFloors();
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("categories",categories);//一级目录
         map.put("carousels",carousels);//轮播图
@@ -64,6 +65,7 @@ public class IndexController {
         map.put("temai",temai);//特卖
         map.put("notices",notices);//公告
         map.put("bottomGoods",bottomGoods);//底部商品
+        map.put("floors",floors);//楼层简单信息
 //        return map;
         FastJson_All.toJson(map,response);
     }
@@ -119,5 +121,11 @@ public class IndexController {
     @RequestMapping("/findAllNotice.do")
     public void findAllNotice(HttpServletResponse response){
         FastJson_All.toJson(noticeService.findAllNotice(),response);
+    }
+
+    @RequestMapping("/findLikeList.do")
+    public void findLikeList(String likeName,HttpServletResponse response){
+        String likeName1 = "%"+likeName+"%";
+        FastJson_All.toJson(goodsService.findLikeList(likeName1),response);
     }
 }
