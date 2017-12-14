@@ -245,7 +245,7 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
         item.setgStock(goods.getgStock());
         item.setSubtotal(count*goods.getPrice());
 
-        ShoppingCar car = shoppingCarMapper.findShoppingCarByUid2(uId);
+        ShoppingCar car = shoppingCarMapper.findShoppingCarByUid(uId);
         if(car == null){
 //            登录的用户的购物车为空，这样填加到购物车的话要改动两张表
             ShoppingCar car2 = new ShoppingCar();
@@ -267,6 +267,7 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
             map.put("totalMoney",count*goods.getPrice());
             shoppingCarMapper.fillShoppingCar(map);
         }else{
+            car = shoppingCarMapper.findShoppingCarByUid(uId);
 //            登录的用户的购物车不为空，这样添加到购物车的话只要改动一张表
             List<ShoppingCarItem> items2 = car.getItems();
             int i=0;
@@ -356,6 +357,9 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
         map.put("counts",car.getCounts()-deleteCount);
         map.put("totalMoney",car.getTotalMoney()-goods.getPrice()*deleteCount);
         shoppingCarMapper.fillShoppingCar(map);
+        if(shoppingCarMapper.selectCount(sId)==0){
+            shoppingCarMapper.deleteShoppingCar(sId);
+        }
     }
 
     public void deleteBySelectWithUser(HttpServletRequest request){
@@ -389,9 +393,11 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
         map.put("counts",car.getCounts()-removeCount);
         map.put("totalMoney",car.getTotalMoney()-removeMoney);
         shoppingCarMapper.fillShoppingCar(map);
+        if(shoppingCarMapper.selectCount(sId)==0){
+            shoppingCarMapper.deleteShoppingCar(sId);
+        }
 
     }
-
 
 
 

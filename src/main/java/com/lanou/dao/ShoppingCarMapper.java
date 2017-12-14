@@ -12,10 +12,12 @@ import java.util.Map;
  */
 public interface ShoppingCarMapper {
 
+    public void deleteShoppingCar(int sId);
+
+    public Integer selectCount(int sId);
 
     public ShoppingCar findShoppingCarByUid(int uId);
 
-    public ShoppingCar findShoppingCarByUid2(int uId);
     public void addToShoppingCarItem(ShoppingCarItem item);
 
     public void addToShoppingCar(ShoppingCar car);
