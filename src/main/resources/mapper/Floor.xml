@@ -23,7 +23,7 @@
     </select>
 
     <select id="showAllFloors" resultMap="floorResult">
-        select * from 7jia2_floor and deleteId = 0
+        select * from 7jia2_floor where deleteId = 0
     </select>
 
     <select id="selectFloorName" resultType="String">
